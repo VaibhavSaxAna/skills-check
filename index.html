@@ -1772,7 +1772,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
         fitBody();
       });
     } else {
-      keyRow.hidden = !getKey();
+      keyRow.hidden = !!getKey();
       shareRowState();
       fitBody();
     }
