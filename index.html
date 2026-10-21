@@ -92,6 +92,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mic.off{opacity:.45}
 .tpanel .go{font:inherit;font-weight:700;font-size:.92rem;border-radius:12px;border:0;background:var(--teal);color:#fff;padding:0 16px;cursor:pointer}
 .tpanel .go[disabled]{opacity:.5;cursor:default}
+.tpanel .live{font-size:.9rem;color:var(--muted);font-style:italic;min-height:1.2em;line-height:1.3}
+.tpanel .live:empty{display:none}
 .tpanel .fb{font-size:.92rem;line-height:1.4;min-height:1.3em;color:var(--ink)}
 .tpanel .fb.ok{color:var(--teal)} .tpanel .fb.mid{color:var(--say)} .tpanel .fb.bad{color:var(--hand)}
 .tpanel .fb em{font-style:normal;font-weight:700}
@@ -274,6 +276,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <button type="button" id="tBake">Make a shareable copy</button>
       <small>Downloads a copy of this page with your key scrambled inside it, so whoever opens that copy can grade right away without pasting anything. Hidden from plain sight, not encrypted: share it only with people you trust.</small>
     </div>
+    <div class="live" id="tLive" aria-live="polite"></div>
     <div class="fb" id="tFb"></div>
     <div class="hint" id="tHint"></div>
     <div class="summary" id="tSum" hidden></div>
@@ -1944,29 +1947,29 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     if(location.protocol === 'file:') return 'a local file (file://)';
     return location.protocol.replace(':','') + ' page';
   }
-  var finalText = '';          // speech accumulated since the last submit
-  function clearSpeech(){ finalText = ''; box.value = ''; box.style.height = 'auto'; }
+  var live = document.getElementById('tLive');
+  function clearSpeech(){ box.value = ''; box.style.height = 'auto'; live.textContent = ''; }
   function startRecog(){
     if(!SR || T.micDead || !T.listening) return;
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     var rec = new SR();
     rec.lang = 'en-CA'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
-    rec.onaudiostart = function(){ micErrors = 0; setHint('Mic is live. Say the step, then press Check or Enter (or end with the word "next").'); };
+    rec.onaudiostart = function(){ micErrors = 0; setHint('Mic is live. Say the step, then press Check or Enter, or just end with the word "next".'); };
     rec.onresult = function(e){
-      var interim = '';
+      var interim = '', added = '';
       for(var k = e.resultIndex; k < e.results.length; k++){
         var r = e.results[k];
-        if(r.isFinal){ finalText = (finalText + ' ' + r[0].transcript).replace(/\s+/g,' ').trim(); }
+        if(r.isFinal){ added += ' ' + r[0].transcript; }
         else { interim += r[0].transcript; }
       }
-      box.value = (finalText + ' ' + interim).replace(/\s+/g,' ').trim();
-      box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px';
-      // Spoken "next" or "submit" at the end of a final phrase sends it, hands-free.
-      var m = finalText.match(/^(.*?)[\s,.]*\b(next|submit)[.!?]*$/i);
-      if(m && e.results[e.results.length - 1].isFinal && !T.judging){
-        box.value = m[1].trim();
-        if(box.value){ submit(); } else { clearSpeech(); }
+      if(added.trim()){
+        // Append only. Whatever is already in the box stays; nothing is ever replaced.
+        box.value = (box.value + ' ' + added).replace(/\s+/g,' ').trim();
+        box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px';
+        var m = box.value.match(/^(.*?)[\s,.]*\b(next|submit)[.!?]*$/i);
+        if(m && !T.judging){ box.value = m[1].trim(); if(box.value){ submit(); } else { clearSpeech(); } }
       }
+      live.textContent = interim.trim() ? '… ' + interim.trim() : '';
     };
     rec.onerror = function(e){
       var err = (e && e.error) || 'unknown';
@@ -1987,12 +1990,12 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   }
   function startListening(auto){
     if(!SR){ micUnavailable('This browser has no speech recognition. Use Chrome or Edge on Windows, or Safari on a Mac/iPhone.'); return; }
-    T.listening = true; T.micDead = false; micErrors = 0; finalText = ''; micBtn.classList.remove('off'); micBtn.classList.add('on'); micBtn.title = 'Mic on — tap to pause';
+    T.listening = true; T.micDead = false; micErrors = 0; micBtn.classList.remove('off'); micBtn.classList.add('on'); micBtn.title = 'Mic on — tap to pause';
     setHint(auto ? 'Starting the mic… if your browser asks, click Allow.' : 'Starting the mic…');
     startRecog();
   }
   function stopListening(){
-    finalText = '';
+    live.textContent = '';
     T.listening = false; micBtn.classList.remove('on'); micBtn.title = 'Mic off — tap to listen';
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     T.recog = null;
@@ -2025,7 +2028,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   // ---------- wiring ----------
   goBtn.addEventListener('click', submit);
   box.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submit(); } });
-  box.addEventListener('input', function(){ if(!box.value) finalText = ''; box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px'; fitBody(); });
+  box.addEventListener('input', function(){ box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px'; fitBody(); });
   skipBtn.addEventListener('click', function(){ if(T.idx >= 0 && T.idx < T.cards.length && !T.dead){ var c = T.cards[T.idx]; mark(T.idx, 'wrong', 'Skipped.'); fb('bad', 'Skipped — it\'s: ' + esc(c.title)); showWasted(c); } });
   stopBtn.addEventListener('click', close);
   reveal.addEventListener('change', function(){ if(T.article) T.article.classList.toggle('reveal', reveal.checked); });
