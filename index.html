@@ -260,6 +260,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <div class="score"><span class="s-ok" id="sOk">0 ✓</span><span class="s-mid" id="sMid">0 ◐</span><span class="s-bad" id="sBad">0 ✗</span></div>
       <div class="ctl">
         <label><input type="checkbox" id="tReveal">Show answers</label>
+        <label><input type="checkbox" id="tAuto" checked>Auto-send after a pause</label>
         <button type="button" id="tSkip">Skip</button>
         <button type="button" id="tStop">Stop</button>
       </div>
@@ -270,9 +271,9 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <button type="button" class="go" id="tGo">Check</button>
     </div>
     <div class="keyrow" id="tKeyRow" hidden>
-      <input type="password" id="tKey" placeholder="Anthropic API key (sk-ant-…)" autocomplete="off" spellcheck="false">
+      <input type="password" id="tKey" placeholder="Gemini API key" autocomplete="off" spellcheck="false">
       <button type="button" id="tKeySave">Save key</button>
-      <small>Grading outside claude.ai runs on Claude Haiku through your own API key (about a cent per full run). The key stays in this browser only. Get one at <a href="https://platform.claude.com/" target="_blank" rel="noopener">platform.claude.com</a>.</small>
+      <small>Grading and transcription run on Gemini through an API key. The key stays in this browser only. Get one at <a href="https://aistudio.google.com/" target="_blank" rel="noopener">aistudio.google.com</a>.</small>
     </div>
     <div class="keyrow" id="tShareRow" hidden>
       <span style="font-size:.84rem;color:var(--muted)">Key saved in this browser.</span>
@@ -1658,7 +1659,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 </article>
 </main>
 
-<script>window.EMBEDDED_KEY="==gczRwCWAQHDJQJD0lVeJ2VKZwAZ4xR1MDL3YFeaNlQqggBiMwJSgxA8tXS5RhIqoCWrYxGCsxegR0X+UBIEJ1C9slJf41WspnNeIiG7UDJsASPLIgVtlwPmYCBFYDACJEQDZ0HHIQDEBAA";/*key-slot*/</script>
+<script>window.EMBEDDED_KEY="=ggRjxHd34zDbwQGOoTKjYAfrREBBFSAxsyA7gxO7lnd3dhHbxVPHRVK0sifG0HYL5QLHpjM";/*key-slot*/</script>
 <script>
 // ---------- Test your understanding: always-on mic, graded step by step; one wrong step ends the run ----------
 (function(){
@@ -1667,6 +1668,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   var box = document.getElementById('tBox'), micBtn = document.getElementById('tMic'), goBtn = document.getElementById('tGo');
   var skipBtn = document.getElementById('tSkip'), stopBtn = document.getElementById('tStop'), reveal = document.getElementById('tReveal');
   var sOk = document.getElementById('sOk'), sMid = document.getElementById('sMid'), sBad = document.getElementById('sBad');
+  var autoSend = document.getElementById('tAuto');
   var keyRow = document.getElementById('tKeyRow'), keyIn = document.getElementById('tKey'), keySave = document.getElementById('tKeySave');
   var wasted = document.getElementById('wasted'), wastedWhy = document.getElementById('wastedWhy');
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
@@ -1719,20 +1721,22 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   }
   function esc(t){ return String(t).replace(/</g,'&lt;'); }
 
-  function buildPrompt(i, said){
+  function buildPrompt(i, said, hasAudio){
     var cur = T.cards[i];
     var nxt = [];
     for(var k = 1; k <= 3 && i + k < T.cards.length; k++){ if(!T.results[i+k]) nxt.push({k:k, c:T.cards[i+k]}); }
     var p = 'You are grading a nursing student who is reciting a skills checklist from memory, one step at a time. ' +
+      (hasAudio ? 'The student\'s answer is the attached AUDIO clip. First transcribe exactly what they said into "transcript" (plain English, no filler like um/uh). If the clip has no speech, put "" in transcript and use verdict "wrong". ' : 'The student\'s answer is the TEXT below; copy it into "transcript". ') +
+      (hasAudio && said ? 'The TEXT below is a rough automatic transcript of the same clip: use it only as a hint, the audio is the truth. ' : '') +
       'For each step they only need to name the step\'s short TITLE in their own words: the main action, not the full script. ' +
-      'Judge whether what they said names the CURRENT step. Be generous with wording: synonyms, plain language, shorthand, a different word order and small omissions of non-essential words are all fine; speech-to-text spelling mistakes are fine. ' +
+      'Judge whether what they said names the CURRENT step. Be generous with wording: synonyms, plain language, shorthand, a different word order and small omissions of non-essential words are all fine. ' +
       'Bracketed placeholders like [name] or [dose] are blanks; any value or none counts. ' +
       '"correct" = they named the step\'s main action(s). "partial" = they named the main action but left out a graded detail that the title itself contains (name it in "missing"). "wrong" = they named a different step, or something unrelated, or nothing recognizable. ' +
       'Students sometimes name several steps in one breath: in "alsoCovered" list the numbers (1, 2 or 3) of any NEXT steps that were also named; otherwise an empty array. ' +
-      'Reply with only JSON: {"verdict":"correct"|"partial"|"wrong","missing":"<short phrase or empty string>","alsoCovered":[numbers]}\n\n' +
+      'Reply with only JSON: {"transcript":"<what they said>","verdict":"correct"|"partial"|"wrong","missing":"<short phrase or empty string>","alsoCovered":[numbers]}\n\n' +
       'CURRENT STEP: ' + describe(cur) + '\n';
     nxt.forEach(function(n){ p += 'NEXT STEP ' + n.k + ': ' + describe(n.c) + '\n'; });
-    p += '\nSTUDENT SAID: "' + said.replace(/"/g, "'").slice(0, 1200) + '"';
+    if(said) p += '\nTEXT: "' + said.replace(/"/g, "'").slice(0, 1200) + '"';
     return p;
   }
 
@@ -1743,26 +1747,38 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     if(a >= 0 && b > a){ try{ return JSON.parse(text.slice(a, b+1)); }catch(e){} }
     throw { code: 'invalid_json', message: 'no json' };
   }
-  function gradeViaKey(prompt){
+  var GEMINI_MODELS = ['gemini-3.5-flash-lite', 'gemini-2.5-flash'];
+  function blobToB64(blob){
+    return new Promise(function(res, rej){ var r = new FileReader(); r.onload = function(){ res(String(r.result).split(',')[1] || ''); }; r.onerror = function(){ rej({ code: 'upstream_error', message: 'read' }); }; r.readAsDataURL(blob); });
+  }
+  function gradeViaKey(prompt, audio){
     var key = getKey();
     if(!key) return Promise.reject({ code: 'no_key' });
-    return fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({ model: 'claude-haiku-5-5', max_tokens: 160, messages: [{ role: 'user', content: prompt }] })
-    }).then(function(res){
-      if(res.status === 401 || res.status === 403) throw { code: 'bad_key' };
-      if(res.status === 429) throw { code: 'rate_limited' };
-      if(!res.ok) throw { code: 'upstream_error', message: 'HTTP ' + res.status };
-      return res.json();
+    return (audio ? blobToB64(audio) : Promise.resolve(null)).then(function(b64){
+      var parts = [{ text: prompt }];
+      if(b64) parts.push({ inline_data: { mime_type: (audio.type || 'audio/webm').split(';')[0], data: b64 } });
+      var body = JSON.stringify({ contents: [{ parts: parts }], generationConfig: { responseMimeType: 'application/json', temperature: 0, maxOutputTokens: 400 } });
+      function call(ix){
+        return fetch('https://generativelanguage.googleapis.com/v1beta/models/' + GEMINI_MODELS[ix] + ':generateContent', {
+          method: 'POST', headers: { 'content-type': 'application/json', 'x-goog-api-key': key }, body: body
+        }).then(function(res){
+          if(res.status === 400 || res.status === 401 || res.status === 403) throw { code: 'bad_key' };
+          if(res.status === 429) throw { code: 'rate_limited' };
+          if((res.status === 503 || res.status === 404) && ix + 1 < GEMINI_MODELS.length) return call(ix + 1);
+          if(!res.ok) throw { code: 'upstream_error', message: 'HTTP ' + res.status };
+          return res.json();
+        }, function(e){ if(e && e.code) throw e; throw { code: 'upstream_error', message: String(e) }; });
+      }
+      return call(0);
     }).then(function(j){
-      var txt = (j && j.content || []).filter(function(c){ return c.type === 'text'; }).map(function(c){ return c.text; }).join('');
+      var c = j && j.candidates && j.candidates[0];
+      var txt = (c && c.content && c.content.parts || []).map(function(p){ return p.text || ''; }).join('');
       return parseJson(txt);
-    }, function(e){ if(e && e.code) throw e; throw { code: 'upstream_error', message: String(e) }; });
+    });
   }
-  function grade(prompt){
-    if(T.sampleFn) return T.sampleFn.json(prompt, { modelTier: 'quick' });
-    return gradeViaKey(prompt);
+  function grade(prompt, audio){
+    if(T.sampleFn && !audio) return T.sampleFn.json(prompt, { modelTier: 'quick' });
+    return gradeViaKey(prompt, audio);
   }
   function resolveGrader(){
     if(T.sampleFn !== undefined) return;
@@ -1896,41 +1912,45 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     session_expired: 'Signed out. Sign in to claude.ai again and retry.',
     invalid_json: 'Didn\'t get a clean answer back. Say it once more.',
     upstream_error: 'Connection hiccup. Say it once more.',
-    no_key: 'Paste your Anthropic API key below so this page can grade you.',
+    no_key: 'Paste a Gemini API key below so this page can grade you.',
     bad_key: 'That API key was rejected. Check it and save again.'
   };
 
   function submit(){
+    if(T.judging || T.dead || T.idx < 0 || T.idx >= T.cards.length) return;
     var said = box.value.trim();
-    if(!said || T.judging || T.dead || T.idx < 0 || T.idx >= T.cards.length) return;
-    T.judging = true; goBtn.disabled = true;
-    fb('', 'Checking…');
-    var i = T.idx;
-    clearSpeech();
-    grade(buildPrompt(i, said)).then(function(r){
-      r = r && typeof r === 'object' ? r : {};
-      var v = r.verdict === 'correct' || r.verdict === 'partial' ? r.verdict : 'wrong';
-      var missing = typeof r.missing === 'string' ? r.missing.trim() : '';
-      var cur = T.cards[i];
-      if(v === 'wrong'){
-        mark(i, 'wrong', 'You said: "' + said + '"');
-        fb('bad', '<em>Eh.</em> It\'s: ' + esc(cur.title));
-        showWasted(cur);
-        return;
-      }
-      mark(i, v, v === 'partial' ? ('Missed: ' + missing) : '');
-      (Array.isArray(r.alsoCovered) ? r.alsoCovered : []).forEach(function(k){ k = Number(k); if(k >= 1 && k <= 3 && i + k < T.cards.length && !T.results[i+k]) mark(i + k, 'correct', 'Covered in the same breath.'); });
-      if(v === 'correct') fb('ok', '<em>Correct.</em> Next.');
-      else fb('mid', '<em>Partly.</em> Missed: ' + esc(missing) + ' — but continue.');
-      goTo(nextPending(i + 1));
-    }).catch(function(e){
-      var code = e && e.code ? e.code : 'upstream_error';
-      if(code === 'not_granted' || code === 'sampling_disabled' || code === 'not_declared' || code === 'capability_disabled'){ T.sampleFn = null; }
-      if(code === 'no_key' || code === 'bad_key'){ keyRow.hidden = false; keyIn.focus(); }
-      fb('bad', copyFor[code] || copyFor.upstream_error);
-    }).then(function(){
-      T.judging = false; goBtn.disabled = false;
-      // The mic never stopped; the box was cleared when the answer was sent, and anything said since is already in it.
+    takeClip().then(function(clip){
+      var hasAudio = !!(clip && clip.blob && clip.blob.size > 2000 && clip.speechMs > 350);
+      if(!said && !hasAudio) return;
+      T.judging = true; goBtn.disabled = true;
+      fb('', 'Checking…');
+      var i = T.idx;
+      clearSpeech();
+      grade(buildPrompt(i, said, hasAudio), hasAudio ? clip.blob : null).then(function(r){
+        r = r && typeof r === 'object' ? r : {};
+        var v = r.verdict === 'correct' || r.verdict === 'partial' ? r.verdict : 'wrong';
+        var missing = typeof r.missing === 'string' ? r.missing.trim() : '';
+        var heard = typeof r.transcript === 'string' && r.transcript.trim() ? r.transcript.trim() : said;
+        var cur = T.cards[i];
+        if(v === 'wrong'){
+          mark(i, 'wrong', 'Heard: "' + heard + '"');
+          fb('bad', '<em>Eh.</em> Heard "' + esc(heard) + '". It\'s: ' + esc(cur.title));
+          showWasted(cur);
+          return;
+        }
+        mark(i, v, (v === 'partial' ? 'Missed: ' + missing + ' · ' : '') + 'Heard: "' + heard + '"');
+        (Array.isArray(r.alsoCovered) ? r.alsoCovered : []).forEach(function(k){ k = Number(k); if(k >= 1 && k <= 3 && i + k < T.cards.length && !T.results[i+k]) mark(i + k, 'correct', 'Covered in the same breath.'); });
+        if(v === 'correct') fb('ok', '<em>Correct.</em> Heard "' + esc(heard) + '".');
+        else fb('mid', '<em>Partly.</em> Heard "' + esc(heard) + '". Missed: ' + esc(missing) + ' — but continue.');
+        goTo(nextPending(i + 1));
+      }).catch(function(e){
+        var code = e && e.code ? e.code : 'upstream_error';
+        if(code === 'not_granted' || code === 'sampling_disabled' || code === 'not_declared' || code === 'capability_disabled'){ T.sampleFn = null; }
+        if(code === 'no_key' || code === 'bad_key'){ keyRow.hidden = false; keyIn.focus(); }
+        fb('bad', copyFor[code] || copyFor.upstream_error);
+      }).then(function(){
+        T.judging = false; goBtn.disabled = false;
+      });
     });
   }
 
@@ -1957,7 +1977,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     var rec = new SR();
     rec.lang = 'en-US'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
     base = box.value; skip = 0; lastLen = 0;
-    rec.onaudiostart = function(){ micErrors = 0; setHint('Mic is live. Say the step, then press Check or Enter, or just end with the word "next".'); };
+    rec.onaudiostart = function(){ micErrors = 0; setHint(liveHint()); };
     rec.onresult = function(e){
       // Rebuild the box from EVERYTHING heard this session (finished or not), after whatever was already there.
       var heard = '', lastFinal = '';
@@ -1974,9 +1994,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       micErrors++;
       var why = errorWhy[err] || ('error "' + err + '"');
       if(err === 'not-allowed' || err === 'service-not-allowed' || err === 'audio-capture' || micErrors >= 3){
-        micUnavailable('Mic error: ' + err + ' — ' + why + '. You are on ' + whereAmI() + '.');
-      } else {
-        setHint('Mic hiccup (' + err + '): ' + why + '. Retrying…');
+        try{ T.recog.onend = null; T.recog.abort(); }catch(x){} T.recog = null;   // live captions off; recording and grading carry on
       }
     };
     rec.onend = function(){
@@ -1986,28 +2004,59 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     try{ rec.start(); T.recog = rec; }catch(e){ micUnavailable('Mic could not start: ' + (e && e.message ? e.message : e) + '. You are on ' + whereAmI() + '.'); }
   }
   var meter = { ctx: null, stream: null, raf: 0, quietSince: 0 };
+  var recd = { rec: null, chunks: [], speechMs: 0, lastVoice: 0, lastTick: 0 };
+  function recMime(){ var c = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus']; for(var i = 0; i < c.length; i++){ if(window.MediaRecorder && MediaRecorder.isTypeSupported(c[i])) return c[i]; } return ''; }
+  function startRecorder(){
+    if(!meter.stream || !window.MediaRecorder) return;
+    try{
+      var r = new MediaRecorder(meter.stream, recMime() ? { mimeType: recMime(), audioBitsPerSecond: 32000 } : { audioBitsPerSecond: 32000 });
+      recd.chunks = []; recd.speechMs = 0; recd.lastVoice = 0;
+      r.ondataavailable = function(e){ if(e.data && e.data.size) recd.chunks.push(e.data); };
+      r.start();
+      recd.rec = r;
+    }catch(e){ recd.rec = null; }
+  }
+  // Hand over everything recorded since the last Check, and start a fresh recording at once.
+  function takeClip(){
+    var r = recd.rec;
+    if(!r || r.state !== 'recording') return Promise.resolve(null);
+    var chunks = recd.chunks, speechMs = recd.speechMs;
+    return new Promise(function(res){
+      r.onstop = function(){ res({ blob: new Blob(chunks, { type: r.mimeType || 'audio/webm' }), speechMs: speechMs }); };
+      try{ r.stop(); }catch(e){ res(null); }
+      startRecorder();
+    });
+  }
   function startMeter(){
     if(meter.stream || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+    navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }).then(function(stream){
       if(!T.listening){ stream.getTracks().forEach(function(x){ x.stop(); }); return; }
       meter.stream = stream;
+      startRecorder();
       var AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
       meter.ctx = new AC();
       var src = meter.ctx.createMediaStreamSource(stream), an = meter.ctx.createAnalyser(); an.fftSize = 512; src.connect(an);
       var buf = new Uint8Array(an.fftSize);
-      meter.quietSince = performance.now();
+      meter.quietSince = performance.now(); recd.lastTick = performance.now();
       var label = stream.getAudioTracks()[0] && stream.getAudioTracks()[0].label;
       if(label) micBtn.title = 'Listening on: ' + label;
       (function tick(){
         if(!meter.ctx) return;
+        var now = performance.now(), dt = now - recd.lastTick; recd.lastTick = now;
         an.getByteTimeDomainData(buf);
         var peak = 0; for(var i = 0; i < buf.length; i++){ var d = Math.abs(buf[i] - 128); if(d > peak) peak = d; }
         var lvl = Math.min(1, peak / 40);
         micBtn.style.setProperty('--lvl', lvl.toFixed(2));
-        if(lvl > 0.08){ meter.quietSince = performance.now(); if(micBtn.classList.contains('silent')){ micBtn.classList.remove('silent'); setHint('Mic is live. Say the step, then press Check or Enter, or just end with the word "next".'); } }
-        else if(performance.now() - meter.quietSince > 5000 && !micBtn.classList.contains('silent')){
-          micBtn.classList.add('silent');
-          setHint('The page is not hearing any sound' + (label ? ' from "' + label + '"' : '') + '. Chrome is using the wrong microphone: click the camera/mic icon at the right end of the address bar and pick your headset or mic, then reload.');
+        if(lvl > 0.08){
+          meter.quietSince = now; recd.lastVoice = now; recd.speechMs += dt;
+          if(micBtn.classList.contains('silent')){ micBtn.classList.remove('silent'); setHint(liveHint()); }
+        } else {
+          if(now - meter.quietSince > 6000 && !micBtn.classList.contains('silent')){
+            micBtn.classList.add('silent');
+            setHint('The page is not hearing any sound' + (label ? ' from "' + label + '"' : '') + '. Chrome may be on the wrong microphone: click the camera/mic icon at the right end of the address bar, pick your headset or mic, then reload.');
+          }
+          // Auto-send: you spoke for a bit, then went quiet for 1.6 s.
+          if(autoSend.checked && !T.judging && !T.dead && recd.speechMs > 450 && recd.lastVoice && now - recd.lastVoice > 1600){ recd.lastVoice = 0; submit(); }
         }
         meter.raf = requestAnimationFrame(tick);
       })();
@@ -2015,12 +2064,14 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   }
   function stopMeter(){
     if(meter.raf) cancelAnimationFrame(meter.raf); meter.raf = 0;
+    try{ if(recd.rec && recd.rec.state === 'recording'){ recd.rec.onstop = null; recd.rec.stop(); } }catch(e){} recd.rec = null; recd.chunks = [];
     try{ if(meter.ctx) meter.ctx.close(); }catch(e){} meter.ctx = null;
     if(meter.stream) meter.stream.getTracks().forEach(function(x){ x.stop(); }); meter.stream = null;
     micBtn.style.removeProperty('--lvl'); micBtn.classList.remove('silent');
   }
+  function liveHint(){ return autoSend.checked ? 'Mic is live. Say the step and pause; it sends itself. Or press Check / Enter.' : 'Mic is live. Say the step, then press Check or Enter, or end with the word "next".'; }
   function startListening(auto){
-    if(!SR){ micUnavailable('This browser has no speech recognition. Use Chrome or Edge on Windows, or Safari on a Mac/iPhone.'); return; }
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder){ micUnavailable('This browser cannot record audio. Use Chrome, Edge or Safari.'); return; }
     T.listening = true; T.micDead = false; micErrors = 0; micBtn.classList.remove('off'); micBtn.classList.add('on'); micBtn.title = 'Mic on — tap to pause';
     setHint(auto ? 'Starting the mic… if your browser asks, click Allow.' : 'Starting the mic…');
     startRecog();
@@ -2064,6 +2115,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   skipBtn.addEventListener('click', function(){ if(T.idx >= 0 && T.idx < T.cards.length && !T.dead){ var c = T.cards[T.idx]; mark(T.idx, 'wrong', 'Skipped.'); fb('bad', 'Skipped — it\'s: ' + esc(c.title)); showWasted(c); } });
   stopBtn.addEventListener('click', close);
   reveal.addEventListener('change', function(){ if(T.article) T.article.classList.toggle('reveal', reveal.checked); });
+  autoSend.addEventListener('change', function(){ try{ localStorage.setItem('skills-check-autosend', autoSend.checked ? '1' : '0'); }catch(e){} if(T.listening) setHint(liveHint()); });
+  try{ if(localStorage.getItem('skills-check-autosend') === '0') autoSend.checked = false; }catch(e){}
   keySave.addEventListener('click', function(){ setKey(keyIn.value.trim()); keyIn.value = ''; keyRow.hidden = !!getKey(); shareRowState(); fb(getKey() ? 'ok' : 'bad', getKey() ? '<em>Key saved.</em> Carry on.' : 'No key entered.'); fitBody(); });
   bakeBtn.addEventListener('click', function(){
     var k = getKey(); if(!k){ fb('bad', 'Save a key first.'); return; }
