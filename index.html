@@ -276,7 +276,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <button type="button" id="tBake">Make a shareable copy</button>
       <small>Downloads a copy of this page with your key scrambled inside it, so whoever opens that copy can grade right away without pasting anything. Hidden from plain sight, not encrypted: share it only with people you trust.</small>
     </div>
-    <div class="live" id="tLive" aria-live="polite"></div>
     <div class="fb" id="tFb"></div>
     <div class="hint" id="tHint"></div>
     <div class="summary" id="tSum" hidden></div>
@@ -1947,29 +1946,24 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     if(location.protocol === 'file:') return 'a local file (file://)';
     return location.protocol.replace(':','') + ' page';
   }
-  var live = document.getElementById('tLive');
-  function clearSpeech(){ box.value = ''; box.style.height = 'auto'; live.textContent = ''; }
+  function clearSpeech(){ box.value = ''; box.style.height = 'auto'; base = ''; skip = lastLen; }
+  var base = '', skip = 0, lastLen = 0;   // base: text in the box before this mic session; skip: results already cleared by a submit
   function startRecog(){
     if(!SR || T.micDead || !T.listening) return;
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     var rec = new SR();
     rec.lang = 'en-CA'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
+    base = box.value; skip = 0; lastLen = 0;
     rec.onaudiostart = function(){ micErrors = 0; setHint('Mic is live. Say the step, then press Check or Enter, or just end with the word "next".'); };
     rec.onresult = function(e){
-      var interim = '', added = '';
-      for(var k = e.resultIndex; k < e.results.length; k++){
-        var r = e.results[k];
-        if(r.isFinal){ added += ' ' + r[0].transcript; }
-        else { interim += r[0].transcript; }
-      }
-      if(added.trim()){
-        // Append only. Whatever is already in the box stays; nothing is ever replaced.
-        box.value = (box.value + ' ' + added).replace(/\s+/g,' ').trim();
-        box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px';
-        var m = box.value.match(/^(.*?)[\s,.]*\b(next|submit)[.!?]*$/i);
-        if(m && !T.judging){ box.value = m[1].trim(); if(box.value){ submit(); } else { clearSpeech(); } }
-      }
-      live.textContent = interim.trim() ? '… ' + interim.trim() : '';
+      // Rebuild the box from EVERYTHING heard this session (finished or not), after whatever was already there.
+      var heard = '', lastFinal = '';
+      for(var k = skip; k < e.results.length; k++){ heard += ' ' + e.results[k][0].transcript; if(e.results[k].isFinal) lastFinal = e.results[k][0].transcript; }
+      lastLen = e.results.length;
+      box.value = (base + ' ' + heard).replace(/\s+/g,' ').trim();
+      box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px';
+      var m = box.value.match(/^(.*?)[\s,.]*\b(next|submit)[.!?]*$/i);
+      if(m && /\b(next|submit)[.!?]*\s*$/i.test(lastFinal) && !T.judging){ box.value = m[1].trim(); if(box.value){ submit(); } else { clearSpeech(); } }
     };
     rec.onerror = function(e){
       var err = (e && e.error) || 'unknown';
@@ -1983,7 +1977,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       }
     };
     rec.onend = function(){
-      // Chrome ends a continuous session after a long silence; pick it straight back up, keeping what was said.
+      // Chrome ends a session after a long silence; start a new one, keeping the box as it is.
       if(T.listening && !panel.hidden && !T.micDead && !T.dead) setTimeout(function(){ if(T.listening && !T.dead) startRecog(); }, 150);
     };
     try{ rec.start(); T.recog = rec; }catch(e){ micUnavailable('Mic could not start: ' + (e && e.message ? e.message : e) + '. You are on ' + whereAmI() + '.'); }
@@ -1995,7 +1989,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     startRecog();
   }
   function stopListening(){
-    live.textContent = '';
     T.listening = false; micBtn.classList.remove('on'); micBtn.title = 'Mic off — tap to listen';
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     T.recog = null;
@@ -2028,7 +2021,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   // ---------- wiring ----------
   goBtn.addEventListener('click', submit);
   box.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submit(); } });
-  box.addEventListener('input', function(){ box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px'; fitBody(); });
+  box.addEventListener('input', function(){ base = box.value; skip = lastLen; box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px'; fitBody(); });
   skipBtn.addEventListener('click', function(){ if(T.idx >= 0 && T.idx < T.cards.length && !T.dead){ var c = T.cards[T.idx]; mark(T.idx, 'wrong', 'Skipped.'); fb('bad', 'Skipped — it\'s: ' + esc(c.title)); showWasted(c); } });
   stopBtn.addEventListener('click', close);
   reveal.addEventListener('change', function(){ if(T.article) T.article.classList.toggle('reveal', reveal.checked); });
