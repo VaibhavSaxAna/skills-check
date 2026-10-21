@@ -85,8 +85,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tpanel textarea:focus-visible{outline:3px solid var(--teal);outline-offset:1px}
 .mic{width:46px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative}
 .mic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.mic.on{background:var(--hand);border-color:var(--hand);color:#fff}
+.mic.on{background:var(--hand);border-color:var(--hand);color:#fff;overflow:hidden}
+.mic.on::before{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--lvl,0) * 100%);background:rgba(255,255,255,.35);pointer-events:none;transition:height .08s linear}
+.mic.on.silent{background:var(--say);border-color:var(--say)}
 .mic.on::after{content:"";position:absolute;inset:-5px;border-radius:16px;border:2px solid var(--hand);animation:pulse 1.2s ease-out infinite}
+.mic.on.silent::after{border-color:var(--say)}
 @keyframes pulse{from{opacity:.9;transform:scale(.96)}to{opacity:0;transform:scale(1.18)}}
 @media (prefers-reduced-motion:reduce){.mic.on::after{animation:none}}
 .mic.off{opacity:.45}
@@ -1952,7 +1955,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     if(!SR || T.micDead || !T.listening) return;
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     var rec = new SR();
-    rec.lang = 'en-CA'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
+    rec.lang = 'en-US'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
     base = box.value; skip = 0; lastLen = 0;
     rec.onaudiostart = function(){ micErrors = 0; setHint('Mic is live. Say the step, then press Check or Enter, or just end with the word "next".'); };
     rec.onresult = function(e){
@@ -1978,18 +1981,54 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     };
     rec.onend = function(){
       // Chrome ends a session after a long silence; start a new one, keeping the box as it is.
-      if(T.listening && !panel.hidden && !T.micDead && !T.dead) setTimeout(function(){ if(T.listening && !T.dead) startRecog(); }, 150);
+      if(T.listening && !panel.hidden && !T.micDead && !T.dead) startRecog();
     };
     try{ rec.start(); T.recog = rec; }catch(e){ micUnavailable('Mic could not start: ' + (e && e.message ? e.message : e) + '. You are on ' + whereAmI() + '.'); }
+  }
+  var meter = { ctx: null, stream: null, raf: 0, quietSince: 0 };
+  function startMeter(){
+    if(meter.stream || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+      if(!T.listening){ stream.getTracks().forEach(function(x){ x.stop(); }); return; }
+      meter.stream = stream;
+      var AC = window.AudioContext || window.webkitAudioContext; if(!AC) return;
+      meter.ctx = new AC();
+      var src = meter.ctx.createMediaStreamSource(stream), an = meter.ctx.createAnalyser(); an.fftSize = 512; src.connect(an);
+      var buf = new Uint8Array(an.fftSize);
+      meter.quietSince = performance.now();
+      var label = stream.getAudioTracks()[0] && stream.getAudioTracks()[0].label;
+      if(label) micBtn.title = 'Listening on: ' + label;
+      (function tick(){
+        if(!meter.ctx) return;
+        an.getByteTimeDomainData(buf);
+        var peak = 0; for(var i = 0; i < buf.length; i++){ var d = Math.abs(buf[i] - 128); if(d > peak) peak = d; }
+        var lvl = Math.min(1, peak / 40);
+        micBtn.style.setProperty('--lvl', lvl.toFixed(2));
+        if(lvl > 0.08){ meter.quietSince = performance.now(); if(micBtn.classList.contains('silent')){ micBtn.classList.remove('silent'); setHint('Mic is live. Say the step, then press Check or Enter, or just end with the word "next".'); } }
+        else if(performance.now() - meter.quietSince > 5000 && !micBtn.classList.contains('silent')){
+          micBtn.classList.add('silent');
+          setHint('The page is not hearing any sound' + (label ? ' from "' + label + '"' : '') + '. Chrome is using the wrong microphone: click the camera/mic icon at the right end of the address bar and pick your headset or mic, then reload.');
+        }
+        meter.raf = requestAnimationFrame(tick);
+      })();
+    }, function(){});
+  }
+  function stopMeter(){
+    if(meter.raf) cancelAnimationFrame(meter.raf); meter.raf = 0;
+    try{ if(meter.ctx) meter.ctx.close(); }catch(e){} meter.ctx = null;
+    if(meter.stream) meter.stream.getTracks().forEach(function(x){ x.stop(); }); meter.stream = null;
+    micBtn.style.removeProperty('--lvl'); micBtn.classList.remove('silent');
   }
   function startListening(auto){
     if(!SR){ micUnavailable('This browser has no speech recognition. Use Chrome or Edge on Windows, or Safari on a Mac/iPhone.'); return; }
     T.listening = true; T.micDead = false; micErrors = 0; micBtn.classList.remove('off'); micBtn.classList.add('on'); micBtn.title = 'Mic on — tap to pause';
     setHint(auto ? 'Starting the mic… if your browser asks, click Allow.' : 'Starting the mic…');
     startRecog();
+    startMeter();
   }
   function stopListening(){
-    T.listening = false; micBtn.classList.remove('on'); micBtn.title = 'Mic off — tap to listen';
+    T.listening = false;
+    stopMeter(); micBtn.classList.remove('on'); micBtn.title = 'Mic off — tap to listen';
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     T.recog = null;
   }
