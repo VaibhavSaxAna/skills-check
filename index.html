@@ -1816,8 +1816,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     c.li.classList.add('now');
     elStep.innerHTML = '<b>Step ' + (i+1) + ' of ' + T.cards.length + '</b> · ' + esc(c.phase) + ' · card ' + esc(c.num);
     c.li.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    box.value = '';
-    if(!T.listening) box.focus({ preventScroll: true });
+    if(!T.listening){ box.value = ''; box.focus({ preventScroll: true }); }
   }
   function nextPending(from){
     for(var i = from; i < T.cards.length; i++){ if(!T.results[i]) return i; }
@@ -1908,6 +1907,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     T.judging = true; goBtn.disabled = true;
     fb('', 'Checking…');
     var i = T.idx;
+    clearSpeech();
     grade(buildPrompt(i, said)).then(function(r){
       r = r && typeof r === 'object' ? r : {};
       var v = r.verdict === 'correct' || r.verdict === 'partial' ? r.verdict : 'wrong';
@@ -1931,7 +1931,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       fb('bad', copyFor[code] || copyFor.upstream_error);
     }).then(function(){
       T.judging = false; goBtn.disabled = false;
-      if(T.listening && !T.dead && !panel.hidden && T.idx < T.cards.length){ box.value = ''; T.seen = 0; startRecog(); }
+      // The mic never stopped; the box was cleared when the answer was sent, and anything said since is already in it.
     });
   }
 
@@ -1950,22 +1950,33 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     if(location.protocol === 'file:') return 'a local file (file://)';
     return location.protocol.replace(':','') + ' page';
   }
+  var finalText = '';          // speech accumulated since the last submit
+  function clearSpeech(){ finalText = ''; box.value = ''; box.style.height = 'auto'; }
   function startRecog(){
     if(!SR || T.micDead || !T.listening) return;
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     var rec = new SR();
-    rec.lang = 'en-CA'; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1;
-    var gotAudio = false;
-    rec.onaudiostart = function(){ gotAudio = true; micErrors = 0; setHint('Mic is live. Name the step, then pause.'); };
+    rec.lang = 'en-CA'; rec.interimResults = true; rec.continuous = true; rec.maxAlternatives = 1;
+    rec.onaudiostart = function(){ micErrors = 0; setHint('Mic is live. Say the step, then press Check or Enter (or end with the word "next").'); };
     rec.onresult = function(e){
-      var s = '';
-      for(var k = 0; k < e.results.length; k++) s += e.results[k][0].transcript;
-      box.value = s.trim();
-      if(e.results[e.results.length - 1].isFinal && box.value){ submit(); }
+      var interim = '';
+      for(var k = e.resultIndex; k < e.results.length; k++){
+        var r = e.results[k];
+        if(r.isFinal){ finalText = (finalText + ' ' + r[0].transcript).replace(/\s+/g,' ').trim(); }
+        else { interim += r[0].transcript; }
+      }
+      box.value = (finalText + ' ' + interim).replace(/\s+/g,' ').trim();
+      box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px';
+      // Spoken "next" or "submit" at the end of a final phrase sends it, hands-free.
+      var m = finalText.match(/^(.*?)[\s,.]*\b(next|submit)[.!?]*$/i);
+      if(m && e.results[e.results.length - 1].isFinal && !T.judging){
+        box.value = m[1].trim();
+        if(box.value){ submit(); } else { clearSpeech(); }
+      }
     };
     rec.onerror = function(e){
       var err = (e && e.error) || 'unknown';
-      if(err === 'no-speech' || err === 'aborted') return;      // normal: nothing said yet, or we stopped it
+      if(err === 'no-speech' || err === 'aborted') return;      // normal: a quiet stretch, or we stopped it
       micErrors++;
       var why = errorWhy[err] || ('error "' + err + '"');
       if(err === 'not-allowed' || err === 'service-not-allowed' || err === 'audio-capture' || micErrors >= 3){
@@ -1975,17 +1986,19 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       }
     };
     rec.onend = function(){
-      if(T.listening && !T.judging && !panel.hidden && !T.micDead && !T.dead) setTimeout(function(){ if(T.listening && !T.judging && !T.dead) startRecog(); }, 200);
+      // Chrome ends a continuous session after a long silence; pick it straight back up, keeping what was said.
+      if(T.listening && !panel.hidden && !T.micDead && !T.dead) setTimeout(function(){ if(T.listening && !T.dead) startRecog(); }, 150);
     };
     try{ rec.start(); T.recog = rec; }catch(e){ micUnavailable('Mic could not start: ' + (e && e.message ? e.message : e) + '. You are on ' + whereAmI() + '.'); }
   }
   function startListening(auto){
     if(!SR){ micUnavailable('This browser has no speech recognition. Use Chrome or Edge on Windows, or Safari on a Mac/iPhone.'); return; }
-    T.listening = true; T.micDead = false; micErrors = 0; micBtn.classList.remove('off'); micBtn.classList.add('on'); micBtn.title = 'Mic on — tap to pause';
+    T.listening = true; T.micDead = false; micErrors = 0; finalText = ''; micBtn.classList.remove('off'); micBtn.classList.add('on'); micBtn.title = 'Mic on — tap to pause';
     setHint(auto ? 'Starting the mic… if your browser asks, click Allow.' : 'Starting the mic…');
     startRecog();
   }
   function stopListening(){
+    finalText = '';
     T.listening = false; micBtn.classList.remove('on'); micBtn.title = 'Mic off — tap to listen';
     try{ if(T.recog){ T.recog.onend = null; T.recog.abort(); } }catch(e){}
     T.recog = null;
@@ -2018,7 +2031,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   // ---------- wiring ----------
   goBtn.addEventListener('click', submit);
   box.addEventListener('keydown', function(e){ if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submit(); } });
-  box.addEventListener('input', function(){ box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px'; fitBody(); });
+  box.addEventListener('input', function(){ if(!box.value) finalText = ''; box.style.height = 'auto'; box.style.height = Math.min(120, box.scrollHeight) + 'px'; fitBody(); });
   skipBtn.addEventListener('click', function(){ if(T.idx >= 0 && T.idx < T.cards.length && !T.dead){ var c = T.cards[T.idx]; mark(T.idx, 'wrong', 'Skipped.'); fb('bad', 'Skipped — it\'s: ' + esc(c.title)); showWasted(c); } });
   stopBtn.addEventListener('click', close);
   reveal.addEventListener('change', function(){ if(T.article) T.article.classList.toggle('reveal', reveal.checked); });
