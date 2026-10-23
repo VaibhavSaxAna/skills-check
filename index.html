@@ -140,6 +140,60 @@ body.dead main{filter:grayscale(1) contrast(1.08) brightness(.85)}
 .verdict b{text-transform:uppercase;font-size:.7rem;letter-spacing:.05em}
 .step.ok .verdict b{color:var(--teal)} .step.mid .verdict b{color:var(--say)} .step.bad .verdict b{color:var(--hand)}
 
+/* Top switch: study guide vs full checklists */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:25;display:flex;justify-content:center;gap:6px;padding:10px 16px;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.topbar button{font:inherit;font-size:.86rem;font-weight:700;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--muted);padding:7px 16px;cursor:pointer}
+.topbar button[aria-current="page"]{background:var(--teal-soft);border-color:var(--teal);color:var(--teal)}
+.topbar button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+body.testing-open .topbar{display:none}
+
+/* Study guide */
+.guide header p{max-width:38em}
+.howto{margin:16px 0 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:.93rem}
+.howto b{display:block;margin-bottom:4px}
+.howto ol{margin:0;padding-left:20px;display:grid;gap:4px}
+.gtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:18px 0 0}
+.gtabs button{font:inherit;font-size:.86rem;font-weight:700;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:10px 6px;cursor:pointer;line-height:1.2;min-width:0}
+.gtabs button[aria-current="page"]{background:var(--teal-soft);border-color:var(--teal);color:var(--teal)}
+.gtabs button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.hidesteps{display:flex;gap:8px;align-items:center;margin:12px 0 0;font-size:.9rem;color:var(--muted);cursor:pointer}
+.hidesteps input{width:18px;height:18px;accent-color:var(--teal)}
+.chain{margin:22px 0 8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.chain > b{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.chain ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:4px 10px;counter-reset:ch}
+.chain li{counter-increment:ch;font-size:.9rem;line-height:1.3;padding:3px 0;display:flex;gap:7px;align-items:baseline;min-width:0}
+.chain li::before{content:counter(ch);flex:none;width:20px;height:20px;border-radius:50%;background:var(--teal);color:#fff;font-size:.72rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;transform:translateY(2px)}
+@media (max-width:560px){.chain ol{grid-template-columns:1fr 1fr}}
+.chain .thread{margin:10px 0 0;font-size:.92rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.chain .thread b{color:var(--ink)}
+
+.phase{position:relative;margin-top:22px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--pc);border-radius:12px;padding:12px 16px 14px}
+.phase::after{content:"";position:absolute;left:26px;bottom:-23px;height:22px;border-left:3px dotted var(--pc)}
+.phase:last-of-type::after{display:none}
+.ph{display:flex;align-items:center;gap:10px}
+.pn{flex:none;width:30px;height:30px;border-radius:50%;background:var(--pc);color:var(--paper);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem}
+.ph h2{margin:0;font-size:1.2rem;line-height:1.15;color:var(--pc)}
+.goal{margin:8px 0 0;font-size:1rem;font-weight:700;line-height:1.35}
+.state{margin:10px 0 0;font-size:.93rem;line-height:1.4;border-radius:8px;padding:7px 10px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline}
+.state b{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.state.start{background:var(--quote);color:var(--ink)}
+.state.start b{color:var(--muted)}
+.state.end{background:var(--teal-soft);color:var(--ink)}
+.state.end b{color:var(--teal)}
+.phase details{margin:10px 0 0;border:1px dashed var(--line);border-radius:8px;padding:0 10px}
+.phase summary{cursor:pointer;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:8px 0;list-style:none;display:flex;align-items:center;gap:6px}
+.phase summary::-webkit-details-marker{display:none}
+.phase summary::before{content:"▸";font-size:.9rem;transition:transform .15s}
+.phase details[open] summary::before{transform:rotate(90deg)}
+.phase details ul{margin:0 0 10px;padding-left:18px;display:grid;gap:5px;font-size:.95rem;line-height:1.45}
+.phase details li b{color:var(--pc)}
+.why{margin:10px 0 0;font-size:.88rem;color:var(--muted);line-height:1.4}
+.gback{margin:30px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.gback button{font:inherit;font-size:.86rem;font-weight:700;border-radius:99px;border:1.5px solid var(--teal);background:var(--teal-soft);color:var(--teal);padding:8px 14px;cursor:pointer}
+.gback button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.guidelink{display:inline-flex;align-items:center;gap:8px;margin:14px 10px 0 0;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+.guidelink:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
 .arrow{position:fixed;top:50%;z-index:20;display:grid;justify-items:center;gap:6px;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font-family:inherit;transform:translateY(-50%)}
 .arrow.prev{left:max(14px,env(safe-area-inset-left,0px))}
 .arrow.next{right:max(14px,env(safe-area-inset-right,0px))}
@@ -247,7 +301,7 @@ td b{white-space:nowrap}
 .check input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-@media print{body{background:#fff}.card{break-inside:avoid}.arrow,.dots,.tpanel,.testbtn,.wasted{display:none}}
+@media print{body{background:#fff}.card{break-inside:avoid}.arrow,.dots,.tpanel,.testbtn,.wasted,.topbar,.gback,.guidelink,.gtabs,.hidesteps{display:none}}
 </style>
 
 <button class="arrow prev" type="button" id="prevBtn" aria-label="Previous skill"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span><span class="lab"><b>Previous</b><span id="prevLab"></span></span></button>
@@ -292,6 +346,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="acts"><button type="button" class="main" id="wRestart">Restart</button><button type="button" id="wClose">Close</button></div>
   </div>
 </div>
+<div class="topbar" id="topbar"><button type="button" id="tbGuide">Study guide</button><button type="button" id="tbFull" aria-current="page">Full checklists</button></div>
 <main>
 <!-- ============ SKILL A: IM FROM A VIAL ============ -->
 <article class="skill" id="s-im">
@@ -300,6 +355,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h1>IM injection from a vial<br>by checklist phase</h1>
   <p>All 52 steps of the checklist, in the checklist's order, grouped into 12 phases. Nothing optional. Each card is numbered phase.element and tagged with the checklist step it is graded on.</p>
   <button type="button" class="testbtn" data-test="im"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>Test your understanding</button>
+  <button type="button" class="guidelink" data-guide="im">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
     <div><span class="k say">SAY</span><span><b>Speak it.</b> Where the checklist says "articulates," it only counts if it's heard.</span></div>
@@ -762,6 +818,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h1>Oral medication and dry dressing change<br>by checklist phase</h1>
   <p>All 59 steps, in the checklist's order, in 12 phases. The oral med comes first (steps 1–17) because the patient needs it working before the dressing comes off. Each card is numbered phase.element and tagged with the checklist step it is graded on.</p>
   <button type="button" class="testbtn" data-test="dress"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>Test your understanding</button>
+  <button type="button" class="guidelink" data-guide="dress">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
     <div><span class="k say">SAY</span><span><b>Speak it.</b> Assessments and observations count only when described out loud.</span></div>
@@ -1226,6 +1283,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h1>Oral medication, nitropatch and nebulizer<br>by checklist phase</h1>
   <p>All 59 steps, in the checklist's order, in 10 phases. One preparation at the cart covers every oral form; then the patch; then the nebulizer. Each card is numbered phase.element and tagged with the checklist step it is graded on.</p>
   <button type="button" class="testbtn" data-test="neb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>Test your understanding</button>
+  <button type="button" class="guidelink" data-guide="neb">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
     <div><span class="k say">SAY</span><span><b>Speak it.</b> Steps 49, 51 and 52 say "articulates" and are graded only on what is heard.</span></div>
@@ -1657,6 +1715,462 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 </section>
 </div>
 </article>
+<!-- ============ STUDY GUIDE: each skill as a chain of phases, one goal each ============ -->
+<article class="skill guide" id="s-guide" hidden>
+<div class="pg">
+<header>
+  <h1>Study guide<br>one goal per phase</h1>
+  <p>Each skill is a chain of phases. A phase has one goal, a clear starting point, and a clear finish line. The finish line of one phase is the starting point of the next, so if you know what the end looks like, you always know where to pick up.</p>
+  <div class="howto">
+    <b>How to use this tonight</b>
+    <ol>
+      <li>Read the chain at the top of the skill once. That's the whole skill in nine lines.</li>
+      <li>For each phase, read <b>Start</b> and <b>End</b> first, then the steps between. Ask: what has to be true before I can move on?</li>
+      <li>Tick <b>Hide the steps</b>. Look only at Start → End and say what happens in between, out loud. Tap a phase to check.</li>
+      <li>Then run <b>Test your understanding</b> on the full checklist page.</li>
+    </ol>
+  </div>
+  <nav class="gtabs" aria-label="Skill">
+    <button type="button" data-gtab="im" aria-current="page">IM from a vial</button>
+    <button type="button" data-gtab="dress">Oral med + dry dressing</button>
+    <button type="button" data-gtab="neb">Oral med + patch + neb</button>
+  </nav>
+  <label class="hidesteps"><input type="checkbox" id="gHide"> Hide the steps (quiz mode)</label>
+</header>
+
+<!-- ================= IM ================= -->
+<section class="gskill" id="g-im">
+  <div class="chain">
+    <b>The chain</b>
+    <ol>
+      <li>Check the order</li><li>Pick the vial, do the math</li><li>Mix the powder</li><li>Draw up and label</li><li>Walk in and connect</li><li>Choose the site and position</li><li>Landmark and prep the skin</li><li>Z-track injection</li><li>Make them safe and sign</li>
+    </ol>
+    <p class="thread">The thread: everything before the door is about making <b>one labelled syringe you trust</b>. Everything after the door is about <b>one safe injection</b> into a site you found with your hand.</p>
+  </div>
+
+  <div class="phase" style="--pc:var(--p1)">
+    <div class="ph"><span class="pn">1</span><h2>Check the order</h2></div>
+    <div class="goal">Goal: know exactly what you're giving, to whom, and that your hands are clean.</div>
+    <div class="state start"><b>Start</b> Order and MAR in front of you at the cart. Nothing touched yet.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Order to MAR, line by line: patient, drug, dose, route, time. "They match."</li>
+      <li>Hand hygiene.</li>
+      <li>Lay out supplies: MAR, med vial, diluent, swabs, syringes and needles, filter needle if the insert says so, label, gloves, gauze, bandage, pen.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Order verified, hands clean, everything on the cart top.</div>
+    <div class="why">Why: every later check compares back to the MAR. If this is wrong, every check after it is wrong.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p3)">
+    <div class="ph"><span class="pn">2</span><h2>Pick the vial, do the math</h2></div>
+    <div class="goal">Goal: the right vial, in date, and a written volume to draw.</div>
+    <div class="state start"><b>Start</b> Supplies out. Vial still in the cart.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Take the vial. Name on the vial to name on the MAR.</li>
+      <li>Read the expiry out loud. Read the strength on the label.</li>
+      <li>Write it: <b>dose ordered ÷ concentration = mL</b>. Say it as you write it.</li>
+      <li>Say the rule: "If this were high-alert, agency policy needs a second RN and an independent double-check."</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Right vial in hand, expiry read, math on paper, high-alert rule said.</div>
+    <div class="why">Why: the math is graded on paper. Say it, write it, keep the paper.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p3)">
+    <div class="ph"><span class="pn">3</span><h2>Mix the powder</h2></div>
+    <div class="goal">Goal: a clear solution whose concentration you've read off the label.</div>
+    <div class="state start"><b>Start</b> Powder vial and diluent vial, both capped.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Caps off both. Read the insert: which diluent, how much, filter needle or not.</li>
+      <li>Swab both stoppers. Let them dry.</li>
+      <li>Draw the diluent (air in, invert, draw, bubbles out).</li>
+      <li>Needle through the centre of the powder vial's stopper. Push the diluent in slowly.</li>
+      <li>Needle out. <b>Roll</b> between palms until clear. Never shake.</li>
+      <li>Read the label again: "after reconstitution, X mg per mL". Redo the math with that number.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> One clear vial of mixed drug; the new concentration read; the math written a second time.</div>
+    <div class="why">Why: the diluent volume sets the concentration. The number you draw comes from the label's "after reconstitution" line, not the powder strength.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p4)">
+    <div class="ph"><span class="pn">4</span><h2>Draw up and label</h2></div>
+    <div class="goal">Goal: one labelled syringe holding exactly the dose, and a locked cart.</div>
+    <div class="state start"><b>Start</b> Mixed vial, new syringe.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Swab the stopper again, let it dry. Air in, invert, draw to the volume, bubbles out in the vial, needle out. Scoop-recap on a flat surface.</li>
+      <li>Label to MAR: name, drug, dose, route, time, expiry. Then say "second check" and do it again.</li>
+      <li>Label the syringe: patient, drug, dose, your initials and designation, date, time. Wrap so the volume still shows.</li>
+      <li>Name your tray: MAR, labelled syringe, two swabs, gauze, gloves, bandage.</li>
+      <li>Say: "I'm following the CNO Medication practice standard."</li>
+      <li>Vial back. Cart locked.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Labelled syringe on a tray with the MAR; two label checks done; cart locked; standard named.</div>
+    <div class="why">Why: the words "CNO medication standard" are a tick on their own. Say them here, once.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">5</span><h2>Walk in and connect</h2></div>
+    <div class="goal">Goal: the right patient, who knows what's coming and has agreed.</div>
+    <div class="state start"><b>Start</b> At the door with the tray.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Knock. Curtain closed. Hand hygiene. "Hi, I'm ___, your student nurse." Greet family.</li>
+      <li>Two identifiers: name and date of birth, from them, from the band, against the MAR. Allergies the same three ways.</li>
+      <li>Third check at the bedside: syringe label to MAR to the patient's name.</li>
+      <li>Explain in one breath: what it is, what it's for, how it works, side effects, "any questions?", "okay to go ahead?", "it may sting or burn a little."</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Patient identified three ways, allergies confirmed, third check done, consent given, sting warned.</div>
+    <div class="why">Why: step 20 has seven graded pieces in one sentence. Practise that sentence until it comes out whole.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">6</span><h2>Choose the site and position</h2></div>
+    <div class="goal">Goal: a ventrogluteal site you've looked at and felt, on a patient lying the right way.</div>
+    <div class="state start"><b>Start</b> Patient consented, still sitting up and covered.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Say the site and why: "Ventrogluteal, the gluteus medius: thick muscle, away from nerves and vessels, takes up to 3 mL."</li>
+      <li>Look at the muscle. Press on it: no tenderness or hardness. Ask about recent injections; rotate sides.</li>
+      <li>Look at the skin: no bruising, inflammation, edema, infection.</li>
+      <li>Onto their side, top knee bent forward. Uncover the hip only.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Side-lying, knee bent, hip exposed, site named, muscle and skin checked.</div>
+    <div class="why">Why: the bent knee relaxes the gluteus medius. A relaxed muscle is the whole reason for the position.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">7</span><h2>Landmark and prep the skin</h2></div>
+    <div class="goal">Goal: a cleaned spot you found with your hand, and a needle ready in a dart grip.</div>
+    <div class="state start"><b>Start</b> Patient positioned. Your hands bare.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Hand hygiene. Clean gloves. Use the hand opposite the hip.</li>
+      <li>Heel of hand on the <b>greater trochanter</b>. Thumb toward the <b>groin</b>. Index finger on the <b>anterior superior iliac spine</b>. Middle finger back along the <b>iliac crest</b>. Site is the <b>centre of the V</b>.</li>
+      <li>Mark it with an alcohol wipe. Then cleanse: circles, centre outward, let it air dry.</li>
+      <li>Gauze between third and fourth fingers of the non-dominant hand. Cap off. Syringe between thumb and forefinger. "Try to relax."</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Site marked and dry, gauze tucked between your fingers, needle uncapped in a dart grip, patient told to relax.</div>
+    <div class="why">Why: five bony words, said in order, are five ticks. Trochanter, groin, ASIS, crest, centre of the V.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">8</span><h2>Z-track injection</h2></div>
+    <div class="goal">Goal: the drug in the muscle and sealed there, the needle made safe.</div>
+    <div class="state start"><b>Start</b> Needle uncapped, site clean and dry.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Ulnar side of the non-dominant hand below the site. Pull the skin sideways 2.5–3.5 cm and <b>hold</b>.</li>
+      <li>Grasp the body of the muscle. Dart in at 90°.</li>
+      <li>Keep the skin taut. Steady the barrel with that same hand resting on the patient.</li>
+      <li>Say: "Aspiration is only for the dorsogluteal. If blood appeared, new syringe and needle, start over."</li>
+      <li>Inject slowly. Count ten. Withdraw smoothly. Safety sheath on. <b>Then</b> release the skin.</li>
+      <li>Gauze on, gentle pressure, no massage. Bandage if needed.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Needle withdrawn and sheathed, skin released after it, gauze held on the site.</div>
+    <div class="why">Why: releasing the skin after the needle is out closes the track and keeps the drug in the muscle. That's the whole point of "Z".</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p6)">
+    <div class="ph"><span class="pn">9</span><h2>Make them safe and sign</h2></div>
+    <div class="goal">Goal: sharps gone, patient settled and watched, MAR signed, you coming back.</div>
+    <div class="state start"><b>Start</b> Gauze on the site, syringe in your hand.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Syringe straight into the sharps. Patient comfortable. Gauze to garbage. Gloves off. Hand hygiene.</li>
+      <li>Sign the MAR now: drug, dose, site, time, initials; full signature and designation in the legend.</li>
+      <li>Stay several minutes: any itching, rash, swelling, trouble breathing?</li>
+      <li>Items in reach. Call light, show me. Rails up, bed down. Room tidy.</li>
+      <li>"I'll be back in 15 to 30 minutes to check the site."</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Room safe, MAR signed, return promised. Done.</div>
+    <div class="why">Why: "immediately" is the graded word for the MAR. Sign before you tidy, not after.</div>
+  </div>
+</section>
+
+<!-- ================= DRESSING ================= -->
+<section class="gskill" id="g-dress" hidden>
+  <div class="chain">
+    <b>The chain</b>
+    <ol>
+      <li>Both orders and a pain score</li><li>Prepare the pill</li><li>Give the pill and leave</li><li>Come back and set up</li><li>Old dressing off</li><li>Look and measure</li><li>Open the sterile field and pour</li><li>Clean and dress</li><li>Clean up, sign, report</li>
+    </ol>
+    <p class="thread">The thread: the pill comes first so it's working by the time the dressing comes off. Then it's <b>dirty work</b> (old dressing off, look, measure) with clean gloves, then <b>sterile work</b> (clean the wound, new dressing) with sterile gloves, with hand hygiene at every switch.</p>
+  </div>
+
+  <div class="phase" style="--pc:var(--p1)">
+    <div class="ph"><span class="pn">1</span><h2>Both orders and a pain score</h2></div>
+    <div class="goal">Goal: two orders verified, the right patient, and a pain number to compare to later.</div>
+    <div class="state start"><b>Start</b> Orders and MAR at the cart, then the doorway.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Verify the dressing order and the medication order against the MAR.</li>
+      <li>Curtain. Hand hygiene. "Hi, I'm ___, your student nurse."</li>
+      <li>Two identifiers against the MAR.</li>
+      <li>"Pain, 0 to 10?" Explain: pill first, then the dressing. "Okay with you?"</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Both orders checked, patient identified, a pain score written down, agreement given.</div>
+    <div class="why">Why: you'll ask for the pain score again before the dressing. The second number only means something if you have the first.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p3)">
+    <div class="ph"><span class="pn">2</span><h2>Prepare the pill</h2></div>
+    <div class="goal">Goal: one labelled, in-date medication in the right cup, checked twice.</div>
+    <div class="state start"><b>Start</b> Back at the cart.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Correct drug. Label to MAR: name, dose, route, time. "Second check": again.</li>
+      <li>Expiry out loud. Say: "A partial dose would need an independent double-check."</li>
+      <li>Tablet into a med cup, package kept with it. Elixir into a plastic cup, read at eye level.</li>
+      <li>Patient's name on the MAR to the prepared label. "CNO Medication standard." Cart locked.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Pill in a cup with its package, two label checks done, standard named, cart locked.</div>
+    <div class="why">Why: the package goes with the cup because the third check happens at the bedside, and you need a label to read.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p3)">
+    <div class="ph"><span class="pn">3</span><h2>Give the pill and leave</h2></div>
+    <div class="goal">Goal: pill swallowed, signed for, and the patient told you'll be back when it's working.</div>
+    <div class="state start"><b>Start</b> At the door with the cup and MAR.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Hand hygiene, curtain, "it's ___ again", gloves on.</li>
+      <li>Two identifiers. Third check: label to MAR at the bedside.</li>
+      <li>Purpose, how it works, side effects, "any questions?"</li>
+      <li>Sit them up. Water. Stay until it's swallowed; "open your mouth for me?"</li>
+      <li>Sign the MAR now. "I'll give that 30 minutes to work before the dressing."</li>
+      <li>Call bell, bed low, tidy, gloves off, hand hygiene.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Pill taken and documented, patient safe, you out of the room with a plan to return.</div>
+    <div class="why">Why: step 16 is its own tick: saying out loud that you'll wait for the medication to work.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p4)">
+    <div class="ph"><span class="pn">4</span><h2>Come back and set up</h2></div>
+    <div class="goal">Goal: everything within reach, patient draped and warned, bag cuffed, clean gloves on.</div>
+    <div class="state start"><b>Start</b> Returning with the dressing supplies.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Name the supplies: sterile tray, saline, extra gauze and ABD, sterile gloves, clean gloves, tape, biohazard bag, measuring guide.</li>
+      <li>Curtain, hand hygiene, introduce. Two identifiers against the bracelet.</li>
+      <li>"Pain now, 0 to 10?" Compare. Explain the dressing change. "Still okay?"</li>
+      <li>Say whether spray is a risk (gown, goggles, mask if so).</li>
+      <li>Position for the wound. Drape to show only the site. "Please don't touch the wound or the sterile supplies."</li>
+      <li>Biohazard bag open, top folded into a cuff, within reach. Clean gloves.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Wound exposed, patient warned, cuffed bag beside you, clean gloves on.</div>
+    <div class="why">Why: the cuff is so you can drop soiled things in without touching the outside of the bag.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p4)">
+    <div class="ph"><span class="pn">5</span><h2>Old dressing off</h2></div>
+    <div class="goal">Goal: the wound uncovered without hurting the skin, the old dressing contained and gone.</div>
+    <div class="state start"><b>Start</b> Clean gloves on, bag ready.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Tape: pull parallel to the skin, toward the dressing, with the hair, holding the skin down. Adhesive off.</li>
+      <li>Outer layer first, one layer at a time. Look at the drainage: amount, colour. Keep the soiled side out of their sight.</li>
+      <li>Fold the dressing in on itself. Peel a glove inside out over it. Into the biohazard bag.</li>
+      <li>Hand hygiene.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Wound open to air, old dressing and gloves in the bag, hands clean.</div>
+    <div class="why">Why: the glove-over-the-dressing trick is how you contain it without a second trip.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p4)">
+    <div class="ph"><span class="pn">6</span><h2>Look and measure</h2></div>
+    <div class="goal">Goal: a full description and three numbers.</div>
+    <div class="state start"><b>Start</b> Wound exposed, hands clean, no gloves.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Seven words, in order: <b>colour, integrity, exudate, edema, approximation, odour, infection</b>.</li>
+      <li>If it's an incision: are the margins approximated?</li>
+      <li>Measure length, width, depth.</li>
+      <li>Clean gloves. Palpate lightly along the incision for a healing ridge. Gloves off. Hand hygiene.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Wound described in seven words, measured, palpated; hands clean again.</div>
+    <div class="why">Why: the seven words are seven ticks. Say the list the same way every time so none drop out.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">7</span><h2>Open the sterile field and pour</h2></div>
+    <div class="goal">Goal: a sterile field with wet gauze, a drape, extra supplies, and your sterile gloves on.</div>
+    <div class="state start"><b>Start</b> Tray on the table at waist height, still wrapped.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Flaps: far one away from you, side flaps out with your arms off the field, near flap toward you. Say the three rules: don't reach across, don't turn away, don't leave.</li>
+      <li>Garbage bag out with the forceps into your other hand. Forceps down, tips on the field.</li>
+      <li>Check the saline: contents, expiry. Basin at the edge, inside the one-inch border. Cap up, inside facing up. (Opened bottle: pour a splash out first.)</li>
+      <li>Label to palm. Lip 2.5–5 cm above the basin. Pour slowly. No splash.</li>
+      <li>Drape by its corners, next to the wound. Drop extra gauze and the ABD onto the field, wrapper never crossing it.</li>
+      <li>Sterile gloves.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Open field, wet gauze, drape placed, supplies dropped in, sterile gloves on, hands above the waist.</div>
+    <div class="why">Why: the outer inch isn't sterile. Everything you'll use lives inside it; the bag and the bottle live outside it.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">8</span><h2>Clean and dress</h2></div>
+    <div class="goal">Goal: a clean, dry wound under a layered dressing, taped and labelled.</div>
+    <div class="state start"><b>Start</b> Sterile gloves on, field open.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Gauze with forceps, dip, wring out. One stroke per gauze. Least contaminated to most: the line first, then each side, outward.</li>
+      <li>Blot dry with dry gauze.</li>
+      <li>Loosely woven gauze on the wound. More gauze if needed. ABD pad on top.</li>
+      <li>Sterile gloves off. Hand hygiene. Clean gloves on.</li>
+      <li>Tape perpendicular to the wound. Label it: date, time, initials.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> New dressing taped and dated, clean gloves on.</div>
+    <div class="why">Why: the glove switch is the line between sterile work (touching the wound) and clean work (tape and tidy).</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p6)">
+    <div class="ph"><span class="pn">9</span><h2>Clean up, sign, report</h2></div>
+    <div class="goal">Goal: supplies gone, patient safe, everything written down and passed on.</div>
+    <div class="state start"><b>Start</b> Dressing on, clean gloves on.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>PPE off. Dispose of supplies and the tray. Seal the bag.</li>
+      <li>Comfortable. Items in reach. Call light, show me. Rails up, bed down.</li>
+      <li>Gloves off. Hand hygiene.</li>
+      <li>Document: wound description, size, drainage, dressing applied, pain before and after, tolerated. Report to the RN.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Room tidy, note written, RN told. Done.</div>
+    <div class="why">Why: "documented and reported" is one step with two halves. Say who you're reporting to.</div>
+  </div>
+</section>
+
+<!-- ================= NEBULIZER ================= -->
+<section class="gskill" id="g-neb" hidden>
+  <div class="chain">
+    <b>The chain</b>
+    <ol>
+      <li>Orders and the right patient</li><li>Prepare every oral form at the cart</li><li>Bedside checks and the assessment</li><li>Give the oral med by its route</li><li>Old patch off</li><li>New patch on, four warnings</li><li>Nebulizer: build, load, run</li><li>Nebulizer: after</li><li>Safe, signed, noted</li>
+    </ol>
+    <p class="thread">The thread: three medications, one patient, one visit. Oral first, patch second, nebulizer third, and the MAR gets signed <b>after each one</b>, not at the end.</p>
+  </div>
+
+  <div class="phase" style="--pc:var(--p1)">
+    <div class="ph"><span class="pn">1</span><h2>Orders and the right patient</h2></div>
+    <div class="goal">Goal: three orders verified and a patient who knows the plan.</div>
+    <div class="state start"><b>Start</b> Orders and MAR at the cart, then the doorway.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>All three orders against the MAR: oral, patch, nebulizer.</li>
+      <li>Curtain. Hand hygiene. Introduce yourself to the patient and family.</li>
+      <li>Two identifiers against the MAR.</li>
+      <li>Explain all three. Be specific about what they'll do themselves (take the tablet, breathe through the mask). "Okay with you?"</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Orders checked, patient identified, plan agreed.</div>
+    <div class="why">Why: step 5 is graded on being specific about self-administration. Say what they'll do, not just what you'll do.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p3)">
+    <div class="ph"><span class="pn">2</span><h2>Prepare every oral form at the cart</h2></div>
+    <div class="goal">Goal: each medication in the right cup, checked, in date, and the rule for every form said out loud.</div>
+    <div class="state start"><b>Start</b> At the cart, only this patient's MAR open.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>"One patient at a time." Correct drug. Label to MAR: name, dose, time, route. Expiry on every one.</li>
+      <li>Tablets in one cup, elixir in a plastic cup.</li>
+      <li>Half tablet: scored only, clean cutter, discard the other half.</li>
+      <li>Crushing: only if it can be crushed; each one separately; in soft food; given separately.</li>
+      <li>Liquid: cup on a level surface, read at eye level; under 10 mL goes in an oral syringe. Wipe the lip, recap.</li>
+      <li>Name on the MAR to every label. "CNO Medication standard." Cart locked.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Everything prepared and labelled for one patient, every form's rule said, cart locked.</div>
+    <div class="why">Why: you may only have a tablet in the cup, but the half-tablet, crushing and liquid rules are each their own tick. Say them anyway.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">3</span><h2>Bedside checks and the assessment</h2></div>
+    <div class="goal">Goal: identity, allergies, third check, teaching, and the vital signs each drug needs.</div>
+    <div class="state start"><b>Start</b> At the door with the tray.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Curtain, hand hygiene, introduce again. Two identifiers. Allergies.</li>
+      <li>Third check: each label to the MAR to the patient's name.</li>
+      <li>For each drug: purpose, how it works, side effects. "Any questions?"</li>
+      <li>Assess for each: <b>patch</b> needs blood pressure, heart rate, chest pain. <b>Nebulizer</b> needs respiratory rate, breath sounds, SpO₂, pulse. The oral med needs whatever it treats.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> All checks done, patient taught, baseline numbers written down.</div>
+    <div class="why">Why: the nebulizer's "reassess after" step only works if you have a "before".</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p5)">
+    <div class="ph"><span class="pn">4</span><h2>Give the oral med by its route</h2></div>
+    <div class="goal">Goal: the oral medication taken the way its form requires, and seen to be taken.</div>
+    <div class="state start"><b>Start</b> Patient sitting up, cup in your hand.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Water or their preferred drink, if it's compatible.</li>
+      <li><b>ODT</b>: peel the foil, don't push through, on top of the tongue, no chewing.</li>
+      <li><b>Buccal</b>: against the cheek and gums until it dissolves.</li>
+      <li><b>Sublingual</b>: under the tongue, no chewing, no swallowing. Same for lozenges.</li>
+      <li><b>Powder</b>: mix at the bedside, drink right away.</li>
+      <li>Stay until it's taken. "Open your mouth for me?"</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Oral med gone, by the right route, witnessed.</div>
+    <div class="why">Why: four route rules, four ticks. Say the rule for each form even if you only hand over one.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p4)">
+    <div class="ph"><span class="pn">5</span><h2>Old patch off</h2></div>
+    <div class="goal">Goal: yesterday's patch found, removed, folded shut, and gone.</div>
+    <div class="state start"><b>Start</b> Oral med done. Hands clean.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Hand hygiene. Clean gloves (so the nitro doesn't touch you).</li>
+      <li>"Where's your patch?" Check its date. Peel it off.</li>
+      <li>Fold it sticky sides together. Into the right bin.</li>
+      <li>Wipe the skin if needed; look at it. Gloves off.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Old patch disposed of, old site clean and inspected, gloves off.</div>
+    <div class="why">Why: folded sticky-to-sticky means no one, including a child or a pet, can touch the drug.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p4)">
+    <div class="ph"><span class="pn">6</span><h2>New patch on, four warnings</h2></div>
+    <div class="goal">Goal: a dated patch on a fresh site, pressed down, and the patient told the four rules.</div>
+    <div class="state start"><b>Start</b> New patch still in its pouch.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Date, time, initials on the patch before opening.</li>
+      <li>Clean gloves. Pick a site: clean, dry, intact, hairless, away from yesterday's. Not oily, burned, cut or irritated.</li>
+      <li>Out of the cover by the edge. On immediately. Press the edges with two fingers. Don't rub.</li>
+      <li>Four warnings: don't cut it; no heating pad; don't reuse a site within a week; no other nitro at the same time.</li>
+      <li>Gloves off. Hand hygiene.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> New patch on and dated, four rules taught, hands clean.</div>
+    <div class="why">Why: heat speeds absorption and cutting changes the dose. The four rules are all about keeping the dose what was ordered.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p7)">
+    <div class="ph"><span class="pn">7</span><h2>Nebulizer: build, load, run</h2></div>
+    <div class="goal">Goal: the whole dose breathed in, with you coaching the breath and watching the pulse.</div>
+    <div class="state start"><b>Start</b> Hands clean, nebulizer parts on the table.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Hand hygiene. Gloves. Assemble per the manufacturer: tubing to air source, tubing to cup, cup upright.</li>
+      <li>Medication into the cup. Diluent too if the order needs it. Top on tight. Mask connected. Patient upright.</li>
+      <li>Airflow on. See the mist. Mask on.</li>
+      <li>Coach: slow deep breath, a bit more than normal, brief hold at the top, relaxed breath out, repeat until the mist stops. If short of breath: normal breaths with an occasional deep one.</li>
+      <li>Tap the cup now and then, and near the end. Say: "I'm monitoring your pulse throughout."</li>
+      <li>Mist gone: regulator off.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Cup empty, regulator off, mask off.</div>
+    <div class="why">Why: the breathing pattern is graded in full, including the short-of-breath version. Say both.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p7)">
+    <div class="ph"><span class="pn">8</span><h2>Nebulizer: after</h2></div>
+    <div class="goal">Goal: the two after-rules said, and the equipment cleaned and stored dry.</div>
+    <div class="state start"><b>Start</b> Treatment finished, mask in your hand.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Say: "If this were a steroid, I'd have you rinse and gargle with warm water."</li>
+      <li>Say: "I'd reassess now, respiratory rate, breath sounds, SpO₂, pulse, and compare to my baseline."</li>
+      <li>Take it apart. Shake out the cup. Rinse each part in sterile water. Shake off. Air-dry. Clean bag when dry.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Both rules said, parts drying, bag ready.</div>
+    <div class="why">Why: steps 51 and 52 are graded only on being said. Nothing to do, just two sentences.</div>
+  </div>
+
+  <div class="phase" style="--pc:var(--p6)">
+    <div class="ph"><span class="pn">9</span><h2>Safe, signed, noted</h2></div>
+    <div class="goal">Goal: patient safe, each medication signed for, and a note that covers care, teaching, and tolerance.</div>
+    <div class="state start"><b>Start</b> Equipment drying, gloves on.</div>
+    <details open><summary>Steps</summary><ul>
+      <li>Supplies discarded. Gloves off. Hand hygiene.</li>
+      <li>Comfortable. Items in reach. Call light, show me. Rails up, bed down.</li>
+      <li>MAR: signed after each medication (oral, patch with site, nebulizer). Full signature and designation in the legend.</li>
+      <li>Note: old site, new site, precautions taught, pre and post numbers, tolerated.</li>
+    </ul></details>
+    <div class="state end"><b>End</b> Three signatures, one note, room safe. Done.</div>
+    <div class="why">Why: "immediately after each administration" means three separate signatures, not one at the end.</div>
+  </div>
+</section>
+
+<p class="gback"><button type="button" class="tolist" data-skill="im">Open the full IM checklist</button> <button type="button" class="tolist" data-skill="dress">Full dressing checklist</button> <button type="button" class="tolist" data-skill="neb">Full patch + neb checklist</button></p>
+</div>
+</article>
 </main>
 
 <script>window.EMBEDDED_KEY="=ggRjxHd34zDbwQGOoTKjYAfrREBBFSAxsyA7gxO7lnd3dhHbxVPHRVK0sifG0HYL5QLHpjM";/*key-slot*/</script>
@@ -1863,7 +2377,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     T.cards.forEach(function(c){ c.li.classList.remove('ok','mid','bad','now'); c.li.classList.add('pending'); var b = c.li.querySelector('.badge'); if(b) b.remove(); var v = c.li.querySelector('.verdict'); if(v) v.remove(); });
     article.classList.add('testing');
     article.classList.toggle('reveal', reveal.checked);
-    panel.hidden = false;
+    panel.hidden = false; document.body.classList.add('testing-open');
     document.getElementById('tRow').hidden = false;
     elSum.hidden = true; elSum.innerHTML = '';
     skipBtn.hidden = false; stopBtn.textContent = 'Stop';
@@ -1879,7 +2393,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     stopListening();
     hideWasted();
     if(T.article){ T.article.classList.remove('testing','reveal'); T.cards.forEach(function(c){ c.li.classList.remove('pending','now'); }); }
-    panel.hidden = true; fitBody();
+    panel.hidden = true; document.body.classList.remove('testing-open'); fitBody();
     T.article = null; T.cards = []; T.results = {}; T.idx = -1; T.dead = false;
   }
 
@@ -2147,6 +2661,39 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   var dots = document.getElementById('dots');
   var current = 'im';
   var busy = false;
+  var guide = document.getElementById('s-guide'), topbar = document.getElementById('topbar');
+  var tbGuide = document.getElementById('tbGuide'), tbFull = document.getElementById('tbFull');
+  var inGuide = false, gtab = 'im';
+  function showGuide(tab){
+    if(window.skillsTestClose) window.skillsTestClose();
+    inGuide = true; if(tab) gtab = tab;
+    order.forEach(function(k){ pages[k].hidden = true; });
+    guide.hidden = false;
+    document.querySelectorAll('.gskill').forEach(function(sec){ sec.hidden = (sec.id !== 'g-' + gtab); });
+    document.querySelectorAll('.gtabs button').forEach(function(b){ if(b.getAttribute('data-gtab') === gtab) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+    tbGuide.setAttribute('aria-current','page'); tbFull.removeAttribute('aria-current');
+    prevBtn.hidden = nextBtn.hidden = dots.hidden = true;
+    try{ localStorage.setItem('skills-check-view', 'guide'); localStorage.setItem('skills-check-gtab', gtab); }catch(e){}
+    window.scrollTo(0, 0);
+  }
+  function showFull(key){
+    inGuide = false;
+    guide.hidden = true;
+    prevBtn.hidden = nextBtn.hidden = dots.hidden = false;
+    tbFull.setAttribute('aria-current','page'); tbGuide.removeAttribute('aria-current');
+    try{ localStorage.setItem('skills-check-view', 'full'); }catch(e){}
+    jump(key || current);
+    window.scrollTo(0, 0);
+  }
+  tbGuide.addEventListener('click', function(){ showGuide(); });
+  tbFull.addEventListener('click', function(){ showFull(); });
+  document.querySelectorAll('.gtabs button').forEach(function(b){ b.addEventListener('click', function(){ showGuide(b.getAttribute('data-gtab')); }); });
+  document.querySelectorAll('.guidelink').forEach(function(b){ b.addEventListener('click', function(){ showGuide(b.getAttribute('data-guide')); }); });
+  document.querySelectorAll('.gback .tolist').forEach(function(b){ b.addEventListener('click', function(){ showFull(b.getAttribute('data-skill')); }); });
+  var gHide = document.getElementById('gHide');
+  function applyHide(){ guide.querySelectorAll('.phase details').forEach(function(d){ d.open = !gHide.checked; }); try{ localStorage.setItem('skills-check-ghide', gHide.checked ? '1' : '0'); }catch(e){} }
+  gHide.addEventListener('change', applyHide);
+  try{ if(localStorage.getItem('skills-check-ghide') === '1'){ gHide.checked = true; applyHide(); } }catch(e){}
 
   function paint(){
     var i = order.indexOf(current);
@@ -2203,6 +2750,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   }
 
   function step(d){
+    if(inGuide) return;
     var i = order.indexOf(current) + d;
     if(i < 0 || i >= order.length) return;
     slide(order[i]);
@@ -2230,9 +2778,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   function fromHash(){
     var h = (location.hash || '').replace('#','');
     if(!h) return false;
+    if(h === 'guide' || h.indexOf('guide-') === 0){ showGuide(h.indexOf('guide-') === 0 ? h.slice(6) : null); return true; }
     for(var k in prefix){
       if(h === k || h.indexOf(prefix[k]) === 0){
-        if(k !== current) jump(k);
+        if(inGuide) showFull(k); else if(k !== current) jump(k);
         var el = document.getElementById(h);
         if(el){ el.scrollIntoView(); }
         return true;
@@ -2242,9 +2791,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   }
 
   if(!fromHash()){
-    var saved = null;
-    try{ saved = localStorage.getItem('skills-check-page'); }catch(e){}
+    var saved = null, view = null, sg = null;
+    try{ saved = localStorage.getItem('skills-check-page'); view = localStorage.getItem('skills-check-view'); sg = localStorage.getItem('skills-check-gtab'); }catch(e){}
     jump(saved && pages[saved] ? saved : 'im');
+    if(view === 'guide') showGuide(sg && pages[sg] ? sg : 'im');
   } else { paint(); }
   window.addEventListener('hashchange', fromHash);
 })();
