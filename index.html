@@ -253,6 +253,12 @@ td b{white-space:nowrap}
 .station h2{margin:0;font-size:1.3rem;line-height:1.15;color:var(--pc)}
 .station p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
 .station > div{min-width:0}
+.aim{margin:10px 0 0 64px;display:grid;gap:4px;font-size:.9rem;line-height:1.4}
+.aim span{display:grid;grid-template-columns:7.6em 1fr;gap:8px;align-items:baseline;min-width:0}
+.aim b{font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.aim span:first-child{font-weight:700;font-size:.98rem}
+.aim span:first-child b{color:var(--pc)}
+@media (max-width:520px){.aim{margin-left:0}.aim span{grid-template-columns:1fr}}
 .rubric{margin:12px 0 0 64px;background:var(--quote);border-left:3px solid var(--pc);border-radius:0 8px 8px 0;padding:8px 12px;font-size:.88rem;color:var(--muted);line-height:1.45}
 .rubric b{color:var(--ink);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;display:block;margin-bottom:2px}
 .rubric i{font-style:normal;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
@@ -363,17 +369,17 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div><span class="k row">#23</span><span><b>Step tag.</b> The checklist step number the evaluator marks Not done / Done incorrectly / Done correctly.</span></div>
   </div>
   <nav class="overview" aria-label="Phases">
-    <a class="c1" href="#im1"><b>1</b>Order &amp; supplies</a>
-    <a class="c3" href="#im2"><b>2</b>Vial &amp; math</a>
+    <a class="c1" href="#im1"><b>1</b>Prepare cart</a>
+    <a class="c3" href="#im2"><b>2</b>Vial &amp; dose</a>
     <a class="c3" href="#im3"><b>3</b>Reconstitute</a>
     <a class="c3" href="#im4"><b>4</b>Draw up</a>
-    <a class="c4" href="#im5"><b>5</b>Checks &amp; CNO</a>
-    <a class="c5" href="#im6"><b>6</b>Bedside ID</a>
-    <a class="c5" href="#im7"><b>7</b>Site</a>
-    <a class="c5" href="#im8"><b>8</b>Landmark VG</a>
-    <a class="c5" href="#im9"><b>9</b>Ready</a>
-    <a class="c5" href="#im10"><b>10</b>Z-track</a>
-    <a class="c6" href="#im11"><b>11</b>Sharps &amp; MAR</a>
+    <a class="c4" href="#im5"><b>5</b>Check, label, go</a>
+    <a class="c5" href="#im6"><b>6</b>Confirm &amp; consent</a>
+    <a class="c5" href="#im7"><b>7</b>Choose site</a>
+    <a class="c5" href="#im8"><b>8</b>Landmark</a>
+    <a class="c5" href="#im9"><b>9</b>Prep skin</a>
+    <a class="c5" href="#im10"><b>10</b>Inject</a>
+    <a class="c6" href="#im11"><b>11</b>Dispose &amp; sign</a>
     <a class="c6" href="#im12"><b>12</b>Leave safe</a>
   </nav>
 </header>
@@ -397,7 +403,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 1 -->
 <section class="row" id="im1" style="--pc:var(--p1)">
-  <div class="station"><div class="dot">P1</div><div><h2>Order verified, hands clean, supplies out</h2><p>At the cart · steps 1–2</p></div></div>
+  <div class="station"><div class="dot">P1</div><div><h2>Prepare the cart</h2><p>At the cart · steps 1–2</p></div></div>
+  <div class="aim"><span><b>Goal</b>Know exactly what you are giving, with clean hands and everything laid out.</span><span><b>You arrive with</b>the order and the MAR at the cart.</span><span><b>You leave with</b>a verified order, clean hands, every supply on the cart top.</span></div>
   <div class="rubric"><b>Checklist says</b><i>1</i> Verified the health care provider's orders. <i>2</i> Performed hand hygiene and prepared supplies.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>1.1</span></div><div class="card">
@@ -421,7 +428,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 2 -->
 <section class="row" id="im2" style="--pc:var(--p3)">
-  <div class="station"><div class="dot">P2</div><div><h2>Select the vial, read it, do the math</h2><p>At the cart · steps 3–5</p></div></div>
+  <div class="station"><div class="dot">P2</div><div><h2>Confirm the vial and the dose</h2><p>At the cart · steps 3–5</p></div></div>
+  <div class="aim"><span><b>Goal</b>The right vial, in date, and a written volume to draw.</span><span><b>You arrive with</b>supplies out, vial still in the drawer.</span><span><b>You leave with</b>the vial in hand, expiry read, the math on paper, the high-alert rule said.</span></div>
   <div class="rubric"><b>Checklist says</b><i>3</i> Selected vial of the prescribed drug from the medication cart or automated dispensing system. Compared the name of the drug on the label of the vial with the name in the MAR. <i>4</i> Checked the expiration date and drug concentration or dose on the vial. Calculated the correct volume to withdraw. <i>5</i> Articulates that the RN needs to check agency policy to note which high-alert medications require validation by a second RN and an independent double-checked calculation.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>2.1</span></div><div class="card">
@@ -444,7 +452,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 3 -->
 <section class="row" id="im3" style="--pc:var(--p3)">
-  <div class="station"><div class="dot">P3</div><div><h2>Reconstitute the powder</h2><p>At the cart · steps 6–10</p></div></div>
+  <div class="station"><div class="dot">P3</div><div><h2>Reconstitute the medication</h2><p>At the cart · steps 6–10</p></div></div>
+  <div class="aim"><span><b>Goal</b>Turn the powder into a clear solution you can draw from.</span><span><b>You arrive with</b>two capped vials: powder and diluent.</span><span><b>You leave with</b>one clear, mixed vial.</span></div>
   <div class="rubric"><b>Checklist says</b><i>6</i> Removed the cap on the vial of powdered medication and the cap on a vial of the proper diluent. Made sure to check the manufacturer's guideline for the correct diluent and volume of diluent to use, and if use of a filter needle was recommended. <i>7</i> Wiped both rubber seals with an alcohol swab, and allowed the alcohol to dry. <i>8</i> Used a needle or needleless device to draw the appropriate type and volume of diluent suggested by the manufacturer into the syringe. <i>9</i> Inserted the tip of the needle or the needleless device through the center of the rubber seal of the vial of powdered medication. Injected the measured diluent into the vial containing the powder. <i>10</i> Rolled the vial between the palms of hands to mix the powder and diluents thoroughly. Did not shake the vial.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>3.1</span></div><div class="card">
@@ -477,7 +486,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 4 -->
 <section class="row" id="im4" style="--pc:var(--p3)">
-  <div class="station"><div class="dot">P4</div><div><h2>Read the new concentration, draw the dose</h2><p>At the cart · steps 11–12</p></div></div>
+  <div class="station"><div class="dot">P4</div><div><h2>Draw up the dose</h2><p>At the cart · steps 11–12</p></div></div>
+  <div class="aim"><span><b>Goal</b>The exact volume in the syringe, from the concentration on the reconstituted label.</span><span><b>You arrive with</b>a mixed vial and a new syringe.</span><span><b>You leave with</b>a capped syringe holding the dose, the math written a second time.</span></div>
   <div class="rubric"><b>Checklist says</b><i>11</i> Read the label carefully to determine the concentration of the drug. <i>12</i> Wiped off the top with an alcohol swab and allowed it to dry. Drew up the appropriate volume of medication based on its concentration in the reconstituted formulation into a syringe.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>4.1</span></div><div class="card">
@@ -495,7 +505,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 5 -->
 <section class="row" id="im5" style="--pc:var(--p4)">
-  <div class="station"><div class="dot">P5</div><div><h2>Label checks, equipment, CNO standard, privacy</h2><p>At the cart, then walking in · steps 13–15</p></div></div>
+  <div class="station"><div class="dot">P5</div><div><h2>Check, label, and go to the room</h2><p>At the cart, then walking in · steps 13–15</p></div></div>
+  <div class="aim"><span><b>Goal</b>Leave the cart with a syringe you trust, and arrive with privacy provided.</span><span><b>You arrive with</b>a filled, capped syringe.</span><span><b>You leave with</b>two label checks done, a labelled syringe on a tray, cart locked, curtain closed.</span></div>
   <div class="rubric"><b>Checklist says</b><i>13</i> Checked the medication label twice against the order in the medication administration record. Made sure to check the medication expiration date when retrieving the medication. <i>14</i> Gathered the necessary equipment and supplies. Followed CNO medication standard. <i>15</i> Provided for the patient's privacy.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>5.1</span></div><div class="card">
@@ -520,7 +531,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 6 -->
 <section class="row" id="im6" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P6</div><div><h2>Hands, introduce, two identifiers, allergies, MAR again, explain</h2><p>Bedside · steps 16–20</p></div></div>
+  <div class="station"><div class="dot">P6</div><div><h2>Confirm the patient and get consent</h2><p>Bedside · steps 16–20</p></div></div>
+  <div class="aim"><span><b>Goal</b>The right person, who knows what is coming and has agreed.</span><span><b>You arrive with</b>at the bedside with the tray.</span><span><b>You leave with</b>identity three ways, allergies confirmed, third check done, consent given, sting warned.</span></div>
   <div class="rubric"><b>Checklist says</b><i>16</i> Performed hand hygiene. <i>17</i> Introduced self to patient and family. <i>18</i> Identified the patient using two identifiers according to agency policy. Compared this information to the MAR or medical record. Asked the patient if he or she had any allergies. <i>19</i> Accessed the MAR again. At the patient's bedside, again compared the MAR or computer printout with the names of the medications on the medication labels and with the patient's name. <i>20</i> Explained the procedure to the patient and ensured that he or she agreed to treatment. Discussed the purpose of each medication with the patient, including its action and possible adverse effects. Allowed the patient to ask questions. Told the patient that the injection may cause a slight stinging or burning sensation.</div>
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
@@ -551,7 +563,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 7 -->
 <section class="row" id="im7" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P7</div><div><h2>Choose the site, inspect it, position the patient</h2><p>Bedside · steps 21–23</p></div></div>
+  <div class="station"><div class="dot">P7</div><div><h2>Choose and inspect the site</h2><p>Bedside · steps 21–23</p></div></div>
+  <div class="aim"><span><b>Goal</b>A ventrogluteal site you have looked at and felt, on a patient lying the right way.</span><span><b>You arrive with</b>patient sitting, covered.</span><span><b>You leave with</b>side-lying, top knee bent, hip exposed, site named and checked.</span></div>
   <div class="rubric"><b>Checklist says</b><i>21</i> Selected an appropriate injection site. Noted the integrity and size of the patient's muscle. Palpated for tenderness or hardness, and avoided such areas. If the patient received frequent injections, rotated the site selection. <i>22</i> Inspected the area for bruising, inflammation, or edema. If the skin was bruised or showed signs of infection, used a different site. <i>23</i> Helped the patient into a comfortable position, according to the site being used. Exposed only that portion of the body.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>7.1</span></div><div class="card">
@@ -574,7 +587,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 8 -->
 <section class="row" id="im8" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P8</div><div><h2>Gloves on, landmark the ventrogluteal</h2><p>Bedside · steps 24–30</p></div></div>
+  <div class="station"><div class="dot">P8</div><div><h2>Landmark the ventrogluteal</h2><p>Bedside · steps 24–30</p></div></div>
+  <div class="aim"><span><b>Goal</b>Find the exact spot with your hand and mark it.</span><span><b>You arrive with</b>patient positioned, your hands bare.</span><span><b>You leave with</b>clean gloves on, an alcohol wipe marking the centre of the V.</span></div>
   <div class="rubric"><b>Checklist says</b><i>24</i> Applied clean gloves. Used anatomical landmarks to find the site again. <i>25</i> Placed the heel of the hand over the greater trochanter of the patient's hip with the wrist almost perpendicular to the femur. <i>26</i> Pointed the thumb toward the patient's groin. <i>27</i> Pointed the index finger to the anterior superior iliac spine. <i>28</i> Extended the middle finger back along the iliac crest toward the buttocks. <i>29</i> Located the injection site in the center of the triangle. <i>30</i> Marked the site with an alcohol wipe.</div>
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
@@ -620,7 +634,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 9 -->
 <section class="row" id="im9" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P9</div><div><h2>Cleanse, gauze, uncap, hold, relax</h2><p>Bedside · steps 31–35</p></div></div>
+  <div class="station"><div class="dot">P9</div><div><h2>Prepare the skin and the needle</h2><p>Bedside · steps 31–35</p></div></div>
+  <div class="aim"><span><b>Goal</b>A clean, dry site and a needle ready in your hand.</span><span><b>You arrive with</b>site marked.</span><span><b>You leave with</b>site cleansed and air-dried, gauze between your fingers, cap off, dart grip, patient relaxed.</span></div>
   <div class="rubric"><b>Checklist says</b><i>31</i> Cleansed the site with an antiseptic swab or wipe. <i>32</i> Held a gauze pad between the third and fourth fingers of nondominant hand. <i>33</i> Removed the needle cap or protective sheath. <i>34</i> Held the syringe between the thumb and forefinger of dominant hand. <i>35</i> Reminded patient to try and relax.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>9.1</span></div><div class="card">
@@ -650,7 +665,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 10 -->
 <section class="row" id="im10" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P10</div><div><h2>Z-track injection</h2><p>Bedside · eight elements in this order · steps 36–43</p></div></div>
+  <div class="station"><div class="dot">P10</div><div><h2>Give the Z-track injection</h2><p>Bedside · eight elements in this order · steps 36–43</p></div></div>
+  <div class="aim"><span><b>Goal</b>The drug in the muscle and sealed there, the needle made safe.</span><span><b>You arrive with</b>needle uncapped over a dry site.</span><span><b>You leave with</b>needle sheathed, skin released after it, gauze held on the site.</span></div>
   <div class="rubric"><b>Checklist says</b><i>36</i> Positioned the ulnar side of nondominant hand just below the injection site, and pulled the patient's skin laterally 2.5 to 3.5 cm. Held this position until needle was inserted. <i>37</i> Grasped the body of the muscle between thumb and forefinger. <i>38</i> With dominant hand, quickly pierced the muscle at a 90-degree angle. <i>39</i> After the needle had pierced the muscle, continued to pull the skin taut with nondominant hand. Stabilized the syringe by grasping the lower end of the barrel with the fingers of nondominant hand as they were resting on the patient. <i>40</i> Articulates that aspiration is required for dorsogluteal site only and if blood appeared in the syringe repeat procedure with a new syringe and needle. <i>41</i> Injected the medication. <i>42</i> Waited 10 seconds, and then smoothly and steadily withdrew the needle. Engaged the needle safety sheath. Released the skin and applied a gauze pad over the site. <i>43</i> Applied gentle pressure. Did not massage the site. Applied a bandage to the injection site if needed.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>10.1</span></div><div class="card">
@@ -698,7 +714,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 11 -->
 <section class="row" id="im11" style="--pc:var(--p6)">
-  <div class="station"><div class="dot">P11</div><div><h2>Sharps, gloves off, document, watch for reaction</h2><p>Bedside · steps 44–47</p></div></div>
+  <div class="station"><div class="dot">P11</div><div><h2>Dispose, document, observe</h2><p>Bedside · steps 44–47</p></div></div>
+  <div class="aim"><span><b>Goal</b>Sharps gone, MAR signed immediately, eyes on the patient.</span><span><b>You arrive with</b>gauze on the site, syringe in hand.</span><span><b>You leave with</b>sharps in the bin, gloves off, hands clean, MAR signed, several minutes watched.</span></div>
   <div class="rubric"><b>Checklist says</b><i>44</i> Discarded the needle and its attached syringe in a puncture-proof, leak-proof container. <i>45</i> Helped the patient into a comfortable position. Disposed of used gauze. Removed gloves and performed hand hygiene. <i>46</i> Documented the injection immediately in the MAR. Included the medication name, the dosage given, and the site in which it was injected. <i>47</i> Stayed with the patient for several minutes, observing for any allergic reaction.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>11.1</span></div><div class="card">
@@ -726,7 +743,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 12 -->
 <section class="row" id="im12" style="--pc:var(--p6)">
-  <div class="station"><div class="dot">P12</div><div><h2>Leave the patient safe; come back</h2><p>Bedside · steps 48–52</p></div></div>
+  <div class="station"><div class="dot">P12</div><div><h2>Leave the patient safe</h2><p>Bedside · steps 48–52</p></div></div>
+  <div class="aim"><span><b>Goal</b>Everything in reach, the bed safe, your return promised.</span><span><b>You arrive with</b>patient settled.</span><span><b>You leave with</b>items and call light in reach, rails up, bed low, room tidy, back in 15 to 30 minutes.</span></div>
   <div class="rubric"><b>Checklist says</b><i>48</i> Placed toiletries and personal items within reach. <i>49</i> Placed the call light within easy reach and made sure the patient knew how to use it to summon assistance. <i>50</i> Raised the appropriate number of side rails and lowered the bed to the lowest position. <i>51</i> Left the patient's room tidy. <i>52</i> Returned to the patient's room in 15 to 30 minutes to see if he or she had had any acute reaction at the injection site.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>12.1</span></div><div class="card">
@@ -826,18 +844,18 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div><span class="k row">#36</span><span><b>Step tag.</b> The checklist step number the evaluator marks Not done / Done incorrectly / Done correctly.</span></div>
   </div>
   <nav class="overview" aria-label="Phases">
-    <a class="c1" href="#dr1"><b>1</b>Order &amp; pain</a>
-    <a class="c3" href="#dr2"><b>2</b>Prep med</a>
-    <a class="c3" href="#dr3"><b>3</b>Give med</a>
+    <a class="c1" href="#dr1"><b>1</b>Orders &amp; meet</a>
+    <a class="c3" href="#dr2"><b>2</b>Prepare pill</a>
+    <a class="c3" href="#dr3"><b>3</b>Give pill</a>
     <a class="c4" href="#dr4"><b>4</b>Set up</a>
-    <a class="c4" href="#dr5"><b>5</b>Old dressing</a>
+    <a class="c4" href="#dr5"><b>5</b>Old dressing off</a>
     <a class="c4" href="#dr6"><b>6</b>Assess wound</a>
-    <a class="c5" href="#dr7"><b>7</b>Sterile field</a>
+    <a class="c5" href="#dr7"><b>7</b>Open field</a>
     <a class="c5" href="#dr8"><b>8</b>Pour</a>
-    <a class="c5" href="#dr9"><b>9</b>Drape &amp; gloves</a>
+    <a class="c5" href="#dr9"><b>9</b>Drape &amp; glove</a>
     <a class="c5" href="#dr10"><b>10</b>Cleanse</a>
-    <a class="c5" href="#dr11"><b>11</b>Dress</a>
-    <a class="c6" href="#dr12"><b>12</b>Leave safe</a>
+    <a class="c5" href="#dr11"><b>11</b>New dressing</a>
+    <a class="c6" href="#dr12"><b>12</b>Clean up &amp; sign</a>
   </nav>
 </header>
 
@@ -861,7 +879,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 1 -->
 <section class="row" id="dr1" style="--pc:var(--p1)">
-  <div class="station"><div class="dot">P1</div><div><h2>Both orders, approach, ID, pain</h2><p>Before preparing · steps 1–4</p></div></div>
+  <div class="station"><div class="dot">P1</div><div><h2>Verify both orders and meet the patient</h2><p>Before preparing · steps 1–4</p></div></div>
+  <div class="aim"><span><b>Goal</b>Two orders checked, the right person, and a pain score to compare to later.</span><span><b>You arrive with</b>orders and MAR at the cart.</span><span><b>You leave with</b>both orders verified, patient identified, pain scored, plan agreed.</span></div>
   <div class="rubric"><b>Checklist says</b><i>1</i> Verified the health care provider's orders (dressing change and medication administration). <i>2</i> Provided for patient privacy, performed hand hygiene, and introduced self to the patient. <i>3</i> Identified the patient using two identifiers. Compared these identifiers with the information in the patient's MAR or medical record. <i>4</i> Assessed pain status while explaining the procedure to the patient and ensured that he or she agreed to treatment.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>1.1</span></div><div class="card">
@@ -889,6 +908,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 <!-- PHASE 2 -->
 <section class="row" id="dr2" style="--pc:var(--p3)">
   <div class="station"><div class="dot">P2</div><div><h2>Prepare the oral medication</h2><p>At the cart · steps 5–9</p></div></div>
+  <div class="aim"><span><b>Goal</b>One in-date medication in the right cup, checked twice.</span><span><b>You arrive with</b>back at the cart.</span><span><b>You leave with</b>pill in a cup with its package, two label checks, standard named, cart locked.</span></div>
   <div class="rubric"><b>Checklist says</b><i>5</i> Selected the correct drug. Confirmed the name, dose, route and time of the medication by comparing the label with the MAR twice. <i>6</i> Checked the expiration date of all medications. Any partial dose medications require an independent double-check. <i>7</i> Used a single medication cup for tablets and capsules. Plastic medication cup for elixirs. <i>8</i> Before going to the patient's room, verified the patient's name on the MAR with the labels on the prepared drugs. <i>9</i> Followed the CNO Medication Standard.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>2.1</span></div><div class="card">
@@ -919,6 +939,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 <!-- PHASE 3 -->
 <section class="row" id="dr3" style="--pc:var(--p3)">
   <div class="station"><div class="dot">P3</div><div><h2>Give the oral medication</h2><p>Bedside · steps 10–17</p></div></div>
+  <div class="aim"><span><b>Goal</b>The pill swallowed, signed for, and the patient told you will wait for it to work.</span><span><b>You arrive with</b>at the door with cup and MAR.</span><span><b>You leave with</b>medication taken and documented, patient safe, you out of the room.</span></div>
   <div class="rubric"><b>Checklist says</b><i>10</i> Performed hand hygiene, provided for patient privacy, introduced self to patient, and put on gloves. <i>11</i> Identified the patient using two identifiers. Compared these identifiers with the information in the patient's MAR or medical record. Compared the label of the medication with the information in the medication administration record (MAR). <i>12</i> Discussed the purpose of the medication, its action, and possible adverse effects. Allowed the patient to ask questions. <i>13</i> Administered tablets or capsules with the patient in a sitting or side lying position. Offered water or the patient's preferred liquid to help swallow the medications, as long as it is compatible with the medication. <i>14</i> Stayed until the patient completely swallowed each medication or took it by the prescribed route. Asked the patient to open his or her mouth if not certain whether he or she swallowed the medication. <i>15</i> Documented the medication administration immediately after administration. <i>16</i> Inform the patient that you would wait for the medication to take effect before beginning the procedure. <i>17</i> Ensured patient safety and comfort prior to leaving the room. Left room tidy, remove gloves and perform hand hygiene.</div>
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
@@ -962,7 +983,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 4 -->
 <section class="row" id="dr4" style="--pc:var(--p4)">
-  <div class="station"><div class="dot">P4</div><div><h2>Dressing change: gather, return, reassess, set up</h2><p>Back at the bedside · steps 18–26</p></div></div>
+  <div class="station"><div class="dot">P4</div><div><h2>Set up for the dressing change</h2><p>Back at the bedside · steps 18–26</p></div></div>
+  <div class="aim"><span><b>Goal</b>Everything in reach, the patient draped and warned, the bag cuffed, clean gloves on.</span><span><b>You arrive with</b>returning with the supplies.</span><span><b>You leave with</b>wound exposed, pain rechecked, cuffed bag beside you, clean gloves on.</span></div>
   <div class="rubric"><b>Checklist says</b><i>18</i> Gathered the necessary equipment and supplies. <i>19</i> Provided for the patient's privacy and performed hand hygiene. Introduced self to patient and family. <i>20</i> Identified the patient using two identifiers, and compared identifiers with the information on the patient's identification bracelet. <i>21</i> Reassessed pain status while explaining the procedure to the patient and confirming that he or she agreed to treatment. <i>22</i> Applied a gown, goggles, and mask if there was a risk of spray. <i>23</i> Positioned the patient comfortably according to the location of wound, and draped him or her to expose only the wound site. <i>24</i> Instructed the patient not to touch the wound or the sterile supplies. <i>25</i> Placed a disposable biohazard bag within reach of work area. Folded the top of the bag to make a cuff. <i>26</i> Applied clean disposable gloves.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>4.1</span></div><div class="card">
@@ -1009,6 +1031,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 <!-- PHASE 5 -->
 <section class="row" id="dr5" style="--pc:var(--p4)">
   <div class="station"><div class="dot">P5</div><div><h2>Remove the old dressing</h2><p>Bedside · steps 27–31</p></div></div>
+  <div class="aim"><span><b>Goal</b>The wound uncovered without hurting the skin; the old dressing contained and gone.</span><span><b>You arrive with</b>clean gloves on.</span><span><b>You leave with</b>wound open to air, dressing and gloves in the bag, hands clean.</span></div>
   <div class="rubric"><b>Checklist says</b><i>27</i> Pulled the tape parallel to the skin, toward the dressing, while holding down the uninjured skin. Pulled in the direction of any hair growth. If necessary, secured the patient's permission to clip or shave the area according to agency's policy. Removed any adhesive from the skin. <i>28</i> With a clean, gloved hand or forceps, removed the old dressing one layer at a time. Observed the appearance of any drainage and comment on amount and colour. Discarded the outside dressing first. Worked slowly and carefully. Kept the soiled underside of the dressings out of the patient's sight. <i>29</i> Folded the dressing so that the drainage was contained inside it, and removed gloves inside out. If the dressing was small, pulled one glove inside out over the dressing. <i>30</i> Disposed of the gloves and soiled dressing according to agency's policy. <i>31</i> Performed hand hygiene.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>5.1</span></div><div class="card">
@@ -1040,6 +1063,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 <!-- PHASE 6 -->
 <section class="row" id="dr6" style="--pc:var(--p4)">
   <div class="station"><div class="dot">P6</div><div><h2>Assess and measure the wound</h2><p>Bedside · steps 32–35</p></div></div>
+  <div class="aim"><span><b>Goal</b>A full description in seven words and three numbers.</span><span><b>You arrive with</b>wound exposed, hands clean.</span><span><b>You leave with</b>wound described, measured, palpated, hands clean again.</span></div>
   <div class="rubric"><b>Checklist says</b><i>32</i> Inspected and described the color, integrity, exudate, edema, approximation, odour and looked for infection. <i>33</i> If the wound is an incisional wound, noted if the margins were approximated or closed together. <i>34</i> Measured the length, width, and depth of the wound. <i>35</i> Applied clean gloves. Lightly palpated along the incision to feel for a healing ridge. Disposed of gloves and performed hand hygiene.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>6.1</span></div><div class="card">
@@ -1074,6 +1098,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 <!-- PHASE 7 -->
 <section class="row" id="dr7" style="--pc:var(--p5)">
   <div class="station"><div class="dot">P7</div><div><h2>Open the sterile field</h2><p>Over-bed table · steps 36–37</p></div></div>
+  <div class="aim"><span><b>Goal</b>A field you have not contaminated, with the forceps and garbage bag placed.</span><span><b>You arrive with</b>wrapped tray on the table.</span><span><b>You leave with</b>field open, forceps tips on it, bag beside you.</span></div>
   <div class="rubric"><b>Checklist says</b><i>36</i> Opened the inner sterile wrap using sterile technique. Using sterile technique, opened the top flap outward to the far side of the kit. Then opened the side flaps without bringing the arms back over the sterile packaging. Opened the last flap toward yourself. Noted that the tray was sitting open on its own sterile field. Avoided reaching across the sterile field. Did not turn away from the sterile field. Did not leave the room once the sterile field was set up. <i>37</i> Pick up white garbage bag with blue sterile forceps and put it in non-sterile hand. Put blue forceps down with tip on the sterile field and hand off the sterile field. Open and set up garbage bag close to working area.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>7.1</span></div><div class="card">
@@ -1092,6 +1117,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 <!-- PHASE 8 -->
 <section class="row" id="dr8" style="--pc:var(--p5)">
   <div class="station"><div class="dot">P8</div><div><h2>Pour the sterile solution</h2><p>Over-bed table · steps 38–41</p></div></div>
+  <div class="aim"><span><b>Goal</b>Saline in the basin with nothing wet or touched outside the inch.</span><span><b>You arrive with</b>open field, closed bottle.</span><span><b>You leave with</b>wet basin inside the border, bottle recapped.</span></div>
   <div class="rubric"><b>Checklist says</b><i>38</i> Verified the contents and expiration date of the solution. <i>39</i> Placed the empty sterile basin or container in the package on the edge of the sterile table. Kept the receptacle away from the 1-inch border of the sterile field. For a sterile solution that has never been opened, used an upward motion to remove the sterile seal and cap from the bottle and placed the cap with the inside facing upwards. For a sterile solution that was previously opened, poured a small amount of solution out prior to adding it to the sterile tray. <i>40</i> Held the solution bottle away from the sterile field, with the label facing the palm and the lip of the bottle 2.5 to 5 cm above the inside of the sterile receptacle. <i>41</i> Slowly poured the necessary amount of solution into the container. Did not permit fluid to splash onto the sterile field.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>8.1</span></div><div class="card">
@@ -1116,7 +1142,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 9 -->
 <section class="row" id="dr9" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P9</div><div><h2>Drape, drop supplies, sterile gloves</h2><p>Over-bed table · steps 42–43</p></div></div>
+  <div class="station"><div class="dot">P9</div><div><h2>Extend the field and glove up</h2><p>Over-bed table · steps 42–43</p></div></div>
+  <div class="aim"><span><b>Goal</b>Drape placed, extra supplies dropped in, sterile gloves on.</span><span><b>You arrive with</b>poured field.</span><span><b>You leave with</b>drape by the wound, gauze and ABD on the field, sterile gloves on, hands above the waist.</span></div>
   <div class="rubric"><b>Checklist says</b><i>42</i> Apply sterile drape from inside the kit to extend the sterile field either under or proximal to the wound care location. Open and drop any additional/needed sterile supplies onto the sterile field. Did not contaminate sterile field with outer packaging. <i>43</i> Applied sterile gloves.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>9.1</span></div><div class="card">
@@ -1135,6 +1162,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 <!-- PHASE 10 -->
 <section class="row" id="dr10" style="--pc:var(--p5)">
   <div class="station"><div class="dot">P10</div><div><h2>Cleanse the wound</h2><p>Bedside · sterile gloves on · steps 44–46</p></div></div>
+  <div class="aim"><span><b>Goal</b>Clean from the cleanest part to the dirtiest, then dry.</span><span><b>You arrive with</b>sterile gloves on.</span><span><b>You leave with</b>wound cleaned and blotted dry.</span></div>
   <div class="rubric"><b>Checklist says</b><i>44</i> Cleansed the wound. Used an antiseptic swab/normal saline solution with gauze to clean the wound. For each cleansing stroke, a separate swab/gauze is used and the gauze was wrung out. <i>45</i> Cleansed from the least contaminated area to the most contaminated. <i>46</i> Used dry gauze to blot the wound dry.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>10.1</span></div><div class="card">
@@ -1156,7 +1184,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 11 -->
 <section class="row" id="dr11" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P11</div><div><h2>Apply and secure the dry dressing</h2><p>Bedside · steps 47–52</p></div></div>
+  <div class="station"><div class="dot">P11</div><div><h2>Apply and secure the new dressing</h2><p>Bedside · steps 47–52</p></div></div>
+  <div class="aim"><span><b>Goal</b>A layered dressing, taped and labelled.</span><span><b>You arrive with</b>clean dry wound.</span><span><b>You leave with</b>gauze, ABD, tape across the wound, dated label, clean gloves on.</span></div>
   <div class="rubric"><b>Checklist says</b><i>47</i> Applied loosely woven gauze as the contact layer. Maintaining sterile technique. <i>48</i> Applied additional layers of gauze as needed. <i>49</i> Applied a thicker woven pad/Abdominal pad. <i>50</i> Remove sterile gloves. Perform hand hygiene and apply clean gloves. <i>51</i> Secured the dressing with rolled gauze for circumferential dressings; with tape, adhesive ties, or straps applied perpendicular to the wound; or with a binder. Used a protective skin barrier, if needed. <i>52</i> Labeled the dressing per the organization's practice.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>11.1</span></div><div class="card">
@@ -1190,7 +1219,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 12 -->
 <section class="row" id="dr12" style="--pc:var(--p6)">
-  <div class="station"><div class="dot">P12</div><div><h2>Clean up, leave safe, document and report</h2><p>Bedside · steps 53–59</p></div></div>
+  <div class="station"><div class="dot">P12</div><div><h2>Clean up, leave safe, document</h2><p>Bedside · steps 53–59</p></div></div>
+  <div class="aim"><span><b>Goal</b>Supplies gone, the patient safe, everything written down and passed on.</span><span><b>You arrive with</b>dressing on.</span><span><b>You leave with</b>room tidy, patient safe, note written, RN told.</span></div>
   <div class="rubric"><b>Checklist says</b><i>53</i> Removed any personal protective equipment used. Applied clean gloves to dispose of soiled supplies. <i>54</i> Disposed of used supplies and equipment. <i>55</i> Helped the patient into a comfortable position, and placed toiletries and personal items within reach. <i>56</i> Placed the call light within easy reach, and made sure the patient knew how to use it to summon assistance. <i>57</i> Raised the appropriate number of side rails and lowered the bed to the lowest position. <i>58</i> Removed and disposed of gloves, if used. Performed hand hygiene. <i>59</i> Documented and reported the patient's response and expected or unexpected outcomes.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>12.1</span></div><div class="card">
@@ -1291,15 +1321,15 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div><span class="k row">#38</span><span><b>Step tag.</b> The checklist step number the evaluator marks Not done / Done incorrectly / Done correctly.</span></div>
   </div>
   <nav class="overview" aria-label="Phases">
-    <a class="c1" href="#nb1"><b>1</b>Order &amp; ID</a>
-    <a class="c3" href="#nb2"><b>2</b>Prep PO</a>
-    <a class="c5" href="#nb3"><b>3</b>Bedside checks</a>
-    <a class="c5" href="#nb4"><b>4</b>Give PO</a>
-    <a class="c4" href="#nb5"><b>5</b>Old patch</a>
-    <a class="c4" href="#nb6"><b>6</b>New patch</a>
-    <a class="c7" href="#nb7"><b>7</b>Neb set-up</a>
-    <a class="c7" href="#nb8"><b>8</b>Neb treatment</a>
-    <a class="c7" href="#nb9"><b>9</b>Neb after</a>
+    <a class="c1" href="#nb1"><b>1</b>Orders &amp; meet</a>
+    <a class="c3" href="#nb2"><b>2</b>Prepare forms</a>
+    <a class="c5" href="#nb3"><b>3</b>Confirm &amp; assess</a>
+    <a class="c5" href="#nb4"><b>4</b>Give by route</a>
+    <a class="c4" href="#nb5"><b>5</b>Old patch off</a>
+    <a class="c4" href="#nb6"><b>6</b>New patch on</a>
+    <a class="c7" href="#nb7"><b>7</b>Set up neb</a>
+    <a class="c7" href="#nb8"><b>8</b>Run treatment</a>
+    <a class="c7" href="#nb9"><b>9</b>Finish neb</a>
     <a class="c6" href="#nb10"><b>10</b>Leave &amp; sign</a>
   </nav>
 </header>
@@ -1325,7 +1355,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 1 -->
 <section class="row" id="nb1" style="--pc:var(--p1)">
-  <div class="station"><div class="dot">P1</div><div><h2>Order, privacy, hands, introduce, ID, explain</h2><p>Before preparing · steps 1–5</p></div></div>
+  <div class="station"><div class="dot">P1</div><div><h2>Verify orders and meet the patient</h2><p>Before preparing · steps 1–5</p></div></div>
+  <div class="aim"><span><b>Goal</b>Three orders checked and a patient who knows the plan.</span><span><b>You arrive with</b>orders and MAR at the cart.</span><span><b>You leave with</b>orders verified, patient identified, plan agreed, self-administration explained.</span></div>
   <div class="rubric"><b>Checklist says</b><i>1</i> Verified the health care provider's orders. <i>2</i> Provided for patient privacy and performed hand hygiene. <i>3</i> Introduced self to the patient and family. <i>4</i> Identified the patient using two identifiers. Compared these identifiers with the information in the patient's MAR or medical record. <i>5</i> Explained procedure to the patient and ensured that he or she agreed to treatment. Was specific if he or she was to self-administer medications.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>1.1</span></div><div class="card">
@@ -1354,7 +1385,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 2 -->
 <section class="row" id="nb2" style="--pc:var(--p3)">
-  <div class="station"><div class="dot">P2</div><div><h2>Prepare every oral form at the cart</h2><p>At the cart · steps 6–15</p></div></div>
+  <div class="station"><div class="dot">P2</div><div><h2>Prepare every oral form</h2><p>At the cart · steps 6–15</p></div></div>
+  <div class="aim"><span><b>Goal</b>Each medication in the right cup, checked and in date, with every form’s rule said.</span><span><b>You arrive with</b>at the cart, one MAR open.</span><span><b>You leave with</b>everything prepared and labelled, rules said, cart locked.</span></div>
   <div class="rubric"><b>Checklist says</b><i>6</i> Prepared medications for one patient at a time. <i>7</i> Selected the correct drug. Confirmed the name, dose, time and route of the medication by comparing the label with the MAR. <i>8</i> Checked the expiration date of all medications. <i>9</i> Used a single medication cup for tablets and capsules. Plastic medication cup for elixirs. <i>10</i> If a patient needed half of a tablet or pill, split a scored tablet with a clean pill-cutting device. Split the tablet and discarded the other half. <i>11</i> If the patient had difficulty swallowing, crushed each medication separately using a pill-crushing device, if appropriate. Mixed the ground tablet into a small amount of soft food. Remembered to give each crushed medication separately. <i>12</i> For liquid medications: Placed a medication cup on a level surface and poured the liquid to the desired level. (If giving less than 10 mL, prepared medication in an oral syringe.) <i>13</i> Wiped the lip and neck of the bottle with a paper towel, and recapped the bottle. <i>14</i> Verified the patient's name on the MAR with the labels on the prepared drugs. <i>15</i> Followed the CNO Medication Standard.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>2.1</span></div><div class="card">
@@ -1405,7 +1437,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 3 -->
 <section class="row" id="nb3" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P3</div><div><h2>Bedside: hands, ID, allergies, MAR to labels, teach, assess</h2><p>Bedside · steps 16–22</p></div></div>
+  <div class="station"><div class="dot">P3</div><div><h2>Confirm, teach, and assess at the bedside</h2><p>Bedside · steps 16–22</p></div></div>
+  <div class="aim"><span><b>Goal</b>Identity, allergies, third check, teaching, and the numbers each drug needs.</span><span><b>You arrive with</b>at the door with the tray.</span><span><b>You leave with</b>checks done, patient taught, baseline vitals written down.</span></div>
   <div class="rubric"><b>Checklist says</b><i>16</i> Ensured privacy and performed hand hygiene. <i>17</i> Introduced self to the patient and family, when present. <i>18</i> Identified the patient using two identifiers. Compared these identifiers with the information in the patient's MAR or medical record. <i>19</i> Asked the patient if he or she had any allergies. <i>20</i> At the patient's bedside, again compared the MAR with the names of the medications on the medication labels and with the patient's name. <i>21</i> Discussed the purpose of each medication, its action, and possible adverse effects. Allowed the patient to ask questions. <i>22</i> Completed the appropriate patient assessment for the medication being administered.</div>
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
@@ -1446,7 +1479,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 4 -->
 <section class="row" id="nb4" style="--pc:var(--p5)">
-  <div class="station"><div class="dot">P4</div><div><h2>Give the oral medication, by its route</h2><p>Bedside · steps 23–28</p></div></div>
+  <div class="station"><div class="dot">P4</div><div><h2>Give the oral medication by its route</h2><p>Bedside · steps 23–28</p></div></div>
+  <div class="aim"><span><b>Goal</b>Taken the way its form requires, and seen to be taken.</span><span><b>You arrive with</b>patient sitting up.</span><span><b>You leave with</b>oral medication gone, by the right route, witnessed.</span></div>
   <div class="rubric"><b>Checklist says</b><i>23</i> Administered tablets or capsules with the patient in a sitting or side lying position. Offered water or the patient's preferred liquid to help swallow the medications, as long as it is compatible with the medication. <i>24</i> For orally disintegrating formulations: Removed the medication from the packet just before use by peeling back the foil. Tore the package open carefully. Did not push the tablet through the foil. Placed the medication on top of the patient's tongue. Cautioned him or her against chewing the medication. <i>25</i> For buccally administered medications: Had the patient place the medication in his or her mouth against the mucous membranes of the cheek and gums until it dissolved. <i>26</i> For sublingually administered medications: Had the patient place the medication under the tongue and allowed it to dissolve completely. Cautioned the patient against chewing or swallowing the tablet. Cautioned the patient against chewing or swallowing lozenges. <i>27</i> For powdered medications: Mixed with liquids at the bedside and gave the mixture immediately to the patient to drink. <i>28</i> Stayed until the patient completely swallowed each medication or took it by the prescribed route. Asked the patient to open his or her mouth if not certain whether he or she swallowed the medication.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>4.1</span></div><div class="card">
@@ -1479,7 +1513,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 5 -->
 <section class="row" id="nb5" style="--pc:var(--p4)">
-  <div class="station"><div class="dot">P5</div><div><h2>Nitropatch: remove the old one</h2><p>Bedside · steps 29–33</p></div></div>
+  <div class="station"><div class="dot">P5</div><div><h2>Remove the old patch</h2><p>Bedside · steps 29–33</p></div></div>
+  <div class="aim"><span><b>Goal</b>Yesterday’s patch found, folded shut, and gone.</span><span><b>You arrive with</b>oral med done, hands clean.</span><span><b>You leave with</b>old patch disposed of, old site clean, gloves off.</span></div>
   <div class="rubric"><b>Checklist says</b><i>29</i> Perform hand hygiene and apply clean gloves. <i>30</i> Removed the used patch. <i>31</i> Folded the used patch in half with sticky sides together. Disposed of the used patch in the appropriate trash receptacle. <i>32</i> When needed, wiped the skin clean. <i>33</i> Removed gloves and discarded in appropriate receptacle.</div>
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
@@ -1508,7 +1543,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 6 -->
 <section class="row" id="nb6" style="--pc:var(--p4)">
-  <div class="station"><div class="dot">P6</div><div><h2>Nitropatch: apply the new one, teach</h2><p>Bedside · steps 34–39</p></div></div>
+  <div class="station"><div class="dot">P6</div><div><h2>Apply the new patch</h2><p>Bedside · steps 34–39</p></div></div>
+  <div class="aim"><span><b>Goal</b>A dated patch on a fresh site, pressed down, and the four rules taught.</span><span><b>You arrive with</b>new patch in its pouch.</span><span><b>You leave with</b>patch on and dated, four warnings given, hands clean.</span></div>
   <div class="rubric"><b>Checklist says</b><i>34</i> Wrote the date, time, and initials on the new patch. <i>35</i> Applied clean gloves. <i>36</i> Selected a clean, dry site with intact skin that was away from the previous site and free of hair. Avoided sites where the skin was oily, burned, cut, or irritated. <i>37</i> Carefully removed the patch from its protective cover, held it by the edge without touching the adhesive. <i>38</i> Applied the patch immediately to the selected site. Pressed around the edges of the patch with one or two fingers to ensure that the patch adhered well. Did not rub the patch. <i>39</i> Explained precautions for patch use. Stressed that the patient must not: cut the patch, use a heating pad on or near the patch, reuse the same site within 1 week, or use other forms of the drug simultaneously with the patch.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>6.1</span></div><div class="card">
@@ -1551,7 +1587,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 7 -->
 <section class="row" id="nb7" style="--pc:var(--p7)">
-  <div class="station"><div class="dot">P7</div><div><h2>Nebulizer: assemble and load</h2><p>Bedside · steps 40–45</p></div></div>
+  <div class="station"><div class="dot">P7</div><div><h2>Set up the nebulizer</h2><p>Bedside · steps 40–45</p></div></div>
+  <div class="aim"><span><b>Goal</b>Assembled, loaded, mask connected, patient upright.</span><span><b>You arrive with</b>hands clean, parts on the table.</span><span><b>You leave with</b>a loaded nebulizer ready to switch on.</span></div>
   <div class="rubric"><b>Checklist says</b><i>40</i> Performed hand hygiene and donned gloves. <i>41</i> Assembled the nebulizer per the manufacturer's instructions. <i>42</i> Added the prescribed medication to the nebulizer cup. When a diluent was needed, also added it to the nebulizer cup. <i>43</i> Attached and secured the top of the nebulizer cup. <i>44</i> Ensured the facemask was connected. <i>45</i> Helped the patient to an upright position, when possible.</div>
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
@@ -1585,7 +1622,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 8 -->
 <section class="row" id="nb8" style="--pc:var(--p7)">
-  <div class="station"><div class="dot">P8</div><div><h2>Nebulizer: run the treatment</h2><p>Bedside · steps 46–50</p></div></div>
+  <div class="station"><div class="dot">P8</div><div><h2>Run the treatment</h2><p>Bedside · steps 46–50</p></div></div>
+  <div class="aim"><span><b>Goal</b>The whole dose breathed in, with you coaching the breath and watching the pulse.</span><span><b>You arrive with</b>mask ready.</span><span><b>You leave with</b>cup empty, regulator off, mask off.</span></div>
   <div class="rubric"><b>Checklist says</b><i>46</i> Turned on the airflow and ensured that a mist had formed. <i>47</i> Had the patient slowly take a deep breath, inhaling a volume slightly greater than normal. Encouraged a brief, end-inspiratory pause and then had the patient exhale passively. Had the patient repeat this breathing pattern until the drug was completely nebulized. When the patient was dyspneic, encouraged him or her to breathe slowly with a normal tidal volume and to take an occasional deep breath when able. <i>48</i> Tapped the nebulizer cup occasionally during treatment and toward the end of treatment. <i>49</i> Articulated that they would monitor the patient's pulse during the procedure. <i>50</i> When the medication was completely nebulized, turned off the regulator.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>8.1</span></div><div class="card">
@@ -1616,7 +1654,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 9 -->
 <section class="row" id="nb9" style="--pc:var(--p7)">
-  <div class="station"><div class="dot">P9</div><div><h2>Nebulizer: after care</h2><p>Bedside · steps 51–53</p></div></div>
+  <div class="station"><div class="dot">P9</div><div><h2>Finish the nebulizer</h2><p>Bedside · steps 51–53</p></div></div>
+  <div class="aim"><span><b>Goal</b>The two after-rules said, the equipment cleaned and stored dry.</span><span><b>You arrive with</b>treatment finished.</span><span><b>You leave with</b>steroid rule and reassessment said, parts drying, bag ready.</span></div>
   <div class="rubric"><b>Checklist says</b><i>51</i> Articulates that if steroids were nebulized, instructed the patient to rinse his or her mouth and gargle with warm water after the nebulizer treatment. <i>52</i> Articulates they would reassess the patient after treatment and compared findings with preassessment information. <i>53</i> Disassembled all parts of the nebulizer, shook the nebulizer cup to remove the remaining medication solution, rinsed each part in sterile water, shook off excess water, and allowed parts to air-dry completely. Stored the completely dry nebulizer cup and tubing assembly in a clean bag until its next use.</div>
   <ol class="steps">
     <li class="step"><div class="n"><span>9.1</span></div><div class="card">
@@ -1637,7 +1676,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
 <!-- PHASE 10 -->
 <section class="row" id="nb10" style="--pc:var(--p6)">
-  <div class="station"><div class="dot">P10</div><div><h2>Clean up, leave safe, document</h2><p>Bedside · steps 54–59</p></div></div>
+  <div class="station"><div class="dot">P10</div><div><h2>Leave safe and document</h2><p>Bedside · steps 54–59</p></div></div>
+  <div class="aim"><span><b>Goal</b>The patient safe, each medication signed for, one note covering care, teaching and tolerance.</span><span><b>You arrive with</b>equipment drying, gloves on.</span><span><b>You leave with</b>room safe, three signatures, note written.</span></div>
   <div class="rubric"><b>Checklist says</b><i>54</i> Discarded all used supplies. Removed and disposed of gloves and performed hand hygiene. <i>55</i> Helped the patient into a comfortable position, and placed toiletries and personal items within reach. <i>56</i> Placed the call light within easy reach and made sure the patient knew how to use it to summon assistance. <i>57</i> Raised the appropriate number of side rails and lowered the bed to the lowest position. <i>58</i> Documented the medication administration immediately after each administration. <i>59</i> Documented care, patient teaching, and patient's tolerance to medication administration.</div>
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
@@ -1743,13 +1783,13 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <div class="chain">
     <b>The chain</b>
     <ol>
-      <li>Check the order</li><li>Pick the vial, do the math</li><li>Mix the powder</li><li>Draw up and label</li><li>Walk in and connect</li><li>Choose the site and position</li><li>Landmark and prep the skin</li><li>Z-track injection</li><li>Make them safe and sign</li>
+      <li>Prepare the cart</li><li>Confirm the vial and the dose</li><li>Reconstitute the medication</li><li>Draw up and label</li><li>Walk in and connect</li><li>Choose and inspect the site</li><li>Landmark and prep the skin</li><li>Give the Z-track injection</li><li>Make them safe and sign</li>
     </ol>
     <p class="thread">The thread: everything before the door is about making <b>one labelled syringe you trust</b>. Everything after the door is about <b>one safe injection</b> into a site you found with your hand.</p>
   </div>
 
   <div class="phase" style="--pc:var(--p1)">
-    <div class="ph"><span class="pn">1</span><h2>Check the order</h2></div>
+    <div class="ph"><span class="pn">1</span><h2>Prepare the cart</h2></div>
     <div class="goal">Goal: know exactly what you're giving, to whom, and that your hands are clean.</div>
     <div class="state start"><b>Start</b> Order and MAR in front of you at the cart. Nothing touched yet.</div>
     <details open><summary>Steps</summary><ul>
@@ -1762,7 +1802,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p3)">
-    <div class="ph"><span class="pn">2</span><h2>Pick the vial, do the math</h2></div>
+    <div class="ph"><span class="pn">2</span><h2>Confirm the vial and the dose</h2></div>
     <div class="goal">Goal: the right vial, in date, and a written volume to draw.</div>
     <div class="state start"><b>Start</b> Supplies out. Vial still in the cart.</div>
     <details open><summary>Steps</summary><ul>
@@ -1776,7 +1816,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p3)">
-    <div class="ph"><span class="pn">3</span><h2>Mix the powder</h2></div>
+    <div class="ph"><span class="pn">3</span><h2>Reconstitute the medication</h2></div>
     <div class="goal">Goal: a clear solution whose concentration you've read off the label.</div>
     <div class="state start"><b>Start</b> Powder vial and diluent vial, both capped.</div>
     <details open><summary>Steps</summary><ul>
@@ -1822,7 +1862,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p5)">
-    <div class="ph"><span class="pn">6</span><h2>Choose the site and position</h2></div>
+    <div class="ph"><span class="pn">6</span><h2>Choose and inspect the site</h2></div>
     <div class="goal">Goal: a ventrogluteal site you've looked at and felt, on a patient lying the right way.</div>
     <div class="state start"><b>Start</b> Patient consented, still sitting up and covered.</div>
     <details open><summary>Steps</summary><ul>
@@ -1850,7 +1890,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p5)">
-    <div class="ph"><span class="pn">8</span><h2>Z-track injection</h2></div>
+    <div class="ph"><span class="pn">8</span><h2>Give the Z-track injection</h2></div>
     <div class="goal">Goal: the drug in the muscle and sealed there, the needle made safe.</div>
     <div class="state start"><b>Start</b> Needle uncapped, site clean and dry.</div>
     <details open><summary>Steps</summary><ul>
@@ -1886,7 +1926,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <div class="chain">
     <b>The chain</b>
     <ol>
-      <li>Both orders and a pain score</li><li>Prepare the pill</li><li>Give the pill and leave</li><li>Come back and set up</li><li>Old dressing off</li><li>Look and measure</li><li>Open the sterile field and pour</li><li>Clean and dress</li><li>Clean up, sign, report</li>
+      <li>Both orders and a pain score</li><li>Prepare the oral medication</li><li>Give the oral medication</li><li>Set up for the dressing change</li><li>Remove the old dressing</li><li>Assess and measure the wound</li><li>Open the sterile field and pour</li><li>Clean and dress</li><li>Clean up, sign, report</li>
     </ol>
     <p class="thread">The thread: the pill comes first so it's working by the time the dressing comes off. Then it's <b>dirty work</b> (old dressing off, look, measure) with clean gloves, then <b>sterile work</b> (clean the wound, new dressing) with sterile gloves, with hand hygiene at every switch.</p>
   </div>
@@ -1906,7 +1946,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p3)">
-    <div class="ph"><span class="pn">2</span><h2>Prepare the pill</h2></div>
+    <div class="ph"><span class="pn">2</span><h2>Prepare the oral medication</h2></div>
     <div class="goal">Goal: one labelled, in-date medication in the right cup, checked twice.</div>
     <div class="state start"><b>Start</b> Back at the cart.</div>
     <details open><summary>Steps</summary><ul>
@@ -1920,7 +1960,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p3)">
-    <div class="ph"><span class="pn">3</span><h2>Give the pill and leave</h2></div>
+    <div class="ph"><span class="pn">3</span><h2>Give the oral medication</h2></div>
     <div class="goal">Goal: pill swallowed, signed for, and the patient told you'll be back when it's working.</div>
     <div class="state start"><b>Start</b> At the door with the cup and MAR.</div>
     <details open><summary>Steps</summary><ul>
@@ -1936,7 +1976,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p4)">
-    <div class="ph"><span class="pn">4</span><h2>Come back and set up</h2></div>
+    <div class="ph"><span class="pn">4</span><h2>Set up for the dressing change</h2></div>
     <div class="goal">Goal: everything within reach, patient draped and warned, bag cuffed, clean gloves on.</div>
     <div class="state start"><b>Start</b> Returning with the dressing supplies.</div>
     <details open><summary>Steps</summary><ul>
@@ -1952,7 +1992,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p4)">
-    <div class="ph"><span class="pn">5</span><h2>Old dressing off</h2></div>
+    <div class="ph"><span class="pn">5</span><h2>Remove the old dressing</h2></div>
     <div class="goal">Goal: the wound uncovered without hurting the skin, the old dressing contained and gone.</div>
     <div class="state start"><b>Start</b> Clean gloves on, bag ready.</div>
     <details open><summary>Steps</summary><ul>
@@ -1966,7 +2006,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p4)">
-    <div class="ph"><span class="pn">6</span><h2>Look and measure</h2></div>
+    <div class="ph"><span class="pn">6</span><h2>Assess and measure the wound</h2></div>
     <div class="goal">Goal: a full description and three numbers.</div>
     <div class="state start"><b>Start</b> Wound exposed, hands clean, no gloves.</div>
     <details open><summary>Steps</summary><ul>
@@ -2030,7 +2070,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <div class="chain">
     <b>The chain</b>
     <ol>
-      <li>Orders and the right patient</li><li>Prepare every oral form at the cart</li><li>Bedside checks and the assessment</li><li>Give the oral med by its route</li><li>Old patch off</li><li>New patch on, four warnings</li><li>Nebulizer: build, load, run</li><li>Nebulizer: after</li><li>Safe, signed, noted</li>
+      <li>Orders and the right patient</li><li>Prepare every oral form</li><li>Bedside checks and the assessment</li><li>Give the oral medication by its route</li><li>Remove the old patch</li><li>Apply the new patch</li><li>Nebulizer: build, load, run</li><li>Nebulizer: after</li><li>Safe, signed, noted</li>
     </ol>
     <p class="thread">The thread: three medications, one patient, one visit. Oral first, patch second, nebulizer third, and the MAR gets signed <b>after each one</b>, not at the end.</p>
   </div>
@@ -2050,7 +2090,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p3)">
-    <div class="ph"><span class="pn">2</span><h2>Prepare every oral form at the cart</h2></div>
+    <div class="ph"><span class="pn">2</span><h2>Prepare every oral form</h2></div>
     <div class="goal">Goal: each medication in the right cup, checked, in date, and the rule for every form said out loud.</div>
     <div class="state start"><b>Start</b> At the cart, only this patient's MAR open.</div>
     <details open><summary>Steps</summary><ul>
@@ -2080,7 +2120,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p5)">
-    <div class="ph"><span class="pn">4</span><h2>Give the oral med by its route</h2></div>
+    <div class="ph"><span class="pn">4</span><h2>Give the oral medication by its route</h2></div>
     <div class="goal">Goal: the oral medication taken the way its form requires, and seen to be taken.</div>
     <div class="state start"><b>Start</b> Patient sitting up, cup in your hand.</div>
     <details open><summary>Steps</summary><ul>
@@ -2096,7 +2136,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p4)">
-    <div class="ph"><span class="pn">5</span><h2>Old patch off</h2></div>
+    <div class="ph"><span class="pn">5</span><h2>Remove the old patch</h2></div>
     <div class="goal">Goal: yesterday's patch found, removed, folded shut, and gone.</div>
     <div class="state start"><b>Start</b> Oral med done. Hands clean.</div>
     <details open><summary>Steps</summary><ul>
@@ -2110,7 +2150,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 
   <div class="phase" style="--pc:var(--p4)">
-    <div class="ph"><span class="pn">6</span><h2>New patch on, four warnings</h2></div>
+    <div class="ph"><span class="pn">6</span><h2>Apply the new patch</h2></div>
     <div class="goal">Goal: a dated patch on a fresh site, pressed down, and the patient told the four rules.</div>
     <div class="state start"><b>Start</b> New patch still in its pouch.</div>
     <details open><summary>Steps</summary><ul>
