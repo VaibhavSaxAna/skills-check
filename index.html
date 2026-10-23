@@ -196,6 +196,34 @@ body.testing-open .topbar{display:none}
 .guidelink{display:inline-flex;align-items:center;gap:8px;margin:14px 10px 0 0;padding:8px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
 .guidelink:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 
+/* Run mode: one goal on screen, read aloud, hands-free */
+.runbtn{display:inline-flex;align-items:center;gap:8px;margin:14px 10px 0 0;padding:8px 14px;border-radius:99px;border:1.5px solid var(--p5);background:var(--p5s);color:var(--p5);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+.runbtn svg{width:18px;height:18px;fill:currentColor}
+.runbtn:focus-visible{outline:3px solid var(--p5);outline-offset:2px}
+.run{position:fixed;inset:0;z-index:55;background:var(--paper);color:var(--ink);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));cursor:pointer;user-select:none}
+.run .top{display:flex;justify-content:space-between;align-items:center;padding:14px 0 0;font-variant-numeric:tabular-nums;font-size:.95rem;color:var(--muted)}
+.run .top b{color:var(--ink);font-size:1.15rem}
+.run .dots{position:static;transform:none;box-shadow:none;border:0;background:none;padding:10px 0 0;display:flex;gap:5px;flex-wrap:wrap}
+.run .dots span{width:auto;flex:1;height:5px;border-radius:3px;background:var(--line);transform:none}
+.run .dots span.done{background:var(--teal)}
+.run .dots span.now{background:var(--p5)}
+.run .mid{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:720px;width:100%;margin:0 auto;min-width:0}
+.run .mid h1{margin:0;font-size:clamp(2rem,6vw,3.4rem);line-height:1.08;font-weight:700;text-wrap:balance}
+.run .mid .arrive{margin:18px 0 0;font-size:clamp(1.05rem,2.2vw,1.3rem);line-height:1.45;color:var(--ink)}
+.run .mid .arrive b{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.run .steps{margin:18px 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;cursor:default;max-height:46vh;overflow:auto}
+.run .steps ol{margin:0;padding-left:22px;display:grid;gap:6px;font-size:1.05rem;line-height:1.4}
+.run .steps li.hand{color:var(--hand)}
+.run .steps li.say em{font-style:normal;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;background:var(--say-soft);color:var(--say);border-radius:99px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.run .steps .leave{margin:10px 0 0;padding-top:8px;border-top:1px dashed var(--line);font-size:.95rem;color:var(--teal)}
+.run .steps .leave b{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
+.run .bot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0 16px;flex-wrap:wrap}
+.run .hint{font-size:.9rem;color:var(--muted)}
+.run .bot .acts{display:flex;gap:8px}
+.run .bot button{font:inherit;font-size:.86rem;font-weight:700;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;cursor:pointer}
+.run .bot button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+body.running .topbar,body.running .arrow,body.running .dots:not(.run .dots){display:none}
+
 .arrow{position:fixed;top:50%;z-index:20;display:grid;justify-items:center;gap:6px;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font-family:inherit;transform:translateY(-50%)}
 .arrow.prev{left:max(14px,env(safe-area-inset-left,0px))}
 .arrow.next{right:max(14px,env(safe-area-inset-right,0px))}
@@ -309,7 +337,7 @@ td b{white-space:nowrap}
 .check input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-@media print{body{background:#fff}.card{break-inside:avoid}.arrow,.dots,.tpanel,.testbtn,.wasted,.topbar,.gback,.guidelink,.gtabs,.hidesteps{display:none}}
+@media print{body{background:#fff}.card{break-inside:avoid}.arrow,.dots,.tpanel,.testbtn,.wasted,.topbar,.gback,.guidelink,.gtabs,.hidesteps,.runbtn,.run{display:none}}
 </style>
 
 <button class="arrow prev" type="button" id="prevBtn" aria-label="Previous skill"><span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></span><span class="lab"><b>Previous</b><span id="prevLab"></span></span></button>
@@ -355,6 +383,16 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   </div>
 </div>
 <div class="topbar" id="topbar"><button type="button" id="tbGuide">Study guide</button><button type="button" id="tbFull" aria-current="page">Full checklists</button></div>
+<div class="run" id="run" hidden role="dialog" aria-label="Run mode">
+  <div class="top"><b id="runP"></b><span id="runTimer">0:00</span></div>
+  <div class="dots" id="runDots" aria-hidden="true"></div>
+  <div class="mid">
+    <h1 id="runGoal"></h1>
+    <div class="arrive" id="runArrive"></div>
+    <div class="steps" id="runSteps" hidden></div>
+  </div>
+  <div class="bot"><span class="hint" id="runHint"></span><span class="acts"><button type="button" id="runBackBtn">Back</button><button type="button" id="runStepsBtn">Steps</button><button type="button" id="runStopBtn">Stop</button></span></div>
+</div>
 <main>
 <!-- ============ SKILL A: IM FROM A VIAL ============ -->
 <article class="skill" id="s-im">
@@ -363,6 +401,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h1>IM injection from a vial<br>by checklist phase</h1>
   <p>All 52 steps of the checklist, in the checklist's order, grouped into 12 phases. Nothing optional. Each card is numbered phase.element and tagged with the checklist step it is graded on.</p>
   <button type="button" class="testbtn" data-test="im"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>Test your understanding</button>
+    <button type="button" class="runbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Run it with me</button>
   <button type="button" class="guidelink" data-guide="im">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
@@ -761,6 +800,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h1>Oral medication and dry dressing change<br>by checklist phase</h1>
   <p>All 59 steps, in the checklist's order, in 12 phases. The oral med comes first (steps 1–17) because the patient needs it working before the dressing comes off. Each card is numbered phase.element and tagged with the checklist step it is graded on.</p>
   <button type="button" class="testbtn" data-test="dress"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>Test your understanding</button>
+    <button type="button" class="runbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Run it with me</button>
   <button type="button" class="guidelink" data-guide="dress">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
@@ -1194,6 +1234,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h1>Oral medication, nitropatch and nebulizer<br>by checklist phase</h1>
   <p>All 59 steps, in the checklist's order, in 10 phases. One preparation at the cart covers every oral form; then the patch; then the nebulizer. Each card is numbered phase.element and tagged with the checklist step it is graded on.</p>
   <button type="button" class="testbtn" data-test="neb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg>Test your understanding</button>
+    <button type="button" class="runbtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Run it with me</button>
   <button type="button" class="guidelink" data-guide="neb">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
@@ -2536,6 +2577,141 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 </script>
 
 <script>
+// ---------- Run mode: one goal at a time, read aloud, advanced by voice ("next"), tap, or space ----------
+(function(){
+  var run = document.getElementById('run');
+  if(!run) return;
+  var elP = document.getElementById('runP'), elGoal = document.getElementById('runGoal'), elArrive = document.getElementById('runArrive');
+  var elSteps = document.getElementById('runSteps'), elTimer = document.getElementById('runTimer'), elDots = document.getElementById('runDots'), elHint = document.getElementById('runHint');
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  var R = { phases: [], i: 0, t0: 0, tick: 0, rec: null, on: false, speaking: false, stepsShown: false, name: '' };
+
+  function textOf(el){ return el ? el.textContent.replace(/\s+/g,' ').trim() : ''; }
+  function collect(article){
+    var out = [];
+    article.querySelectorAll('section.row').forEach(function(sec){
+      var aim = sec.querySelector('.aim');
+      var spans = aim ? aim.querySelectorAll('span') : [];
+      out.push({
+        n: textOf(sec.querySelector('.dot')), title: textOf(sec.querySelector('.station h2')),
+        goal: spans[0] ? textOf(spans[0]).replace(/^Goal\s*/,'') : '',
+        arrive: spans[1] ? textOf(spans[1]).replace(/^You arrive with\s*/,'') : '',
+        leave: spans[2] ? textOf(spans[2]).replace(/^You leave with\s*/,'') : '',
+        steps: [].map.call(sec.querySelectorAll('.step'), function(li){ return { t: textOf(li.querySelector('.top h3')), say: !!li.querySelector('.say'), hand: li.classList.contains('hand') }; })
+      });
+    });
+    return out;
+  }
+
+  // ---- voice out
+  function speak(text, cb){
+    if(!('speechSynthesis' in window)){ if(cb) cb(); return; }
+    try{
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.rate = 1.0; u.pitch = 1.0; u.lang = 'en-US';
+      var vs = speechSynthesis.getVoices().filter(function(v){ return /^en/i.test(v.lang); });
+      var pick = vs.find(function(v){ return /Google US English|Microsoft Aria|Samantha|Natural/i.test(v.name); }) || vs[0];
+      if(pick) u.voice = pick;
+      R.speaking = true; pauseEars();
+      u.onend = u.onerror = function(){ R.speaking = false; resumeEars(); if(cb) cb(); };
+      speechSynthesis.speak(u);
+    }catch(e){ R.speaking = false; if(cb) cb(); }
+  }
+
+  // ---- voice in: a few command words, nothing else
+  function pauseEars(){ try{ if(R.rec){ R.rec.onend = null; R.rec.abort(); R.rec = null; } }catch(e){} }
+  function resumeEars(){ if(R.on && !R.rec) listen(); }
+  function listen(){
+    if(!SR || !R.on) return;
+    var rec = new SR(); rec.lang = 'en-US'; rec.continuous = true; rec.interimResults = false; rec.maxAlternatives = 3;
+    rec.onresult = function(e){
+      for(var k = e.resultIndex; k < e.results.length; k++){
+        if(!e.results[k].isFinal) continue;
+        var alts = []; for(var a = 0; a < e.results[k].length; a++) alts.push(e.results[k][a].transcript.toLowerCase());
+        var s = alts.join(' | ');
+        if(/\b(next|done|okay next|ok next|go on|move on)\b/.test(s)) next();
+        else if(/\b(steps?|help|show me|what now|what do i do)\b/.test(s)) showSteps(true);
+        else if(/\b(back|previous|go back)\b/.test(s)) prev();
+        else if(/\b(again|repeat|say that again)\b/.test(s)) say();
+        else if(/\b(stop|exit|finish|quit)\b/.test(s)) stop();
+      }
+    };
+    rec.onerror = function(){};
+    rec.onend = function(){ R.rec = null; if(R.on && !R.speaking) setTimeout(resumeEars, 150); };
+    try{ rec.start(); R.rec = rec; }catch(e){ R.rec = null; }
+  }
+
+  // ---- screen
+  function paint(){
+    var p = R.phases[R.i];
+    elP.textContent = p.n + ' of ' + R.phases.length;
+    elGoal.textContent = p.title;
+    elArrive.innerHTML = '<b>Goal</b> ' + esc(p.goal) + (p.arrive ? '<br><b>You have</b> ' + esc(p.arrive) + '.' : '');
+    elDots.innerHTML = R.phases.map(function(_, k){ return '<span class="' + (k < R.i ? 'done' : k === R.i ? 'now' : '') + '"></span>'; }).join('');
+    elSteps.hidden = true; R.stepsShown = false;
+    elHint.textContent = SR ? 'Say "next" when it\'s done · "steps" if you blank · or tap' : 'Tap or press space when it\'s done · S for the steps';
+  }
+  function esc(t){ return String(t).replace(/</g,'&lt;'); }
+  function say(){ var p = R.phases[R.i]; speak('Phase ' + p.n.replace(/^P/, '') + '. ' + p.title + '. ' + p.goal); }
+  function showSteps(aloud){
+    var p = R.phases[R.i];
+    elSteps.innerHTML = '<ol>' + p.steps.map(function(s){ return '<li class="' + (s.hand ? 'hand' : '') + (s.say ? ' say' : '') + '">' + esc(s.t) + (s.say ? ' <em>say it</em>' : '') + '</li>'; }).join('') + '</ol><div class="leave"><b>You leave with</b> ' + esc(p.leave) + '.</div>';
+    elSteps.hidden = false; R.stepsShown = true;
+    if(aloud) speak(p.steps.map(function(s){ return s.t; }).join('. '));
+  }
+  function next(){
+    if(R.i + 1 >= R.phases.length){ finish(); return; }
+    R.i++; paint(); say();
+  }
+  function prev(){ if(R.i > 0){ R.i--; paint(); say(); } }
+  function fmt(ms){ var s = Math.round(ms / 1000); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+  function finish(){
+    var t = fmt(performance.now() - R.t0);
+    elP.textContent = 'Done'; elGoal.textContent = R.name; elArrive.innerHTML = '<b>Time</b> ' + t + (R.phases.length ? ' · ' + R.phases.length + ' phases' : '');
+    elDots.innerHTML = R.phases.map(function(){ return '<span class="done"></span>'; }).join('');
+    elSteps.hidden = true; elHint.textContent = 'Tap to close';
+    speak('Done. ' + t.replace(':', ' minutes ') + ' seconds.');
+    R.on = false; pauseEars(); clearInterval(R.tick);
+    run.onclick = function(){ close(); };
+  }
+  function start(article){
+    R.phases = collect(article); if(!R.phases.length) return;
+    R.name = (article.querySelector('header h1') ? article.querySelector('header h1').innerHTML.split('<br')[0] : '').replace(/<[^>]+>/g,'').trim();
+    R.i = 0; R.on = true; R.t0 = performance.now();
+    run.hidden = false; document.body.classList.add('running');
+    run.onclick = function(e){ if(e.target.closest('button')) return; if(R.stepsShown){ next(); } else { next(); } };
+    clearInterval(R.tick); R.tick = setInterval(function(){ elTimer.textContent = fmt(performance.now() - R.t0); }, 500); elTimer.textContent = '0:00';
+    paint();
+    try{ if('speechSynthesis' in window) speechSynthesis.getVoices(); }catch(e){}
+    speak(R.name + '. ' + 'Phase 1. ' + R.phases[0].title + '. ' + R.phases[0].goal);
+    try{ if(navigator.wakeLock) navigator.wakeLock.request('screen').catch(function(){}); }catch(e){}
+  }
+  function stop(){ speak('Stopped.'); close(); }
+  function close(){
+    R.on = false; pauseEars(); clearInterval(R.tick);
+    try{ speechSynthesis.cancel(); }catch(e){}
+    run.hidden = true; document.body.classList.remove('running'); run.onclick = null;
+  }
+
+  document.addEventListener('keydown', function(e){
+    if(run.hidden) return;
+    if(e.key === ' ' || e.key === 'ArrowRight' || e.key === 'Enter'){ e.preventDefault(); next(); }
+    else if(e.key === 'ArrowLeft'){ prev(); }
+    else if(e.key === 's' || e.key === 'S'){ showSteps(true); }
+    else if(e.key === 'r' || e.key === 'R'){ say(); }
+    else if(e.key === 'Escape'){ stop(); }
+  });
+  document.getElementById('runSteps').addEventListener('click', function(e){ e.stopPropagation(); });
+  document.getElementById('runStepsBtn').addEventListener('click', function(e){ e.stopPropagation(); showSteps(true); });
+  document.getElementById('runBackBtn').addEventListener('click', function(e){ e.stopPropagation(); prev(); });
+  document.getElementById('runStopBtn').addEventListener('click', function(e){ e.stopPropagation(); stop(); });
+  document.querySelectorAll('.runbtn').forEach(function(b){ b.addEventListener('click', function(){ if(window.skillsTestClose) window.skillsTestClose(); start(b.closest('article')); }); });
+  window.skillsRunClose = close;
+})();
+</script>
+
+<script>
 (function(){
   var order = ['im','dress','neb'];
   var names = { im: 'IM from a vial', dress: 'Oral meds + dry dressing', neb: 'Oral meds + patch + nebulizer' };
@@ -2551,6 +2727,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   var inGuide = false, gtab = 'im';
   function showGuide(tab){
     if(window.skillsTestClose) window.skillsTestClose();
+    if(window.skillsRunClose) window.skillsRunClose();
     inGuide = true; if(tab) gtab = tab;
     order.forEach(function(k){ pages[k].hidden = true; });
     guide.hidden = false;
