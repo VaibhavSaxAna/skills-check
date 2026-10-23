@@ -187,6 +187,8 @@ body.testing-open .topbar{display:none}
 .phase details[open] summary::before{transform:rotate(90deg)}
 .phase details ul{margin:0 0 10px;padding-left:18px;display:grid;gap:5px;font-size:.95rem;line-height:1.45}
 .phase details li b{color:var(--pc)}
+.phase details li.sayit{background:var(--say-soft);border-radius:6px;padding:4px 8px;margin-left:-8px}
+.phase details li.sayit b{color:var(--say)}
 .why{margin:10px 0 0;font-size:.88rem;color:var(--muted);line-height:1.4}
 .gback{margin:30px 0 0;display:flex;flex-wrap:wrap;gap:8px}
 .gback button{font:inherit;font-size:.86rem;font-weight:700;border-radius:99px;border:1.5px solid var(--teal);background:var(--teal-soft);color:var(--teal);padding:8px 14px;cursor:pointer}
@@ -364,7 +366,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <button type="button" class="guidelink" data-guide="im">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
-    <div><span class="k say">SAY</span><span><b>Speak it.</b> Where the checklist says "articulates," it only counts if it's heard.</span></div>
+    <div><span class="k say">SAY</span><span><b>Speak it.</b> Only on steps where the checklist requires words: articulates, explains, asks, instructs. Everything else is DO.</span></div>
     <div><span class="k hand">✋</span><span><b>Hand hygiene.</b> Steps 2, 16 and 45, plus every glove change.</span></div>
     <div><span class="k row">#23</span><span><b>Step tag.</b> The checklist step number the evaluator marks Not done / Done incorrectly / Done correctly.</span></div>
   </div>
@@ -410,18 +412,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>1.1</span></div><div class="card">
       <div class="top"><h3>Order against the MAR</h3><span class="tag">#1</span></div>
       <div class="do"><span class="k do">DO</span><div>Order beside the MAR. Finger on each line of the order, then the matching line on the MAR.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Verifying the provider's order against the MAR.
-        <span class="r"><em>Patient</em> — <em>[name]</em>, date of birth matches.</span>
-        <span class="r"><em>Medication</em> — <em>[drug]</em>, <em>[drug]</em>.</span>
-        <span class="r"><em>Dose</em> — <em>[dose]</em>, <em>[dose]</em>.</span>
-        <span class="r"><em>Route</em> — IM, ventrogluteal.</span>
-        <span class="r"><em>Time</em> — <em>[time]</em>, <em>[frequency]</em>.</span>
-        The order is complete and matches."</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Hand hygiene, then supplies on the cart top</h3><span class="tag">#2</span></div>
       <div class="do"><span class="k do">DO</span><div>Hand hygiene first. Then lay out: MAR · vial of medication · vial of diluent · alcohol swabs · syringe for diluent · syringe and needle for the dose · filter needle if the manufacturer calls for one · syringe label · gloves · gauze · bandage · pen and paper for the math.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Performing hand hygiene. Preparing my supplies: MAR, the medication vial, the diluent, alcohol swabs, syringes and needles, a label, gloves, gauze and a bandage."</div></div>
     </div></li>
   </ol>
 </section>
@@ -435,12 +429,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>2.1</span></div><div class="card">
       <div class="top"><h3>Vial out, name to MAR</h3><span class="tag">#3</span></div>
       <div class="do"><span class="k do">DO</span><div>Take the client's vial from the cart or dispensing system. Hold the label beside the MAR entry.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Selecting <em>[drug]</em> from the cart. Comparing the drug name on the vial to the MAR — <em>[drug]</em>, <em>[drug]</em>. They match."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.2</span></div><div class="card">
       <div class="top"><h3>Expiry, concentration, and the calculation on paper</h3><span class="tag">#4</span></div>
-      <div class="do"><span class="k do">DO</span><div>Turn the vial, find the expiry. Read the strength on the label. Write dose ordered ÷ concentration = volume, and say it as you write it.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Expiry date <em>[date]</em> — not expired. The vial contains <em>[amount]</em> per vial. Ordered dose is <em>[dose]</em>. <em>[dose]</em> over <em>[concentration]</em>, times 1 mL, equals <em>[volume]</em> mL to withdraw."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Turn the vial, find the expiry. Read the strength on the label. Write dose ordered ÷ concentration = volume on your paper.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.3</span></div><div class="card">
       <div class="top"><h3>High-alert policy, said out loud</h3><span class="tag">#5</span></div>
@@ -459,27 +451,22 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>3.1</span></div><div class="card">
       <div class="top"><h3>Caps off both vials; manufacturer's guideline read</h3><span class="tag">#6</span></div>
       <div class="do"><span class="k do">DO</span><div>Flip the plastic cap off the powder vial and off the diluent vial. Pick up the package insert or read the label and name the three things the guideline tells you.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing the caps from the medication vial and the diluent vial. Per the manufacturer's guideline: the diluent is <em>[sterile water / 0.9% NaCl]</em>, the volume is <em>[x]</em> mL, and a filter needle <em>[is / is not]</em> recommended."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.2</span></div><div class="card">
       <div class="top"><h3>Both seals swabbed, air dried</h3><span class="tag">#7</span></div>
       <div class="do"><span class="k do">DO</span><div>One swab per seal. Firm circles. Set the vials down and keep your hands off the stoppers while they dry.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Wiping both rubber seals with alcohol and allowing them to dry."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.3</span></div><div class="card">
       <div class="top"><h3>Draw the diluent: the right type, the right volume</h3><span class="tag">#8</span></div>
       <div class="do"><span class="k do">DO</span><div>Syringe with needle or needleless device. Draw air equal to the diluent volume, inject it into the diluent vial, invert, and draw back exactly the volume from 3.1. Clear bubbles inside the vial. Needle out.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Drawing up <em>[x]</em> mL of <em>[diluent]</em>, the type and volume the manufacturer suggests."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.4</span></div><div class="card">
       <div class="top"><h3>Through the centre of the seal; diluent in</h3><span class="tag">#9</span></div>
       <div class="do"><span class="k do">DO</span><div>Powder vial upright on the cart. Needle tip through the centre of the stopper at 90°. Push the plunger slowly so the diluent runs down the inside wall.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Inserting through the centre of the rubber seal and injecting <em>[x]</em> mL of diluent into the powder."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.5</span></div><div class="card">
       <div class="top"><h3>Roll between the palms. Never shake.</h3><span class="tag">#10</span></div>
       <div class="do"><span class="k do">DO</span><div>Withdraw the needle first. Vial between flat palms, roll back and forth until the solution is clear with no particles. Hold it to the light.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Rolling the vial between my palms to mix — not shaking, so it doesn't foam. The solution is clear."</div></div>
     </div></li>
   </ol>
 </section>
@@ -493,12 +480,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>4.1</span></div><div class="card">
       <div class="top"><h3>Concentration after reconstitution, math written again</h3><span class="tag">#11</span></div>
       <div class="do"><span class="k do">DO</span><div>Read the label's "after reconstitution" line. Write the calculation a second time with that concentration.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Reading the label: after reconstitution with <em>[x]</em> mL, the concentration is <em>[mg]</em> per mL. <em>[dose]</em> over <em>[mg/mL]</em>, times 1 mL, equals <em>[volume]</em> mL."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>4.2</span></div><div class="card">
       <div class="top"><h3>Swab the top again, dry, draw the volume</h3><span class="tag">#12</span></div>
       <div class="do"><span class="k do">DO</span><div>New alcohol swab on the stopper. Let it dry. New syringe (and filter needle if 3.1 said so). Air equal to the dose in, invert, draw to the volume from 4.1, clear bubbles in the closed system, needle out. If you used a filter needle, change to the injection needle now. Scoop-recap on a flat surface.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Wiping the top with alcohol and letting it dry. Drawing up <em>[volume]</em> mL based on the reconstituted concentration. Bubbles cleared — <em>[volume]</em> mL in the syringe."</div></div>
     </div></li>
   </ol>
 </section>
@@ -511,20 +496,15 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>5.1</span></div><div class="card">
       <div class="top"><h3>Label to MAR, twice, with expiry</h3><span class="tag">#13</span></div>
-      <div class="do"><span class="k do">DO</span><div>Vial and filled syringe beside the MAR. Point through name, drug, dose, route, time once. Then say "second check" and do it again. Name the expiry in the first pass.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"First label check against the MAR: <em>[name]</em>, <em>[drug]</em>, <em>[dose]</em> which is <em>[volume]</em> mL, IM, <em>[time]</em>. Expiry <em>[date]</em>, not expired.
-        <span class="r">Second label check: <em>[name]</em>, <em>[drug]</em>, <em>[dose]</em>, <em>[volume]</em> mL, IM, <em>[time]</em>. Matches."</span></div></div>
+      <div class="do"><span class="k do">DO</span><div>Vial and filled syringe beside the MAR. Point through name, drug, dose, route, time once. Then do the whole pass a second time. Check the expiry in the first pass.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>5.2</span></div><div class="card">
       <div class="top"><h3>Label the syringe, name the equipment, name the standard</h3><span class="tag">#14</span></div>
       <div class="do"><span class="k do">DO</span><div>Write the label (client, drug, dose, your initials and designation, date, time) and wrap it so the volume stays readable. Vial back, cart locked. Tray: MAR · labelled syringe · two alcohol swabs · gauze · gloves · bandage · sharps access.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Label applied. I have my MAR, the labelled syringe, alcohol swabs, gauze, gloves and a bandage. I'm following the CNO Medication practice standard: the rights of medication administration, three checks, and documentation immediately after."</div></div>
-      <div class="sect"><b>Say "CNO medication standard."</b> The step is graded on those words being heard, not on you listing every right.</div>
     </div></li>
     <li class="step"><div class="n"><span>5.3</span></div><div class="card">
       <div class="top"><h3>Knock, curtain, door</h3><span class="tag">#15</span></div>
       <div class="do"><span class="k do">DO</span><div>Knock before entering. Pull the curtain or close the door before anything else happens at the bedside.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Providing privacy — closing the curtain."</div></div>
     </div></li>
   </ol>
 </section>
@@ -537,7 +517,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Hand hygiene at the bedside</h3><span class="tag">#16</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Performing hand hygiene."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Performing hand hygiene.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.1</span></div><div class="card">
       <div class="top"><h3>Introduce yourself, to the family too</h3><span class="tag">#17</span></div>
@@ -551,7 +531,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>6.3</span></div><div class="card">
       <div class="top"><h3>MAR again, at the bedside: label to MAR to name</h3><span class="tag">#19</span></div>
       <div class="do"><span class="k do">DO</span><div>Hold the labelled syringe beside the MAR entry and the client's name. This is the third check and it happens in the room.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Third check at the bedside: syringe label reads <em>[drug]</em> <em>[dose]</em> for <em>[name]</em>; MAR reads <em>[drug]</em> <em>[dose]</em> for <em>[name]</em>. Matches."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.4</span></div><div class="card">
       <div class="top"><h3>Explain, consent, purpose, action, adverse effects, questions, the sting</h3><span class="tag">#20</span></div>
@@ -569,18 +548,15 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>7.1</span></div><div class="card">
       <div class="top"><h3>Site named, muscle noted, palpated, rotation asked</h3><span class="tag">#21</span></div>
-      <div class="do"><span class="k do">DO</span><div>Say the site and why. Look at the muscle mass. Press over the area with your fingertips. Ask about recent injections and which side.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"The site is the ventrogluteal — the gluteus medius. It's the safest IM site: thick muscle, away from major nerves and vessels, and it takes up to 3 mL. The muscle is adequate in size and integrity. Palpating — no tenderness or hardness. Have you had any injections recently? Which side? … I'll rotate to the <em>[other]</em> side."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Choose the ventrogluteal. Look at the muscle mass. Press over the area with your fingertips. Ask about recent injections and which side.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.2</span></div><div class="card">
       <div class="top"><h3>Skin inspected: bruising, inflammation, edema, infection</h3><span class="tag">#22</span></div>
       <div class="do"><span class="k do">DO</span><div>Look at the skin before gloves go on. Name each thing you're ruling out.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Inspecting the site — no bruising, no inflammation, no edema, no signs of infection. If there were, I'd choose a different site."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.3</span></div><div class="card">
       <div class="top"><h3>Side-lying, knee flexed, hip exposed only</h3><span class="tag">#23</span></div>
       <div class="do"><span class="k do">DO</span><div>Help the client onto their side with the upper knee bent and brought forward over the lower leg, which relaxes the gluteus medius. Fold the gown or drape back to show only the hip.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"I'll help you onto your side, top knee bent forward — that relaxes the muscle. I'm only uncovering your hip."</div></div>
     </div></li>
   </ol>
 </section>
@@ -593,41 +569,35 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Hand hygiene before gloves</h3><span class="tag">#24</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Hand hygiene before applying clean gloves."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Hand hygiene before applying clean gloves.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.1</span></div><div class="card">
       <div class="top"><h3>Clean gloves, landmarks announced</h3><span class="tag">#24</span></div>
       <div class="do"><span class="k do">DO</span><div>Gloves on. Use the hand opposite the hip: right hand for the left hip, left hand for the right hip, so the fingers point the right way.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying clean gloves. Landmarking the ventrogluteal site using my <em>[right]</em> hand on the <em>[left]</em> hip."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.2</span></div><div class="card">
       <div class="top"><h3>Heel of hand on the greater trochanter</h3><span class="tag">#25</span></div>
       <div class="do"><span class="k do">DO</span><div>Feel for the bony knob at the top of the thigh. Heel of the palm sits right on it, wrist almost perpendicular to the femur.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Heel of my hand over the greater trochanter, wrist perpendicular to the femur."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.3</span></div><div class="card">
       <div class="top"><h3>Thumb toward the groin</h3><span class="tag">#26</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Thumb pointing toward the groin."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Thumb pointing toward the groin.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.4</span></div><div class="card">
       <div class="top"><h3>Index finger on the anterior superior iliac spine</h3><span class="tag">#27</span></div>
       <div class="do"><span class="k do">DO</span><div>Index finger reaches up to the bony point at the front of the hip.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Index finger on the anterior superior iliac spine."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.5</span></div><div class="card">
       <div class="top"><h3>Middle finger back along the iliac crest</h3><span class="tag">#28</span></div>
       <div class="do"><span class="k do">DO</span><div>Spread the middle finger away from the index finger, following the rim of the pelvis toward the buttock.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Middle finger extended back along the iliac crest toward the buttocks."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.6</span></div><div class="card">
       <div class="top"><h3>Centre of the V</h3><span class="tag">#29</span></div>
       <div class="do"><span class="k do">DO</span><div>The triangle is between your index and middle fingers. The site is in its centre.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"The injection site is the centre of the triangle between my index and middle fingers."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.7</span></div><div class="card">
       <div class="top"><h3>Mark it with an alcohol wipe</h3><span class="tag">#30</span></div>
       <div class="do"><span class="k do">DO</span><div>Open a swab and set it on the skin at the spot before you lift your hand, so you can find the site again.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Marking the site with an alcohol wipe."</div></div>
     </div></li>
   </ol>
 </section>
@@ -641,20 +611,18 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>9.1</span></div><div class="card">
       <div class="top"><h3>Cleanse in circles, centre outward, air dry</h3><span class="tag">#31</span></div>
       <div class="do"><span class="k do">DO</span><div>Second swab. Circular motion from the centre out about 5 cm. Let it dry — no blowing, no wiping.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Cleansing the site with an antiseptic swab in a circular motion, centre outward, and letting it air dry."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>9.2</span></div><div class="card">
       <div class="top"><h3>Gauze between third and fourth fingers, non-dominant hand</h3><span class="tag">#32</span></div>
       <div class="do"><span class="k do">DO</span><div>Tuck the folded gauze between your ring and middle fingers so it's ready the moment the needle comes out.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Gauze between the third and fourth fingers of my non-dominant hand."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>9.3</span></div><div class="card">
       <div class="top"><h3>Cap straight off</h3><span class="tag">#33</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing the needle cap."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Removing the needle cap.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>9.4</span></div><div class="card">
       <div class="top"><h3>Syringe like a dart, thumb and forefinger</h3><span class="tag">#34</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Holding the syringe between the thumb and forefinger of my dominant hand."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Holding the syringe between the thumb and forefinger of my dominant hand.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>9.5</span></div><div class="card">
       <div class="top"><h3>Tell the patient to relax</h3><span class="tag">#35</span></div>
@@ -672,42 +640,35 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>10.1</span></div><div class="card">
       <div class="top"><h3>Ulnar side of the hand below the site, pull skin 2.5–3.5 cm, hold</h3><span class="tag">#36</span></div>
       <div class="do"><span class="k do">DO</span><div>Pinky edge of your non-dominant hand sits just below the alcohol-wipe mark. Drag the skin sideways about an inch and keep it there. Do not let go.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Z-track: ulnar side of my non-dominant hand below the site, pulling the skin laterally 2.5 to 3.5 centimetres and holding it."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.2</span></div><div class="card">
       <div class="top"><h3>Grasp the body of the muscle</h3><span class="tag">#37</span></div>
       <div class="do"><span class="k do">DO</span><div>With the skin still displaced, thumb and forefinger of the same hand grasp the muscle belly to firm it up.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Grasping the body of the muscle between thumb and forefinger."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.3</span></div><div class="card">
       <div class="top"><h3>Dart in at 90°</h3><span class="tag">#38</span></div>
       <div class="do"><span class="k do">DO</span><div>One quick, smooth motion, perpendicular to the skin, to the hub.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Piercing the muscle quickly at a 90-degree angle."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.4</span></div><div class="card">
       <div class="top"><h3>Keep the skin taut; stabilize the barrel with the hand resting on the patient</h3><span class="tag">#39</span></div>
       <div class="do"><span class="k do">DO</span><div>The displaced skin stays displaced. The fingers of that same non-dominant hand reach up and grip the lower end of the barrel while the heel of the hand rests on the hip. Nothing wobbles.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Skin still pulled taut. Stabilizing the syringe at the lower end of the barrel with my non-dominant hand resting on the patient."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.5</span></div><div class="card">
       <div class="top"><h3>Aspiration, said not done</h3><span class="tag">#40</span></div>
-      <div class="do"><span class="k do">DO</span><div>Do not pull back on the plunger at the ventrogluteal. Say the rule instead.</div></div>
+      <div class="do"><span class="k do">DO</span><div>Do not pull back on the plunger at the ventrogluteal. This step is graded on what you say.</div></div>
       <div class="say"><span class="k say">SAY</span><div class="bubble">"Aspiration is only required at the dorsogluteal site, so I'm not aspirating here. If I were and blood appeared in the syringe, I would withdraw, discard, and repeat the procedure with a new syringe and needle."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.6</span></div><div class="card">
       <div class="top"><h3>Inject slowly</h3><span class="tag">#41</span></div>
       <div class="do"><span class="k do">DO</span><div>Dominant thumb on the plunger, about 1 mL per 10 seconds, even pressure.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Injecting the medication slowly."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.7</span></div><div class="card">
       <div class="top"><h3>Count 10, withdraw smoothly, safety on, release skin, gauze on</h3><span class="tag">#42</span></div>
       <div class="do"><span class="k do">DO</span><div>Count out loud to ten with the needle still in. Pull straight out at 90°, no wiggle. Flip the safety sheath down one-handed against a firm surface. Only now release the skin, so the track seals. Gauze from between your fingers goes onto the site.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Waiting 10 seconds — one, two … ten. Withdrawing smoothly and steadily. Engaging the safety sheath. Releasing the skin — the Z-track seals the medication in. Gauze over the site."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.8</span></div><div class="card">
       <div class="top"><h3>Gentle pressure, no massage, bandage if needed</h3><span class="tag">#43</span></div>
       <div class="do"><span class="k do">DO</span><div>Hold the gauze with light pressure. Do not rub. Look for bleeding; a small bandage if there is any.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Gentle pressure with gauze — not massaging, which would force the medication into the tissue. Applying a bandage since there's a spot of blood."</div></div>
     </div></li>
   </ol>
 </section>
@@ -721,22 +682,18 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>11.1</span></div><div class="card">
       <div class="top"><h3>Whole syringe into the sharps</h3><span class="tag">#44</span></div>
       <div class="do"><span class="k do">DO</span><div>Needle and syringe together, straight into the sharps container. Never set it down on the bed first.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Needle and syringe directly into the puncture-proof, leak-proof sharps container."</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>11.2</span></div><div class="card">
       <div class="top"><h3>Reposition, gauze to garbage, gloves off, hand hygiene</h3><span class="tag">#45</span></div>
       <div class="do"><span class="k do">DO</span><div>Help the client back onto their back, gown down. Gauze in the garbage. Gloves off glove-to-glove then skin-to-skin, into the garbage. Hand hygiene.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Let's get you comfortable again. Disposing of the gauze. Removing gloves. Performing hand hygiene."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>11.3</span></div><div class="card">
       <div class="top"><h3>Sign the MAR now: name, dose, site</h3><span class="tag">#46</span></div>
       <div class="do"><span class="k do">DO</span><div>Pen on the MAR in the room, before anything else. Date, time, initials in the administration box; site in the site box; initials, full signature and designation in the legend.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Documenting immediately in the MAR: <em>[drug]</em>, <em>[dose]</em> given, <em>[left]</em> ventrogluteal, <em>[time]</em>, my initials — and my full signature and designation in the legend."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>11.4</span></div><div class="card">
       <div class="top"><h3>Stay several minutes, watching for a reaction</h3><span class="tag">#47</span></div>
       <div class="do"><span class="k do">DO</span><div>Stay at the bedside. Look at the face and the site. Ask how they feel.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"I'll stay with you for a few minutes to watch for any allergic reaction — any itching, rash, swelling, trouble breathing, or feeling faint? … Good."</div></div>
     </div></li>
   </ol>
 </section>
@@ -749,7 +706,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>12.1</span></div><div class="card">
       <div class="top"><h3>Personal items within reach</h3><span class="tag">#48</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Moving your water, phone and glasses within reach."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Moving your water, phone and glasses within reach.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>12.2</span></div><div class="card">
       <div class="top"><h3>Call light in hand, how to use it</h3><span class="tag">#49</span></div>
@@ -757,49 +714,17 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>12.3</span></div><div class="card">
       <div class="top"><h3>Rails up, bed down</h3><span class="tag">#50</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Raising <em>[two]</em> side rails and lowering the bed to the lowest position."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Raising <em>[two]</em> side rails and lowering the bed to the lowest position.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>12.4</span></div><div class="card">
       <div class="top"><h3>Room tidy</h3><span class="tag">#51</span></div>
       <div class="do"><span class="k do">DO</span><div>Wrappers and swabs in the garbage, table cleared, curtain back if they want it.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Leaving the room tidy."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>12.5</span></div><div class="card">
       <div class="top"><h3>Return in 15–30 minutes</h3><span class="tag">#52</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"I'll be back in 15 to 30 minutes to check the injection site for any acute reaction. That completes the skill."</div></div>
+      <div class="do"><span class="k do">DO</span><div>I'll be back in 15 to 30 minutes to check the injection site for any acute reaction. That completes the skill.</div></div>
     </div></li>
   </ol>
-</section>
-
-<section class="script">
-  <h2>Phases 6 to 12 in one breath</h2>
-  <p class="lead">The whole bedside, start to finish, as one spoken script.</p>
-  <div class="bubble">
-    <span class="r"><span class="lab">#15</span>"Providing privacy — closing the curtain."</span>
-    <span class="r"><span class="lab">#16</span>"Performing hand hygiene."</span>
-    <span class="r"><span class="lab">#17</span>"Hi, my name is <em>[name]</em>, I'm your student nurse today."</span>
-    <span class="r"><span class="lab">#18</span>"Your full name and date of birth? … That matches your armband and my MAR. Any allergies? … No known allergies, matches the band and MAR."</span>
-    <span class="r"><span class="lab">#19</span>"Third check at the bedside: label reads <em>[drug] [dose]</em> for <em>[name]</em>, MAR reads the same. Matches."</span>
-    <span class="r"><span class="lab">#20</span>"I have your <em>[drug]</em>, an injection into your hip muscle, for <em>[purpose]</em>; it works by <em>[action]</em>; side effects can include <em>[effects]</em>. Any questions? Are you okay with me giving it now? You may feel a slight sting or burn."</span>
-    <span class="r"><span class="lab">#21</span>"Site is the ventrogluteal — safest IM site, thick muscle, away from nerves and vessels. Muscle is adequate. Palpating — no tenderness or hardness. Any recent injections? I'll rotate to the <em>[other]</em> side."</span>
-    <span class="r"><span class="lab">#22</span>"No bruising, inflammation, edema or infection."</span>
-    <span class="r"><span class="lab">#23</span>"Onto your side, top knee bent forward. Only uncovering your hip."</span>
-    <span class="r"><span class="lab">#24</span>"Hand hygiene. Applying clean gloves. Landmarking with my <em>[right]</em> hand on the <em>[left]</em> hip."</span>
-    <span class="r"><span class="lab">#25–29</span>"Heel of hand on the greater trochanter, wrist perpendicular to the femur. Thumb toward the groin. Index finger on the anterior superior iliac spine. Middle finger back along the iliac crest. Site is the centre of the triangle."</span>
-    <span class="r"><span class="lab">#30</span>"Marking with an alcohol wipe."</span>
-    <span class="r"><span class="lab">#31</span>"Cleansing in a circular motion, centre outward, air drying."</span>
-    <span class="r"><span class="lab">#32–35</span>"Gauze between my third and fourth fingers. Removing the cap. Syringe between thumb and forefinger. Try to relax your hip."</span>
-    <span class="r"><span class="lab">#36–37</span>"Z-track: ulnar side of my hand below the site, pulling the skin laterally 2.5 to 3.5 centimetres and holding. Grasping the body of the muscle."</span>
-    <span class="r"><span class="lab">#38–39</span>"Piercing quickly at 90 degrees. Skin still taut. Stabilizing the barrel with my hand resting on the patient."</span>
-    <span class="r"><span class="lab">#40</span>"Aspiration is only required at the dorsogluteal; if blood appeared I'd repeat with a new syringe and needle."</span>
-    <span class="r"><span class="lab">#41–42</span>"Injecting slowly. Waiting 10 seconds … Withdrawing smoothly and steadily. Safety sheath on. Releasing the skin. Gauze over the site."</span>
-    <span class="r"><span class="lab">#43</span>"Gentle pressure, not massaging. Bandage if needed."</span>
-    <span class="r"><span class="lab">#44–45</span>"Syringe directly into the sharps. Comfortable position. Gauze disposed. Gloves off. Hand hygiene."</span>
-    <span class="r"><span class="lab">#46</span>"Documenting immediately: <em>[drug]</em>, <em>[dose]</em>, <em>[left]</em> ventrogluteal, time, initials, signature and designation."</span>
-    <span class="r"><span class="lab">#47</span>"Staying a few minutes to watch for an allergic reaction."</span>
-    <span class="r"><span class="lab">#48–51</span>"Items within reach. Call bell — show me. Rails up, bed down. Room tidy."</span>
-    <span class="r"><span class="lab">#52</span>"Back in 15 to 30 minutes to check the site. That completes the skill."</span>
-  </div>
 </section>
 
 <section class="rules">
@@ -814,10 +739,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h2 style="margin-top:18px">Self-mark after each practice run</h2>
   <ul class="check">
     <li><input type="checkbox" id="ima1"><label for="ima1"><b>P1</b> Order to MAR · hand hygiene · supplies laid out (#1–2)</label></li>
-    <li><input type="checkbox" id="ima2"><label for="ima2"><b>P2</b> Vial name to MAR · expiry, concentration, math written · high-alert policy said (#3–5)</label></li>
+    <li><input type="checkbox" id="ima2"><label for="ima2"><b>P2</b> Vial name to MAR · expiry, concentration, math written · high-alert policy said aloud (#3–5)</label></li>
     <li><input type="checkbox" id="ima3"><label for="ima3"><b>P3</b> Caps off, guideline named · seals swabbed, dried · diluent drawn · centre of seal · rolled not shaken (#6–10)</label></li>
     <li><input type="checkbox" id="ima4"><label for="ima4"><b>P4</b> Reconstituted concentration read, math again · swab, dry, dose drawn (#11–12)</label></li>
-    <li><input type="checkbox" id="ima5"><label for="ima5"><b>P5</b> Label to MAR twice with expiry · equipment + "CNO medication standard" · privacy (#13–15)</label></li>
+    <li><input type="checkbox" id="ima5"><label for="ima5"><b>P5</b> Label to MAR twice with expiry · equipment gathered, CNO standard followed · privacy (#13–15)</label></li>
     <li><input type="checkbox" id="ima6"><label for="ima6"><b>P6</b> Hygiene · intro · two IDs + allergies · MAR again at bedside · explain, consent, purpose, action, effects, questions, sting (#16–20)</label></li>
     <li><input type="checkbox" id="ima7"><label for="ima7"><b>P7</b> Site named, palpated, rotation · bruise/inflammation/edema · side-lying, hip only (#21–23)</label></li>
     <li><input type="checkbox" id="ima8"><label for="ima8"><b>P8</b> Gloves · trochanter · thumb groin · index ASIS · middle crest · centre of V · wipe marker (#24–30)</label></li>
@@ -839,7 +764,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <button type="button" class="guidelink" data-guide="dress">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
-    <div><span class="k say">SAY</span><span><b>Speak it.</b> Assessments and observations count only when described out loud.</span></div>
+    <div><span class="k say">SAY</span><span><b>Speak it.</b> Only on steps where the checklist requires words: explains, asks, describes, instructs. Everything else is DO.</span></div>
     <div><span class="k hand">✋</span><span><b>Hand hygiene.</b> Steps 2, 10, 17, 19, 31, 35, 50 and 58. Eight moments.</span></div>
     <div><span class="k row">#36</span><span><b>Step tag.</b> The checklist step number the evaluator marks Not done / Done incorrectly / Done correctly.</span></div>
   </div>
@@ -886,7 +811,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>1.1</span></div><div class="card">
       <div class="top"><h3>Two orders verified: the dressing and the medication</h3><span class="tag">#1</span></div>
       <div class="do"><span class="k do">DO</span><div>Both orders beside the MAR and the care plan. Point through each.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Verifying the provider's orders. Dressing order: dry dressing change to the <em>[site]</em>, <em>[frequency]</em>. Medication order: <em>[drug] [dose]</em> PO <em>[frequency]</em> for <em>[name]</em> — matches the MAR."</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Privacy, hand hygiene, introduce yourself</h3><span class="tag">#2</span></div>
@@ -913,25 +837,23 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>2.1</span></div><div class="card">
       <div class="top"><h3>Correct drug; label to MAR twice: name, dose, route, time</h3><span class="tag">#5</span></div>
-      <div class="do"><span class="k do">DO</span><div>Take the package from the cart. Hold the label beside the MAR. Point through four items. Say "second check" and point through them again.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"First check: <em>[drug]</em>, <em>[dose]</em>, PO, <em>[time]</em> — matches the MAR. <span class="r">Second check: <em>[drug]</em>, <em>[dose]</em>, PO, <em>[time]</em> — matches."</span></div></div>
+      <div class="do"><span class="k do">DO</span><div>Take the package from the cart. Hold the label beside the MAR. Point through four items. Then do the whole pass a second time.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.2</span></div><div class="card">
       <div class="top"><h3>Expiry read; partial-dose rule said</h3><span class="tag">#6</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Expiry <em>[date]</em>, not expired. This is a full dose; if it were a partial dose it would need an independent double-check by a second nurse."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Expiry <em>[date]</em>, not expired. This is a full dose; if it were a partial dose it would need an independent double-check by a second nurse.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.3</span></div><div class="card">
       <div class="top"><h3>Right cup: paper for tablets, plastic for elixirs</h3><span class="tag">#7</span></div>
       <div class="do"><span class="k do">DO</span><div>Pop the tablet into one medication cup without touching it. Keep the blister or label with it. A liquid goes in a plastic cup, read at eye level.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Tablets into a single medication cup, keeping the package with it for the bedside check." <span class="r">Liquid: "Elixir into a plastic medication cup, poured at eye level to the <em>[x]</em> mL line."</span></div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.4</span></div><div class="card">
       <div class="top"><h3>Name on the MAR to the prepared labels, before you walk</h3><span class="tag">#8</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Before leaving the cart: MAR is for <em>[name]</em>, and the prepared <em>[drug]</em> is labelled for <em>[name]</em>. Cart locked."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Before leaving the cart: MAR is for <em>[name]</em>, and the prepared <em>[drug]</em> is labelled for <em>[name]</em>. Cart locked.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.5</span></div><div class="card">
       <div class="top"><h3>Name the standard</h3><span class="tag">#9</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"I'm following the CNO Medication practice standard — the rights of medication administration, three checks, and documenting immediately after giving."</div></div>
+      <div class="do"><span class="k do">DO</span><div>I'm following the CNO Medication practice standard — the rights of medication administration, three checks, and documenting immediately after giving.</div></div>
     </div></li>
   </ol>
 </section>
@@ -958,8 +880,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>3.3</span></div><div class="card">
       <div class="top"><h3>Sit them up; offer water</h3><span class="tag">#13</span></div>
-      <div class="do"><span class="k do">DO</span><div>Head of bed up or side-lying. Hand them the cup, then the water. Say why the water is compatible.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Let me sit you up. Here's your tablet, and here's water — water is fine with this medication. Would you prefer juice?"</div></div>
+      <div class="do"><span class="k do">DO</span><div>Head of bed up or side-lying. Hand them the cup, then the water (or their preferred drink, if it goes with the medication).</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.4</span></div><div class="card">
       <div class="top"><h3>Stay until it's swallowed; check the mouth if unsure</h3><span class="tag">#14</span></div>
@@ -967,7 +888,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>3.5</span></div><div class="card">
       <div class="top"><h3>Sign the MAR now</h3><span class="tag">#15</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Documenting immediately in the MAR: <em>[drug] [dose]</em> PO given at <em>[time]</em>, my initials, signature and designation in the legend."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Documenting immediately in the MAR: <em>[drug] [dose]</em> PO given at <em>[time]</em>, my initials, signature and designation in the legend.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.6</span></div><div class="card">
       <div class="top"><h3>Tell them you'll wait for it to work</h3><span class="tag">#16</span></div>
@@ -976,7 +897,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Safe and comfortable, tidy, gloves off, hand hygiene</h3><span class="tag">#17</span></div>
       <div class="do"><span class="k do">DO</span><div>Call bell in reach, bed low, rails as needed, cup in the garbage. Gloves off into the garbage. Hand hygiene on the way out.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Call bell within reach, bed lowered. Leaving the room tidy. Removing gloves. Performing hand hygiene."</div></div>
     </div></li>
   </ol>
 </section>
@@ -990,7 +910,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>4.1</span></div><div class="card">
       <div class="top"><h3>Equipment named out loud</h3><span class="tag">#18</span></div>
       <div class="do"><span class="k do">DO</span><div>On the over-bed table: sterile dressing tray · sterile normal saline · extra sterile gauze and ABD pad · sterile gloves · two pairs of clean gloves · tape · biohazard bag · measuring guide · pen · PPE if needed.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"I have a sterile dressing tray, sterile normal saline, extra sterile gauze and an abdominal pad, sterile gloves, clean gloves, tape, a biohazard bag and a measuring guide."</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Privacy, hand hygiene, introduce to patient and family</h3><span class="tag">#19</span></div>
@@ -1006,11 +925,11 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>4.4</span></div><div class="card">
       <div class="top"><h3>PPE if there's spray risk</h3><span class="tag">#22</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"If there were a risk of spray I'd put on a gown, goggles and mask. This is a dry wound with minimal drainage, so <em>[I'm not / I am]</em>."</div></div>
+      <div class="do"><span class="k do">DO</span><div>If there were a risk of spray I'd put on a gown, goggles and mask. This is a dry wound with minimal drainage, so <em>[I'm not / I am]</em>.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>4.5</span></div><div class="card">
       <div class="top"><h3>Position for the wound; drape to show only the site</h3><span class="tag">#23</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Positioning you comfortably so I can reach the <em>[site]</em>. Draping so only the wound is exposed."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Positioning you comfortably so I can reach the <em>[site]</em>. Draping so only the wound is exposed.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>4.6</span></div><div class="card">
       <div class="top"><h3>Don't touch the wound or the sterile supplies</h3><span class="tag">#24</span></div>
@@ -1019,11 +938,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>4.7</span></div><div class="card">
       <div class="top"><h3>Biohazard bag in reach, cuffed</h3><span class="tag">#25</span></div>
       <div class="do"><span class="k do">DO</span><div>Open the bag, fold the top edge down over itself once or twice to make a cuff, and set it beside your work area, away from the sterile tray.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Biohazard bag within reach, top folded into a cuff so I can drop soiled items in without touching the outside."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>4.8</span></div><div class="card">
       <div class="top"><h3>Clean gloves</h3><span class="tag">#26</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying clean gloves to remove the old dressing."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Applying clean gloves to remove the old dressing.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1047,15 +965,14 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>5.3</span></div><div class="card">
       <div class="top"><h3>Fold drainage inward; glove inside out over the dressing</h3><span class="tag">#29</span></div>
       <div class="do"><span class="k do">DO</span><div>Fold the dressing in on itself. Hold it in one palm, peel that glove off inside out over it, then the second glove over the first.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Folding the dressing so the drainage is contained, and removing my glove inside out over it."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>5.4</span></div><div class="card">
       <div class="top"><h3>Into the biohazard bag</h3><span class="tag">#30</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Disposing of the gloves and soiled dressing in the biohazard bag per agency policy."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Disposing of the gloves and soiled dressing in the biohazard bag per agency policy.</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Hand hygiene</h3><span class="tag">#31</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Performing hand hygiene."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Performing hand hygiene.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1080,17 +997,15 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>6.2</span></div><div class="card">
       <div class="top"><h3>Incision: margins approximated?</h3><span class="tag">#33</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"This is an incisional wound; the margins are <em>[approximated and closed together / separated at x cm]</em>."</div></div>
+      <div class="do"><span class="k do">DO</span><div>This is an incisional wound; the margins are <em>[approximated and closed together / separated at x cm]</em>.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.3</span></div><div class="card">
       <div class="top"><h3>Length, width, depth</h3><span class="tag">#34</span></div>
       <div class="do"><span class="k do">DO</span><div>Measuring guide held beside the wound, not on it. Length head-to-toe, width side-to-side, depth with a sterile swab if there is any.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Measuring: length <em>[x]</em> cm, width <em>[x]</em> cm, depth <em>[x cm / surface, no measurable depth]</em>."</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>6.4</span></div><div class="card">
       <div class="top"><h3>Clean gloves, palpate for a healing ridge, gloves off, hand hygiene</h3><span class="tag">#35</span></div>
       <div class="do"><span class="k do">DO</span><div>New clean gloves. Light fingertip pressure along both sides of the incision. Gloves off. Hand hygiene.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying clean gloves. Lightly palpating along the incision for a healing ridge — <em>[present / not yet present]</em>, no tenderness. Removing gloves. Performing hand hygiene."</div></div>
     </div></li>
   </ol>
 </section>
@@ -1104,12 +1019,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>7.1</span></div><div class="card">
       <div class="top"><h3>Far flap, side flaps, near flap; never reach across; never turn away</h3><span class="tag">#36</span></div>
       <div class="do"><span class="k do">DO</span><div>Table at waist height, above the waist. Outer wrap off. Pinch the far flap's corner and open it away from you. Each side flap by its corner, arms out to the side, never over the field. The near flap last, toward you. Narrate the three rules.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Opening the inner sterile wrap. Top flap away from me to the far side. Side flaps outward, not bringing my arms back over the package. Last flap toward me. The tray is open on its own sterile field. I won't reach across it, I won't turn my back on it, and I won't leave the room now that it's set up. The outer inch is not sterile."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.2</span></div><div class="card">
       <div class="top"><h3>Garbage bag out with the forceps; forceps tip stays on the field</h3><span class="tag">#37</span></div>
       <div class="do"><span class="k do">DO</span><div>Pick up the blue forceps by the handles only. Lift the white bag out and drop it into your other, non-sterile hand. Lay the forceps down with the tips inside the field and the handles off the edge. Open the bag beside your work area.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Picking up the garbage bag with the sterile forceps into my non-sterile hand. Forceps down, tips on the sterile field, handles off the edge. Setting the garbage bag up close to my working area."</div></div>
     </div></li>
   </ol>
 </section>
@@ -1122,20 +1035,19 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>8.1</span></div><div class="card">
       <div class="top"><h3>Contents and expiry read</h3><span class="tag">#38</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Sterile 0.9% sodium chloride for irrigation, expiry <em>[date]</em>, not expired. <em>[Unopened / opened on [date], within 24 hours]</em>."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Sterile 0.9% sodium chloride for irrigation, expiry <em>[date]</em>, not expired. <em>[Unopened / opened on [date], within 24 hours]</em>.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.2</span></div><div class="card">
       <div class="top"><h3>Basin at the edge, inside the inch; cap off upward, inside up</h3><span class="tag">#39</span></div>
       <div class="do"><span class="k do">DO</span><div>Use the forceps to move the basin to the near edge of the field, clear of the 1-inch border. Break the seal, lift the cap straight up, set it down inside-up. If the bottle was opened before, pour a splash into the garbage first to clear the lip.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Basin at the edge of the field, inside the one-inch border. Removing the seal and cap with an upward motion; cap placed inside facing up." <span class="r">Previously opened: "Pouring a small amount out first to rinse the lip."</span></div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.3</span></div><div class="card">
       <div class="top"><h3>Label to palm, 2.5–5 cm above the basin, bottle off the field</h3><span class="tag">#40</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Label facing my palm so it stays dry. Lip of the bottle 2.5 to 5 centimetres above the basin, bottle held away from the field."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Label facing my palm so it stays dry. Lip of the bottle 2.5 to 5 centimetres above the basin, bottle held away from the field.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.4</span></div><div class="card">
       <div class="top"><h3>Pour slowly; no splash</h3><span class="tag">#41</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Pouring slowly — just enough to wet the gauze — no splashing onto the field. Recapping the bottle; dating it if it's a new bottle."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Pouring slowly — just enough to wet the gauze — no splashing onto the field. Recapping the bottle; dating it if it's a new bottle.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1149,12 +1061,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>9.1</span></div><div class="card">
       <div class="top"><h3>Drape by its corners; extra gauze and ABD dropped in, packaging kept clear</h3><span class="tag">#42</span></div>
       <div class="do"><span class="k do">DO</span><div>Lift the drape by two corners of the folded edge only, let it fall open away from your body, and lay it next to or under the wound. Peel open the extra gauze and ABD packages away from the field and flip the contents onto it without the wrapper crossing the border.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Placing the sterile drape proximal to the wound, touching only the corners. Opening additional gauze and the abdominal pad and dropping them onto the field — the outer packaging never crosses the sterile field."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>9.2</span></div><div class="card">
       <div class="top"><h3>Sterile gloves, open method</h3><span class="tag">#43</span></div>
       <div class="do"><span class="k do">DO</span><div>Package open on the table. First glove by its folded cuff with bare fingers; second glove with gloved fingers under its cuff. Hands stay above the waist, in front of you.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying sterile gloves. Touching only the inside cuff with my bare hand, and only the outside with my gloved hand. Hands above my waist."</div></div>
     </div></li>
   </ol>
 </section>
@@ -1168,16 +1078,14 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>10.1</span></div><div class="card">
       <div class="top"><h3>Saline gauze, wrung out, one stroke per gauze</h3><span class="tag">#44</span></div>
       <div class="do"><span class="k do">DO</span><div>Pick up a gauze with the forceps, dip in the basin, squeeze it against the basin side so it doesn't drip. One stroke. Into the garbage. New gauze.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Cleansing with normal saline. Wringing out the gauze. One stroke per gauze, then discarding it."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.2</span></div><div class="card">
       <div class="top"><h3>Least to most contaminated</h3><span class="tag">#45</span></div>
       <div class="do"><span class="k do">DO</span><div>Incision: top to bottom along the line first, then each side, working outward. Each stroke parallel, each further out.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Working from the least contaminated area to the most — the incision line first, top to bottom, then each side, moving outward."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.3</span></div><div class="card">
       <div class="top"><h3>Blot dry with dry gauze</h3><span class="tag">#46</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Blotting the wound dry with dry gauze, same direction, not rubbing."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Blotting the wound dry with dry gauze, same direction, not rubbing.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1191,28 +1099,26 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>11.1</span></div><div class="card">
       <div class="top"><h3>Loosely woven gauze as the contact layer</h3><span class="tag">#47</span></div>
       <div class="do"><span class="k do">DO</span><div>Open a 4×4 and lay it flat over the wound, touching only the gauze. Gloved hands never touch the skin outside the field.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying loosely woven gauze as the contact layer, maintaining sterile technique."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>11.2</span></div><div class="card">
       <div class="top"><h3>More gauze as needed</h3><span class="tag">#48</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Adding a second layer of gauze for absorbency."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Adding a second layer of gauze for absorbency.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>11.3</span></div><div class="card">
       <div class="top"><h3>ABD pad on top</h3><span class="tag">#49</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying the abdominal pad, blue moisture-barrier side out."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Applying the abdominal pad, blue moisture-barrier side out.</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Sterile gloves off, hand hygiene, clean gloves on</h3><span class="tag">#50</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing sterile gloves. Performing hand hygiene. Applying clean gloves to secure the dressing."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Removing sterile gloves. Performing hand hygiene. Applying clean gloves to secure the dressing.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>11.4</span></div><div class="card">
       <div class="top"><h3>Tape perpendicular to the wound; skin barrier if needed</h3><span class="tag">#51</span></div>
       <div class="do"><span class="k do">DO</span><div>Hold the pad in place. Strips of tape across the wound line, not along it, pressed from the centre out. Name the alternatives you'd use on a limb.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Securing with tape perpendicular to the wound. On a limb I'd use rolled gauze for a circumferential dressing, or a binder on the abdomen. I'd apply a skin barrier first if the skin were fragile."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>11.5</span></div><div class="card">
       <div class="top"><h3>Label the dressing</h3><span class="tag">#52</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Labelling the dressing per agency practice: date, time, and my initials."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Labelling the dressing per agency practice: date, time, and my initials.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1225,16 +1131,15 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>12.1</span></div><div class="card">
       <div class="top"><h3>PPE off; clean gloves for the cleanup</h3><span class="tag">#53</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing any PPE. Clean gloves on to dispose of soiled supplies."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Removing any PPE. Clean gloves on to dispose of soiled supplies.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>12.2</span></div><div class="card">
       <div class="top"><h3>Supplies and tray disposed</h3><span class="tag">#54</span></div>
       <div class="do"><span class="k do">DO</span><div>Fold the field in on itself and into the garbage. Biohazard bag sealed. Forceps and basin per agency policy.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Disposing of the used supplies and the tray. Sealing the biohazard bag."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>12.3</span></div><div class="card">
       <div class="top"><h3>Comfortable; personal items in reach</h3><span class="tag">#55</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Let's get you comfortable. Water, phone and glasses within reach."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Let's get you comfortable. Water, phone and glasses within reach.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>12.4</span></div><div class="card">
       <div class="top"><h3>Call light in hand, how to use it</h3><span class="tag">#56</span></div>
@@ -1242,41 +1147,17 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>12.5</span></div><div class="card">
       <div class="top"><h3>Rails up, bed down</h3><span class="tag">#57</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Raising <em>[two]</em> side rails and lowering the bed to the lowest position."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Raising <em>[two]</em> side rails and lowering the bed to the lowest position.</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Gloves off, hand hygiene</h3><span class="tag">#58</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing gloves. Performing hand hygiene."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Removing gloves. Performing hand hygiene.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>12.6</span></div><div class="card">
       <div class="top"><h3>Document and report</h3><span class="tag">#59</span></div>
-      <div class="do"><span class="k do">DO</span><div>Say everything that goes in the note and who gets told.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Documenting: dressing changed at <em>[time]</em>; wound <em>[size]</em>, <em>[colour]</em>, edges approximated, <em>[drainage]</em>, no signs of infection; dry dressing applied; pain <em>[score]</em> before and after; patient tolerated well. Reporting to the RN — expected outcome, nothing unexpected. That completes the skill."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Write the note, then report to the RN.</div></div>
     </div></li>
   </ol>
-</section>
-
-<section class="script">
-  <h2>The dressing change in one breath</h2>
-  <p class="lead">Phases 4 to 12, from walking back in to walking out.</p>
-  <div class="bubble">
-    <span class="r"><span class="lab">#18</span>"Sterile tray, saline, extra gauze and ABD, sterile and clean gloves, tape, biohazard bag, measuring guide."</span>
-    <span class="r"><span class="lab">#19–20</span>"Curtain closed. Hand hygiene. It's <em>[name]</em> again. Full name and date of birth? Matches your bracelet."</span>
-    <span class="r"><span class="lab">#21</span>"Pain 0 to 10? Down from before, so the medication is working. I'll remove the old dressing, assess and measure, clean with saline, apply a fresh dry dressing. Okay?"</span>
-    <span class="r"><span class="lab">#22–26</span>"No spray risk, so no gown, goggles or mask. Positioning you, draping to the wound only. Please don't touch the wound or the sterile supplies. Biohazard bag cuffed and in reach. Clean gloves."</span>
-    <span class="r"><span class="lab">#27–28</span>"Tape parallel to the skin, toward the dressing, with the hair, holding the skin. Adhesive off. Outer layer first, one layer at a time — <em>[amount]</em> <em>[colour]</em> drainage — keeping it out of your sight."</span>
-    <span class="r"><span class="lab">#29–31</span>"Folding the drainage in, glove inside out over it, into the biohazard bag. Hand hygiene."</span>
-    <span class="r"><span class="lab">#32–33</span>"Colour, integrity, exudate, edema, approximation, odour, no signs of infection. Incisional — margins approximated."</span>
-    <span class="r"><span class="lab">#34–35</span>"Length, width, depth. Clean gloves, palpating for a healing ridge. Gloves off, hand hygiene."</span>
-    <span class="r"><span class="lab">#36–37</span>"Far flap away, side flaps out, near flap toward me. Not reaching across, not turning away, not leaving the room. Garbage bag out with the forceps, forceps tips on the field."</span>
-    <span class="r"><span class="lab">#38–41</span>"Normal saline, expiry checked. Basin at the edge, inside the inch. Cap up, inside facing up. Label to palm, 2.5 to 5 cm above the basin. Pouring slowly, no splash."</span>
-    <span class="r"><span class="lab">#42–43</span>"Drape by the corners proximal to the wound. Extra gauze and ABD dropped in, packaging clear of the field. Sterile gloves."</span>
-    <span class="r"><span class="lab">#44–46</span>"Saline gauze, wrung out, one stroke per gauze, least to most contaminated, incision line then each side outward. Blotting dry."</span>
-    <span class="r"><span class="lab">#47–49</span>"Loosely woven gauze contact layer. Second layer. ABD pad."</span>
-    <span class="r"><span class="lab">#50–52</span>"Sterile gloves off, hand hygiene, clean gloves. Tape perpendicular to the wound. Labelled: date, time, initials."</span>
-    <span class="r"><span class="lab">#53–58</span>"PPE off, clean gloves to dispose. Supplies disposed. Comfortable, items in reach. Call bell — show me. Rails up, bed down. Gloves off, hand hygiene."</span>
-    <span class="r"><span class="lab">#59</span>"Documenting the wound, the dressing, pain before and after, tolerance. Reporting to the RN. That completes the skill."</span>
-  </div>
 </section>
 
 <section class="rules">
@@ -1291,7 +1172,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h2 style="margin-top:18px">Self-mark after each practice run</h2>
   <ul class="check">
     <li><input type="checkbox" id="drb1"><label for="drb1"><b>P1</b> Both orders · privacy, hygiene, intro · two IDs · pain + explain + agree (#1–4)</label></li>
-    <li><input type="checkbox" id="drb2"><label for="drb2"><b>P2</b> Label to MAR twice · expiry + partial-dose rule · right cup · name to labels · "CNO standard" (#5–9)</label></li>
+    <li><input type="checkbox" id="drb2"><label for="drb2"><b>P2</b> Label to MAR twice · expiry, partial-dose double-check · right cup · name to labels · CNO standard (#5–9)</label></li>
     <li><input type="checkbox" id="drb3"><label for="drb3"><b>P3</b> Hygiene, privacy, intro, gloves · IDs + label to MAR · purpose/action/effects/questions · sit, water · stay, mouth · document · "wait for effect" · safe, tidy, gloves, hygiene (#10–17)</label></li>
     <li><input type="checkbox" id="drb4"><label for="drb4"><b>P4</b> Equipment · privacy, hygiene, intro · IDs to bracelet · pain again + agree · PPE · position, drape · don't touch · cuffed bag · clean gloves (#18–26)</label></li>
     <li><input type="checkbox" id="drb5"><label for="drb5"><b>P5</b> Tape parallel, with hair, adhesive off · layers, drainage described, hidden · fold, glove over · biohazard · hygiene (#27–31)</label></li>
@@ -1316,7 +1197,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <button type="button" class="guidelink" data-guide="neb">Study guide for this skill</button>
   <div class="legend">
     <div><span class="k do">DO</span><span><b>Demonstrate.</b> The evaluator watches for it.</span></div>
-    <div><span class="k say">SAY</span><span><b>Speak it.</b> Steps 49, 51 and 52 say "articulates" and are graded only on what is heard.</span></div>
+    <div><span class="k say">SAY</span><span><b>Speak it.</b> Only on steps where the checklist requires words: articulates, explains, asks, cautions. Everything else is DO.</span></div>
     <div><span class="k hand">✋</span><span><b>Hand hygiene.</b> Steps 2, 16, 29, 40 and 54, plus every glove change.</span></div>
     <div><span class="k row">#38</span><span><b>Step tag.</b> The checklist step number the evaluator marks Not done / Done incorrectly / Done correctly.</span></div>
   </div>
@@ -1362,11 +1243,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>1.1</span></div><div class="card">
       <div class="top"><h3>All three orders to the MAR</h3><span class="tag">#1</span></div>
       <div class="do"><span class="k do">DO</span><div>Orders beside the MAR. Point through each medication's name, dose, route, time.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Verifying the provider's orders against the MAR for <em>[name]</em>: <em>[oral drug] [dose]</em> PO <em>[time]</em>; nitroglycerin patch <em>[dose]</em> transdermal <em>[time]</em>; <em>[nebulized drug] [dose]</em> via nebulizer <em>[time]</em>. All match."</div></div>
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Privacy and hand hygiene</h3><span class="tag">#2</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Closing the curtain for privacy. Performing hand hygiene."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Closing the curtain for privacy. Performing hand hygiene.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>1.2</span></div><div class="card">
       <div class="top"><h3>Introduce yourself, and to the family</h3><span class="tag">#3</span></div>
@@ -1391,46 +1271,43 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>2.1</span></div><div class="card">
       <div class="top"><h3>One patient at a time</h3><span class="tag">#6</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Preparing medications for one patient at a time — only <em>[name]</em>'s MAR is open on the cart."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Preparing medications for one patient at a time — only <em>[name]</em>'s MAR is open on the cart.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.2</span></div><div class="card">
       <div class="top"><h3>Correct drug; label to MAR: name, dose, time, route</h3><span class="tag">#7</span></div>
       <div class="do"><span class="k do">DO</span><div>Package beside the MAR entry. Point through four items. Repeat for each medication.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Selecting <em>[drug]</em>. Label to MAR: <em>[drug]</em>, <em>[dose]</em>, <em>[time]</em>, PO — matches." <span class="r">Same four for the patch and the nebule.</span></div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.3</span></div><div class="card">
       <div class="top"><h3>Expiry on every medication</h3><span class="tag">#8</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Expiry dates: tablet <em>[date]</em>, patch <em>[date]</em>, nebule <em>[date]</em> — none expired."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Expiry dates: tablet <em>[date]</em>, patch <em>[date]</em>, nebule <em>[date]</em> — none expired.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.4</span></div><div class="card">
       <div class="top"><h3>Paper cup for tablets, plastic for elixirs</h3><span class="tag">#9</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Tablets and capsules into a single medication cup, keeping the packages with it. A plastic medication cup for any elixir."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Tablets and capsules into a single medication cup, keeping the packages with it. A plastic medication cup for any elixir.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.5</span></div><div class="card">
       <div class="top"><h3>Half tablet: scored, clean cutter, other half discarded</h3><span class="tag">#10</span></div>
       <div class="do"><span class="k do">DO</span><div>Show the score line to the evaluator. Cut along it with the pill-cutter. One half into the cup; the other half into the waste per policy.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"The order is for half a tablet. This tablet is scored, so I can split it with a clean pill-cutting device. One half into the cup; discarding the other half."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.6</span></div><div class="card">
       <div class="top"><h3>Difficulty swallowing: crush separately, soft food, give separately</h3><span class="tag">#11</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"If the patient had difficulty swallowing I'd first confirm the medication can be crushed — not enteric-coated or extended-release — then crush each medication separately in a pill-crusher, mix each into a small amount of soft food like applesauce, and give each one separately."</div></div>
+      <div class="do"><span class="k do">DO</span><div>If the patient had difficulty swallowing I'd first confirm the medication can be crushed — not enteric-coated or extended-release — then crush each medication separately in a pill-crusher, mix each into a small amount of soft food like applesauce, and give each one separately.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.7</span></div><div class="card">
       <div class="top"><h3>Liquid: level surface, eye level; under 10 mL in an oral syringe</h3><span class="tag">#12</span></div>
       <div class="do"><span class="k do">DO</span><div>Cup on the cart top, not in your hand. Bend to eye level and read the bottom of the meniscus. For a small dose, draw it into an oral syringe from the cup.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Medication cup on a level surface, pouring to <em>[x]</em> mL at eye level." <span class="r">Small dose: "This is less than 10 mL, so I'm drawing it up in an oral syringe for accuracy."</span></div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.8</span></div><div class="card">
       <div class="top"><h3>Wipe the lip and neck; recap</h3><span class="tag">#13</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Wiping the lip and neck of the bottle with a paper towel so the label stays clean, and recapping."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Wiping the lip and neck of the bottle with a paper towel so the label stays clean, and recapping.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.9</span></div><div class="card">
       <div class="top"><h3>Patient name on the MAR to every prepared label</h3><span class="tag">#14</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"MAR is for <em>[name]</em>; the prepared tablet, patch and nebule are all labelled for <em>[name]</em>. Cart locked."</div></div>
+      <div class="do"><span class="k do">DO</span><div>MAR is for <em>[name]</em>; the prepared tablet, patch and nebule are all labelled for <em>[name]</em>. Cart locked.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>2.10</span></div><div class="card">
       <div class="top"><h3>Name the standard</h3><span class="tag">#15</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"I'm following the CNO Medication practice standard — the rights of medication administration, three checks, and documenting immediately after giving."</div></div>
+      <div class="do"><span class="k do">DO</span><div>I'm following the CNO Medication practice standard — the rights of medication administration, three checks, and documenting immediately after giving.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1443,7 +1320,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Privacy and hand hygiene</h3><span class="tag">#16</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Curtain closed. Performing hand hygiene."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Curtain closed. Performing hand hygiene.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.1</span></div><div class="card">
       <div class="top"><h3>Introduce again</h3><span class="tag">#17</span></div>
@@ -1460,7 +1337,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>3.4</span></div><div class="card">
       <div class="top"><h3>MAR to labels to name, at the bedside</h3><span class="tag">#20</span></div>
       <div class="do"><span class="k do">DO</span><div>Hold each package beside the MAR entry and the client's name.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Third check at the bedside: <em>[drug]</em> label to MAR to <em>[name]</em> — matches. Nitro patch — matches. <em>[Nebule]</em> — matches."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>3.5</span></div><div class="card">
       <div class="top"><h3>Purpose, action, adverse effects for each; questions</h3><span class="tag">#21</span></div>
@@ -1471,8 +1347,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>3.6</span></div><div class="card">
       <div class="top"><h3>The assessment each drug needs</h3><span class="tag">#22</span></div>
-      <div class="do"><span class="k do">DO</span><div>Say the assessment and the number. For the patch: blood pressure and heart rate, and chest pain. For the nebulizer: respiratory rate, breath sounds, SpO₂, pulse. For the oral med: whatever it is for.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Before the nitro patch: blood pressure <em>[x/x]</em>, heart rate <em>[x]</em>, no chest pain — safe to apply. Before the nebulizer: respiratory rate <em>[x]</em>, breath sounds <em>[x]</em>, SpO₂ <em>[x]</em>%, pulse <em>[x]</em> — my baseline. For <em>[oral drug]</em>: <em>[pain score / BP / glucose]</em>."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Do the assessment each drug needs. For the patch: blood pressure and heart rate, and chest pain. For the nebulizer: respiratory rate, breath sounds, SpO₂, pulse. For the oral med: whatever it is for.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1485,7 +1360,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step"><div class="n"><span>4.1</span></div><div class="card">
       <div class="top"><h3>Sit up; water or preferred liquid, if compatible</h3><span class="tag">#23</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Let me sit you up. Here's your tablet, and water — water is fine with this medication. Would you prefer juice?"</div></div>
+      <div class="do"><span class="k do">DO</span><div>Let me sit you up. Here's your tablet, and water — water is fine with this medication. Would you prefer juice?</div></div>
     </div></li>
     <li class="step"><div class="n"><span>4.2</span></div><div class="card">
       <div class="top"><h3>ODT: peel, don't push, on the tongue, no chewing</h3><span class="tag">#24</span></div>
@@ -1502,7 +1377,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>4.5</span></div><div class="card">
       <div class="top"><h3>Powder: mix at the bedside, drink right away</h3><span class="tag">#27</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Mixing the powder with <em>[water]</em> here at the bedside. Please drink it all now, before it settles."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Mixing the powder with <em>[water]</em> here at the bedside. Please drink it all now, before it settles.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>4.6</span></div><div class="card">
       <div class="top"><h3>Stay until taken by the prescribed route; check the mouth</h3><span class="tag">#28</span></div>
@@ -1519,24 +1394,23 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Hand hygiene, clean gloves</h3><span class="tag">#29</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Performing hand hygiene. Applying clean gloves — I don't want the nitroglycerin on my own skin."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Performing hand hygiene. Applying clean gloves — I don't want the nitroglycerin on my own skin.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>5.1</span></div><div class="card">
       <div class="top"><h3>Find and remove the old patch</h3><span class="tag">#30</span></div>
       <div class="do"><span class="k do">DO</span><div>Ask where it is. Check the date on it. Peel it off slowly.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Where's your current patch? … Dated <em>[yesterday]</em>. Removing the used patch."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>5.2</span></div><div class="card">
       <div class="top"><h3>Fold sticky sides together; into the right bin</h3><span class="tag">#31</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Folding it in half, sticky sides together, so no one can touch the medication. Into the <em>[pharmaceutical waste]</em> receptacle, out of reach of children or pets."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Folding it in half, sticky sides together, so no one can touch the medication. Into the <em>[pharmaceutical waste]</em> receptacle, out of reach of children or pets.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>5.3</span></div><div class="card">
       <div class="top"><h3>Wipe the skin if needed</h3><span class="tag">#32</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Wiping the skin clean of any residue and checking it — no redness or irritation."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Wiping the skin clean of any residue and checking it — no redness or irritation.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>5.4</span></div><div class="card">
       <div class="top"><h3>Gloves off</h3><span class="tag">#33</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing gloves into the garbage."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Removing gloves into the garbage.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1550,24 +1424,22 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>6.1</span></div><div class="card">
       <div class="top"><h3>Date, time, initials on the new patch</h3><span class="tag">#34</span></div>
       <div class="do"><span class="k do">DO</span><div>Write on the patch while it's still in its pouch, with a soft-tip pen.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Writing the date, time and my initials on the new patch before I open it."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.2</span></div><div class="card">
       <div class="top"><h3>Clean gloves again</h3><span class="tag">#35</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying clean gloves."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Applying clean gloves.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.3</span></div><div class="card">
       <div class="top"><h3>Site: clean, dry, intact, hairless, rotated; not oily, burned, cut or irritated</h3><span class="tag">#36</span></div>
-      <div class="do"><span class="k do">DO</span><div>Look at the chest, upper arm or back. Point to the new site and say it's away from the old one. Name what you're avoiding.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Selecting the <em>[left upper chest]</em> — clean, dry, intact skin, free of hair, and away from yesterday's site on the <em>[right]</em>. Not oily, burned, cut or irritated."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Look at the chest, upper arm or back. Pick a new site away from the old one; avoid oily, burned, cut or irritated skin.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.4</span></div><div class="card">
       <div class="top"><h3>Out of the cover by the edge only</h3><span class="tag">#37</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing the patch from its protective cover, holding it by the edge, not touching the adhesive."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Removing the patch from its protective cover, holding it by the edge, not touching the adhesive.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.5</span></div><div class="card">
       <div class="top"><h3>On immediately; press the edges; don't rub</h3><span class="tag">#38</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Applying it right away to the site. Pressing around the edges with two fingers so it adheres well — not rubbing it."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Applying it right away to the site. Pressing around the edges with two fingers so it adheres well — not rubbing it.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>6.6</span></div><div class="card">
       <div class="top"><h3>Four precautions, all four said</h3><span class="tag">#39</span></div>
@@ -1579,7 +1451,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Gloves off, hand hygiene</h3><span class="tag">#40</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Removing gloves. Performing hand hygiene."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Removing gloves. Performing hand hygiene.</div></div>
       <div class="sect"><b>Step 40 starts with hand hygiene</b> before the nebulizer gloves go on, so the patch gloves have to come off and be followed by hand hygiene here.</div>
     </div></li>
   </ol>
@@ -1593,29 +1465,27 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Hand hygiene, gloves on</h3><span class="tag">#40</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Performing hand hygiene. Donning gloves."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Performing hand hygiene. Donning gloves.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.1</span></div><div class="card">
       <div class="top"><h3>Assemble per the manufacturer</h3><span class="tag">#41</span></div>
       <div class="do"><span class="k do">DO</span><div>Tubing to the air source or oxygen flowmeter, tubing to the base of the cup, cup upright. Name the parts as you connect them.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Assembling the nebulizer per the manufacturer's instructions: tubing to the <em>[compressor / flowmeter]</em>, tubing to the bottom of the nebulizer cup, cup kept upright."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.2</span></div><div class="card">
       <div class="top"><h3>Medication in the cup; diluent if needed</h3><span class="tag">#42</span></div>
-      <div class="do"><span class="k do">DO</span><div>Twist the nebule open and squeeze it into the cup. If the order needs diluent, add the normal saline to the cup too and say the total volume.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Adding <em>[drug] [dose]</em> to the nebulizer cup. <em>[Adding x mL of normal saline as the diluent — total y mL in the cup / No diluent needed, the nebule is pre-diluted.]</em>"</div></div>
+      <div class="do"><span class="k do">DO</span><div>Twist the nebule open and squeeze it into the cup. If the order needs diluent, add the normal saline to the cup too.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.3</span></div><div class="card">
       <div class="top"><h3>Top on and secured</h3><span class="tag">#43</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Attaching the top of the cup and twisting it until it's secure."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Attaching the top of the cup and twisting it until it's secure.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.4</span></div><div class="card">
       <div class="top"><h3>Facemask connected</h3><span class="tag">#44</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Facemask connected to the top of the cup."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Facemask connected to the top of the cup.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>7.5</span></div><div class="card">
       <div class="top"><h3>Upright</h3><span class="tag">#45</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Sitting you upright so your lungs can expand fully."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Sitting you upright so your lungs can expand fully.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1629,7 +1499,6 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <li class="step"><div class="n"><span>8.1</span></div><div class="card">
       <div class="top"><h3>Airflow on; mist seen</h3><span class="tag">#46</span></div>
       <div class="do"><span class="k do">DO</span><div>Turn the compressor on or set the oxygen flow to 6–8 L/min. Watch for mist from the mask before it goes on the face.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Turning on the airflow <em>[to 6–8 litres per minute]</em>. I can see a mist forming. Placing the mask over your nose and mouth."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.2</span></div><div class="card">
       <div class="top"><h3>Coach the breath: slow, deep, pause, passive out; dyspneic version</h3><span class="tag">#47</span></div>
@@ -1639,7 +1508,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>8.3</span></div><div class="card">
       <div class="top"><h3>Tap the cup, during and near the end</h3><span class="tag">#48</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Tapping the cup to bring the medication off the sides — again toward the end when it starts to sputter."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Tapping the cup to bring the medication off the sides — again toward the end when it starts to sputter.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>8.4</span></div><div class="card">
       <div class="top"><h3>Pulse monitored, said out loud</h3><span class="tag">#49</span></div>
@@ -1647,7 +1516,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>8.5</span></div><div class="card">
       <div class="top"><h3>Regulator off when the mist stops</h3><span class="tag">#50</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"The medication is completely nebulized. Turning off the regulator and removing the mask."</div></div>
+      <div class="do"><span class="k do">DO</span><div>The medication is completely nebulized. Turning off the regulator and removing the mask.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1668,8 +1537,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>9.3</span></div><div class="card">
       <div class="top"><h3>Disassemble, shake, rinse in sterile water, air-dry, clean bag</h3><span class="tag">#53</span></div>
-      <div class="do"><span class="k do">DO</span><div>Take the mask, top and cup apart. Shake the cup out. Rinse each piece in sterile water. Shake the water off. Lay the parts on a clean towel. Say where they go when dry.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Disassembling all the parts. Shaking out the remaining solution. Rinsing each part in sterile water, shaking off the excess, and leaving them to air-dry completely. Once dry, the cup and tubing go in a clean bag until the next treatment."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Take the mask, top and cup apart. Shake the cup out. Rinse each piece in sterile water. Shake the water off. Lay the parts on a clean towel; into a clean bag when dry.</div></div>
     </div></li>
   </ol>
 </section>
@@ -1682,11 +1550,11 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <ol class="steps">
     <li class="step hand"><div class="n"><span>✋</span></div><div class="card">
       <div class="top"><h3>Supplies discarded, gloves off, hand hygiene</h3><span class="tag">#54</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Discarding the used supplies. Removing gloves. Performing hand hygiene."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Discarding the used supplies. Removing gloves. Performing hand hygiene.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.1</span></div><div class="card">
       <div class="top"><h3>Comfortable; personal items in reach</h3><span class="tag">#55</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Let's get you comfortable. Water, phone and glasses within reach."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Let's get you comfortable. Water, phone and glasses within reach.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.2</span></div><div class="card">
       <div class="top"><h3>Call light in hand, how to use it</h3><span class="tag">#56</span></div>
@@ -1694,40 +1562,17 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     </div></li>
     <li class="step"><div class="n"><span>10.3</span></div><div class="card">
       <div class="top"><h3>Rails up, bed down</h3><span class="tag">#57</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Raising <em>[two]</em> side rails and lowering the bed to the lowest position."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Raising <em>[two]</em> side rails and lowering the bed to the lowest position.</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.4</span></div><div class="card">
       <div class="top"><h3>MAR signed for each medication, immediately after each</h3><span class="tag">#58</span></div>
       <div class="do"><span class="k do">DO</span><div>Three signatures, each right after that drug: the tablet, the patch (with site), the nebulizer. Full signature and designation in the legend.</div></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"I signed the MAR after each one: <em>[oral drug]</em> at <em>[time]</em>; nitro patch at <em>[time]</em>, <em>[left upper chest]</em>; <em>[nebule]</em> at <em>[time]</em>. Initials, full signature and designation in the legend."</div></div>
     </div></li>
     <li class="step"><div class="n"><span>10.5</span></div><div class="card">
       <div class="top"><h3>Note: care, teaching, tolerance</h3><span class="tag">#59</span></div>
-      <div class="say"><span class="k say">SAY</span><div class="bubble">"Documenting: old patch removed from <em>[site]</em>, skin intact; new patch applied <em>[site]</em>; patch precautions taught and understood; nebulizer given, pre and post RR, SpO₂ and pulse; patient tolerated all medications well, no adverse effects. That completes the skill."</div></div>
+      <div class="do"><span class="k do">DO</span><div>Documenting: old patch removed from <em>[site]</em>, skin intact; new patch applied <em>[site]</em>; patch precautions taught and understood; nebulizer given, pre and post RR, SpO₂ and pulse; patient tolerated all medications well, no adverse effects. That completes the skill.</div></div>
     </div></li>
   </ol>
-</section>
-
-<section class="script">
-  <h2>Patch and nebulizer in one breath</h2>
-  <p class="lead">Phases 5 to 10, after the tablet is swallowed.</p>
-  <div class="bubble">
-    <span class="r"><span class="lab">#29–30</span>"Hand hygiene. Clean gloves. Where's your current patch? Removing it."</span>
-    <span class="r"><span class="lab">#31–33</span>"Folded sticky sides together, into the pharmaceutical waste. Wiping the skin, no irritation. Gloves off."</span>
-    <span class="r"><span class="lab">#34–35</span>"Date, time, initials on the new patch. Clean gloves."</span>
-    <span class="r"><span class="lab">#36</span>"<em>[Left upper chest]</em> — clean, dry, intact, hairless, away from yesterday's site. Not oily, burned, cut or irritated."</span>
-    <span class="r"><span class="lab">#37–38</span>"Out of the cover by the edge, not touching the adhesive. On immediately. Pressing the edges, not rubbing."</span>
-    <span class="r"><span class="lab">#39</span>"Never cut it. No heating pad. Don't reuse a site within a week. No other nitro at the same time."</span>
-    <span class="r"><span class="lab">#40</span>"Gloves off, hand hygiene, gloves on for the nebulizer."</span>
-    <span class="r"><span class="lab">#41–45</span>"Assembling per manufacturer. <em>[Drug]</em> into the cup, diluent if needed. Top secured. Mask connected. Sitting you upright."</span>
-    <span class="r"><span class="lab">#46</span>"Airflow on — mist forming. Mask on."</span>
-    <span class="r"><span class="lab">#47</span>"Slow deep breath, a bit more than normal, hold at the top, let it out relaxed. Keep going until the mist stops. If short of breath: normal breaths, an occasional deep one."</span>
-    <span class="r"><span class="lab">#48–50</span>"Tapping the cup. Monitoring your pulse throughout. Nebulized — regulator off."</span>
-    <span class="r"><span class="lab">#51–52</span>"If a steroid, rinse and gargle with warm water. I'd reassess RR, breath sounds, SpO₂ and pulse against baseline."</span>
-    <span class="r"><span class="lab">#53</span>"Disassemble, shake, rinse in sterile water, shake off, air-dry, clean bag when dry."</span>
-    <span class="r"><span class="lab">#54–57</span>"Supplies discarded, gloves off, hand hygiene. Comfortable, items in reach. Call bell — show me. Rails up, bed down."</span>
-    <span class="r"><span class="lab">#58–59</span>"MAR signed after each medication. Note: care, teaching, tolerance. That completes the skill."</span>
-  </div>
 </section>
 
 <section class="rules">
@@ -1742,7 +1587,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
   <h2 style="margin-top:18px">Self-mark after each practice run</h2>
   <ul class="check">
     <li><input type="checkbox" id="nbc1"><label for="nbc1"><b>P1</b> Orders · privacy, hygiene · intro · two IDs · explain, agree, self-administer specifics (#1–5)</label></li>
-    <li><input type="checkbox" id="nbc2"><label for="nbc2"><b>P2</b> One patient · label to MAR ×4 items · expiry all · cups · scored half, discard · crush rule · liquid level, &lt;10 mL syringe · wipe, recap · name to labels · "CNO standard" (#6–15)</label></li>
+    <li><input type="checkbox" id="nbc2"><label for="nbc2"><b>P2</b> One patient · label to MAR ×4 items · expiry all · cups · scored half, discard · crush rule · liquid level, &lt;10 mL syringe · wipe, recap · name to labels · CNO standard (#6–15)</label></li>
     <li><input type="checkbox" id="nbc3"><label for="nbc3"><b>P3</b> Privacy, hygiene · intro · IDs · allergies · MAR to labels · purpose/action/effects/questions · assessment per drug (#16–22)</label></li>
     <li><input type="checkbox" id="nbc4"><label for="nbc4"><b>P4</b> Sit, water · ODT · buccal · sublingual · powder · stay, mouth (#23–28)</label></li>
     <li><input type="checkbox" id="nbc5"><label for="nbc5"><b>P5</b> Hygiene, gloves · remove · fold sticky, dispose · wipe · gloves off (#29–33)</label></li>
@@ -1807,12 +1652,12 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="state start"><b>Start</b> Supplies out. Vial still in the cart.</div>
     <details open><summary>Steps</summary><ul>
       <li>Take the vial. Name on the vial to name on the MAR.</li>
-      <li>Read the expiry out loud. Read the strength on the label.</li>
+      <li>Check the expiry. Read the strength on the label.</li>
       <li>Write it: <b>dose ordered ÷ concentration = mL</b>. Say it as you write it.</li>
-      <li>Say the rule: "If this were high-alert, agency policy needs a second RN and an independent double-check."</li>
+      <li class="sayit"><b>Say it:</b> "If this were high-alert, agency policy needs a second RN and an independent double-check."</li>
     </ul></details>
     <div class="state end"><b>End</b> Right vial in hand, expiry read, math on paper, high-alert rule said.</div>
-    <div class="why">Why: the math is graded on paper. Say it, write it, keep the paper.</div>
+    <div class="why">Why: the math is graded on paper. Write it and keep the paper.</div>
   </div>
 
   <div class="phase" style="--pc:var(--p3)">
@@ -1825,7 +1670,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <li>Draw the diluent (air in, invert, draw, bubbles out).</li>
       <li>Needle through the centre of the powder vial's stopper. Push the diluent in slowly.</li>
       <li>Needle out. <b>Roll</b> between palms until clear. Never shake.</li>
-      <li>Read the label again: "after reconstitution, X mg per mL". Redo the math with that number.</li>
+      <li>Read the label again: after reconstitution, X mg per mL. Redo the math with that number.</li>
     </ul></details>
     <div class="state end"><b>End</b> One clear vial of mixed drug; the new concentration read; the math written a second time.</div>
     <div class="why">Why: the diluent volume sets the concentration. The number you draw comes from the label's "after reconstitution" line, not the powder strength.</div>
@@ -1840,11 +1685,11 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <li>Label to MAR: name, drug, dose, route, time, expiry. Then say "second check" and do it again.</li>
       <li>Label the syringe: patient, drug, dose, your initials and designation, date, time. Wrap so the volume still shows.</li>
       <li>Name your tray: MAR, labelled syringe, two swabs, gauze, gloves, bandage.</li>
-      <li>Say: "I'm following the CNO Medication practice standard."</li>
+      <li>Follow the CNO Medication practice standard: the rights, three checks, document right away.</li>
       <li>Vial back. Cart locked.</li>
     </ul></details>
     <div class="state end"><b>End</b> Labelled syringe on a tray with the MAR; two label checks done; cart locked; standard named.</div>
-    <div class="why">Why: the words "CNO medication standard" are a tick on their own. Say them here, once.</div>
+    <div class="why">Why: two label checks here plus the one at the bedside make the three checks the standard asks for.</div>
   </div>
 
   <div class="phase" style="--pc:var(--p5)">
@@ -1852,10 +1697,10 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="goal">Goal: the right patient, who knows what's coming and has agreed.</div>
     <div class="state start"><b>Start</b> At the door with the tray.</div>
     <details open><summary>Steps</summary><ul>
-      <li>Knock. Curtain closed. Hand hygiene. "Hi, I'm ___, your student nurse." Greet family.</li>
+      <li>Knock. Curtain closed. Hand hygiene. <b>Introduce yourself</b> to the patient and family.</li>
       <li>Two identifiers: name and date of birth, from them, from the band, against the MAR. Allergies the same three ways.</li>
       <li>Third check at the bedside: syringe label to MAR to the patient's name.</li>
-      <li>Explain in one breath: what it is, what it's for, how it works, side effects, "any questions?", "okay to go ahead?", "it may sting or burn a little."</li>
+      <li class="sayit"><b>Explain, out loud:</b> what it is, what it's for, how it works, side effects, "any questions?", "okay to go ahead?", "it may sting or burn a little."</li>
     </ul></details>
     <div class="state end"><b>End</b> Patient identified three ways, allergies confirmed, third check done, consent given, sting warned.</div>
     <div class="why">Why: step 20 has seven graded pieces in one sentence. Practise that sentence until it comes out whole.</div>
@@ -1866,7 +1711,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="goal">Goal: a ventrogluteal site you've looked at and felt, on a patient lying the right way.</div>
     <div class="state start"><b>Start</b> Patient consented, still sitting up and covered.</div>
     <details open><summary>Steps</summary><ul>
-      <li>Say the site and why: "Ventrogluteal, the gluteus medius: thick muscle, away from nerves and vessels, takes up to 3 mL."</li>
+      <li>Choose the ventrogluteal (gluteus medius): thick muscle, away from nerves and vessels, takes up to 3 mL.</li>
       <li>Look at the muscle. Press on it: no tenderness or hardness. Ask about recent injections; rotate sides.</li>
       <li>Look at the skin: no bruising, inflammation, edema, infection.</li>
       <li>Onto their side, top knee bent forward. Uncover the hip only.</li>
@@ -1897,7 +1742,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <li>Ulnar side of the non-dominant hand below the site. Pull the skin sideways 2.5–3.5 cm and <b>hold</b>.</li>
       <li>Grasp the body of the muscle. Dart in at 90°.</li>
       <li>Keep the skin taut. Steady the barrel with that same hand resting on the patient.</li>
-      <li>Say: "Aspiration is only for the dorsogluteal. If blood appeared, new syringe and needle, start over."</li>
+      <li class="sayit"><b>Say it:</b> "Aspiration is only for the dorsogluteal. If blood appeared, new syringe and needle, start over."</li>
       <li>Inject slowly. Count ten. Withdraw smoothly. Safety sheath on. <b>Then</b> release the skin.</li>
       <li>Gauze on, gentle pressure, no massage. Bandage if needed.</li>
     </ul></details>
@@ -1914,7 +1759,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <li>Sign the MAR now: drug, dose, site, time, initials; full signature and designation in the legend.</li>
       <li>Stay several minutes: any itching, rash, swelling, trouble breathing?</li>
       <li>Items in reach. Call light, show me. Rails up, bed down. Room tidy.</li>
-      <li>"I'll be back in 15 to 30 minutes to check the site."</li>
+      <li>Come back in 15 to 30 minutes to check the site.</li>
     </ul></details>
     <div class="state end"><b>End</b> Room safe, MAR signed, return promised. Done.</div>
     <div class="why">Why: "immediately" is the graded word for the MAR. Sign before you tidy, not after.</div>
@@ -1951,9 +1796,9 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="state start"><b>Start</b> Back at the cart.</div>
     <details open><summary>Steps</summary><ul>
       <li>Correct drug. Label to MAR: name, dose, route, time. "Second check": again.</li>
-      <li>Expiry out loud. Say: "A partial dose would need an independent double-check."</li>
+      <li>Check the expiry. A partial dose would need an independent double-check.</li>
       <li>Tablet into a med cup, package kept with it. Elixir into a plastic cup, read at eye level.</li>
-      <li>Patient's name on the MAR to the prepared label. "CNO Medication standard." Cart locked.</li>
+      <li>Patient's name on the MAR to the prepared label. Follow the CNO Medication standard. Cart locked.</li>
     </ul></details>
     <div class="state end"><b>End</b> Pill in a cup with its package, two label checks done, standard named, cart locked.</div>
     <div class="why">Why: the package goes with the cup because the third check happens at the bedside, and you need a label to read.</div>
@@ -1968,7 +1813,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <li>Two identifiers. Third check: label to MAR at the bedside.</li>
       <li>Purpose, how it works, side effects, "any questions?"</li>
       <li>Sit them up. Water. Stay until it's swallowed; "open your mouth for me?"</li>
-      <li>Sign the MAR now. "I'll give that 30 minutes to work before the dressing."</li>
+      <li>Sign the MAR now. Tell them: "I'll give that 30 minutes to work before the dressing."</li>
       <li>Call bell, bed low, tidy, gloves off, hand hygiene.</li>
     </ul></details>
     <div class="state end"><b>End</b> Pill taken and documented, patient safe, you out of the room with a plan to return.</div>
@@ -1983,7 +1828,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <li>Name the supplies: sterile tray, saline, extra gauze and ABD, sterile gloves, clean gloves, tape, biohazard bag, measuring guide.</li>
       <li>Curtain, hand hygiene, introduce. Two identifiers against the bracelet.</li>
       <li>"Pain now, 0 to 10?" Compare. Explain the dressing change. "Still okay?"</li>
-      <li>Say whether spray is a risk (gown, goggles, mask if so).</li>
+      <li>Gown, goggles and mask if there is a risk of spray.</li>
       <li>Position for the wound. Drape to show only the site. "Please don't touch the wound or the sterile supplies."</li>
       <li>Biohazard bag open, top folded into a cuff, within reach. Clean gloves.</li>
     </ul></details>
@@ -2024,7 +1869,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="goal">Goal: a sterile field with wet gauze, a drape, extra supplies, and your sterile gloves on.</div>
     <div class="state start"><b>Start</b> Tray on the table at waist height, still wrapped.</div>
     <details open><summary>Steps</summary><ul>
-      <li>Flaps: far one away from you, side flaps out with your arms off the field, near flap toward you. Say the three rules: don't reach across, don't turn away, don't leave.</li>
+      <li>Flaps: far one away from you, side flaps out with your arms off the field, near flap toward you. Three rules: don't reach across, don't turn away, don't leave the room.</li>
       <li>Garbage bag out with the forceps into your other hand. Forceps down, tips on the field.</li>
       <li>Check the saline: contents, expiry. Basin at the edge, inside the one-inch border. Cap up, inside facing up. (Opened bottle: pour a splash out first.)</li>
       <li>Label to palm. Lip 2.5–5 cm above the basin. Pour slowly. No splash.</li>
@@ -2094,15 +1939,15 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="goal">Goal: each medication in the right cup, checked, in date, and the rule for every form said out loud.</div>
     <div class="state start"><b>Start</b> At the cart, only this patient's MAR open.</div>
     <details open><summary>Steps</summary><ul>
-      <li>"One patient at a time." Correct drug. Label to MAR: name, dose, time, route. Expiry on every one.</li>
+      <li>One patient at a time. Correct drug. Label to MAR: name, dose, time, route. Expiry on every one.</li>
       <li>Tablets in one cup, elixir in a plastic cup.</li>
       <li>Half tablet: scored only, clean cutter, discard the other half.</li>
       <li>Crushing: only if it can be crushed; each one separately; in soft food; given separately.</li>
       <li>Liquid: cup on a level surface, read at eye level; under 10 mL goes in an oral syringe. Wipe the lip, recap.</li>
-      <li>Name on the MAR to every label. "CNO Medication standard." Cart locked.</li>
+      <li>Name on the MAR to every label. Follow the CNO Medication standard. Cart locked.</li>
     </ul></details>
     <div class="state end"><b>End</b> Everything prepared and labelled for one patient, every form's rule said, cart locked.</div>
-    <div class="why">Why: you may only have a tablet in the cup, but the half-tablet, crushing and liquid rules are each their own tick. Say them anyway.</div>
+    <div class="why">Why: the half-tablet, crushing and liquid steps are each their own tick. Do the one you have; know the others cold.</div>
   </div>
 
   <div class="phase" style="--pc:var(--p5)">
@@ -2141,7 +1986,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="state start"><b>Start</b> Oral med done. Hands clean.</div>
     <details open><summary>Steps</summary><ul>
       <li>Hand hygiene. Clean gloves (so the nitro doesn't touch you).</li>
-      <li>"Where's your patch?" Check its date. Peel it off.</li>
+      <li>Find the patch. Check its date. Peel it off.</li>
       <li>Fold it sticky sides together. Into the right bin.</li>
       <li>Wipe the skin if needed; look at it. Gloves off.</li>
     </ul></details>
@@ -2173,7 +2018,7 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
       <li>Medication into the cup. Diluent too if the order needs it. Top on tight. Mask connected. Patient upright.</li>
       <li>Airflow on. See the mist. Mask on.</li>
       <li>Coach: slow deep breath, a bit more than normal, brief hold at the top, relaxed breath out, repeat until the mist stops. If short of breath: normal breaths with an occasional deep one.</li>
-      <li>Tap the cup now and then, and near the end. Say: "I'm monitoring your pulse throughout."</li>
+      <li>Tap the cup now and then, and near the end. Say it: "I'm monitoring your pulse throughout."</li>
       <li>Mist gone: regulator off.</li>
     </ul></details>
     <div class="state end"><b>End</b> Cup empty, regulator off, mask off.</div>
@@ -2185,8 +2030,8 @@ a:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
     <div class="goal">Goal: the two after-rules said, and the equipment cleaned and stored dry.</div>
     <div class="state start"><b>Start</b> Treatment finished, mask in your hand.</div>
     <details open><summary>Steps</summary><ul>
-      <li>Say: "If this were a steroid, I'd have you rinse and gargle with warm water."</li>
-      <li>Say: "I'd reassess now, respiratory rate, breath sounds, SpO₂, pulse, and compare to my baseline."</li>
+      <li class="sayit"><b>Say it:</b> if a steroid was nebulized, the patient rinses and gargles with warm water.</li>
+      <li class="sayit"><b>Say it:</b> you would reassess now (respiratory rate, breath sounds, SpO₂, pulse) and compare to baseline.</li>
       <li>Take it apart. Shake out the cup. Rinse each part in sterile water. Shake off. Air-dry. Clean bag when dry.</li>
     </ul></details>
     <div class="state end"><b>End</b> Both rules said, parts drying, bag ready.</div>
